@@ -90,7 +90,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/public
-          cname: seu-dominio.com  # Opcional: se usar domínio customizado
+          # cname: seu-dominio.com  # Opcional: se usar domínio customizado
 ```
 
 2. Faça commit e push:
