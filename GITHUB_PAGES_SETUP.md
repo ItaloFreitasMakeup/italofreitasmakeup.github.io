@@ -30,7 +30,6 @@ cd italo-freitas-makeup
 Copie todos os arquivos do projeto para o repositório clonado:
 
 ```bash
-# Copiar arquivos do projeto Manus para o repositório
 cp -r /home/ubuntu/italo-freitas-makeup/* .
 ```
 
