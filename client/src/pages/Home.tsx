@@ -1,15 +1,8 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Instagram, MessageCircle } from "lucide-react";
 
-/**
- * TEMA: Mármore Branco com Detalhes em Dourado
- * - Inspirado na logo oficial: fundo de mármore branco com acentos em dourado
- * - Tipografia: Playfair Display (títulos), Lato (corpo)
- * - Cores: Branco puro, Dourado #C9A961, Cinza Quente, Preto suave
- * - Layout: Elegante, espaçamento generoso, foco em profissionalismo
- */
-
-// Componente de Carrossel com Peek Effect (Netflix-like)
 function StreamingCarousel({ posts }: { posts: string[] }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -53,8 +46,7 @@ function StreamingCarousel({ posts }: { posts: string[] }) {
   };
 
   return (
-    <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw]" style={{ marginBottom: '2.54mm' }}>
-      {/* Botão Esquerdo */}
+    <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] mb-4">
       {canScrollLeft && (
         <button
           onClick={() => scroll('left')}
@@ -65,21 +57,19 @@ function StreamingCarousel({ posts }: { posts: string[] }) {
         </button>
       )}
 
-      {/* Container de Scroll com Peek Effect */}
       <div
         ref={scrollContainerRef}
         className="flex overflow-x-auto scroll-smooth"
         style={{
-          scrollBehavior: 'smooth',
           paddingLeft: '1rem',
           paddingRight: '1rem',
           scrollPaddingLeft: '1rem',
           scrollSnapType: 'x mandatory',
         }}
       >
-        {posts.map((post, idx) => (
+        {posts.map((post) => (
           <div
-            key={idx}
+            key={post}
             className="flex-shrink-0 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"
             style={{
               width: 'clamp(200px, 25vw, 300px)',
@@ -92,17 +82,15 @@ function StreamingCarousel({ posts }: { posts: string[] }) {
               src={`https://www.instagram.com/p/${getPostId(post)}/embed`}
               width="100%"
               height="100%"
-              frameBorder="0"
               scrolling="no"
               allowTransparency={true}
               allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              style={{ borderRadius: '8px' }}
+              style={{ border: 0, borderRadius: '8px' }}
             />
           </div>
         ))}
       </div>
 
-      {/* Botão Direito */}
       {canScrollRight && (
         <button
           onClick={() => scroll('right')}
@@ -117,7 +105,6 @@ function StreamingCarousel({ posts }: { posts: string[] }) {
 }
 
 export default function Home() {
-  // Links de Portfólio (18 posts)
   const portfolioPosts1 = [
     "https://www.instagram.com/p/DDIdE_epRKk/?igsh=eDdqaGUwMzNuZWZ3",
     "https://www.instagram.com/p/DCB9FYvJO4n/?igsh=cW8yNW96dGVkZml1",
@@ -145,7 +132,6 @@ export default function Home() {
     "https://www.instagram.com/p/DT5qi1Oke2j/?igsh=MTl5dWtoNzhkZHllbA==",
   ];
 
-  // Links de Eventos (5 posts)
   const eventPosts = [
     "https://www.instagram.com/p/DYP8S18iRnJ/?img_index=1&igsh=Z3MwaGlrOGhmYnd4",
     "https://www.instagram.com/reel/DRpiLoFkYpl/?igsh=MTljNjlnbWUzcXVtYg==",
@@ -155,12 +141,11 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: 'url(/src/lib/marble.png)', backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
-      {/* Navegação */}
+    <div className="min-h-screen" style={{ background: 'url(/marble.png)', backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-amber-100">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/src/lib/logo.png" alt="Logo" className="h-10 w-10" />
+            <img src="/logo.png" alt="Logo" className="h-10 w-10" />
             <span className="font-serif text-xl font-bold" style={{ color: '#2A2A2A' }}>Italo Freitas</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
@@ -180,7 +165,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section className="pt-32 pb-20 text-center">
         <h1 className="text-6xl md:text-7xl font-serif font-bold mb-4" style={{ color: '#2A2A2A' }}>
           Italo Freitas
@@ -209,16 +193,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sobre Mim */}
       <section id="about" className="py-20 container mx-auto px-4">
         <h2 className="text-5xl font-serif font-bold mb-16 text-center" style={{ color: '#2A2A2A' }}>Sobre Mim</h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="rounded-lg overflow-hidden shadow-2xl">
-            <img src="/src/lib/profile.jpg" alt="Italo Freitas" className="w-full h-auto" />
+            <img src="/profile.jpg" alt="Italo Freitas" className="w-full h-auto" />
           </div>
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img src="/src/lib/rings.png" alt="Alianças" width="32" height="32" style={{ objectFit: 'contain' }} />
+              <img src="/rings.png" alt="Alianças" width="32" height="32" style={{ objectFit: 'contain' }} />
               <h3 className="text-3xl font-serif font-bold" style={{ color: '#2A2A2A' }}>Italo Freitas</h3>
             </div>
             <p className="text-lg mb-6" style={{ color: '#4A4A4A' }}>
@@ -242,7 +225,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Localização */}
       <section className="py-20 container mx-auto px-4">
         <h2 className="text-5xl font-serif font-bold mb-16 text-center" style={{ color: '#2A2A2A' }}>Localização</h2>
         <div className="grid md:grid-cols-2 gap-12">
@@ -274,7 +256,7 @@ export default function Home() {
           </div>
           <div className="rounded-lg overflow-hidden shadow-lg h-96">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.8234567890123!2d-45.5833!3d-18.5833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94a44d4d4d4d4d4d%3A0x4d4d4d4d4d4d4d4d!2sRua%20Dona%20Maria%20Resende%2C%20171%20-%20Vila%20Garcia%2C%20Patos%20de%20Minas%20-%20MG%2038700-000!5e0!3m2!1spt-BR!2sbr!4v1234567890123"
+              src="https://maps.google.com/maps?q=Rua%20Dona%20Maria%20Resende,%20171,%20Vila%20Garcia%20-%20Patos%20de%20Minas,%20MG&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, borderRadius: '8px' }}
@@ -286,33 +268,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Portfólio */}
       <section id="portfolio" className="py-20">
         <h2 className="text-5xl font-serif font-bold mb-16 text-center" style={{ color: '#2A2A2A' }}>Portfólio</h2>
-        
         <div className="mb-12">
           <StreamingCarousel posts={portfolioPosts1} />
         </div>
-
         <div className="mb-12">
           <StreamingCarousel posts={portfolioPosts2} />
         </div>
-
         <div className="mb-12">
           <StreamingCarousel posts={portfolioPosts3} />
         </div>
       </section>
 
-      {/* Eventos */}
       <section className="py-20">
         <h2 className="text-5xl font-serif font-bold mb-16 text-center" style={{ color: '#2A2A2A' }}>Eventos</h2>
         <StreamingCarousel posts={eventPosts} />
       </section>
 
-      {/* Cursos */}
       <section id="courses" className="py-20 container mx-auto px-4">
         <h2 className="text-5xl font-serif font-bold mb-16 text-center" style={{ color: '#2A2A2A' }}>Cursos</h2>
-        
         <div className="mb-12">
           <div className="flex gap-4 justify-center mb-8">
             <button className="px-6 py-2 rounded-lg font-semibold" style={{ background: '#C9A961', color: 'white' }}>
@@ -329,8 +304,8 @@ export default function Home() {
               { title: "Maquiagem Avançada", desc: "Técnicas avançadas para eventos e produções", content: "Contouring, iluminação, efeitos especiais", price: "R$ 499,00" },
               { title: "Maquiagem para Noivas", desc: "Especialização em maquiagem nupcial", content: "Técnicas para casamentos, durabilidade, acabamento", price: "R$ 399,00" },
               { title: "Maquiagem Artística", desc: "Expressão criativa através da maquiagem", content: "Cores, texturas, criatividade e inovação", price: "R$ 349,00" },
-            ].map((course, idx) => (
-              <div key={idx} className="p-6 rounded-lg shadow-lg" style={{ background: 'rgba(255,255,255,0.9)' }}>
+            ].map((course) => (
+              <div key={course.title} className="p-6 rounded-lg shadow-lg" style={{ background: 'rgba(255,255,255,0.9)' }}>
                 <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: '#2A2A2A' }}>{course.title}</h3>
                 <p className="mb-4" style={{ color: '#4A4A4A' }}>{course.desc}</p>
                 <p className="text-sm mb-4" style={{ color: '#666' }}>Conteúdo: {course.content}</p>
@@ -346,34 +321,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contato */}
       <section id="contact" className="py-20 container mx-auto px-4">
         <h2 className="text-5xl font-serif font-bold mb-16 text-center" style={{ color: '#2A2A2A' }}>Entre em Contato</h2>
-        
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-2xl font-serif font-bold mb-8" style={{ color: '#2A2A2A' }}>Vamos Conversar</h3>
-            
             <div className="mb-8">
               <h4 className="text-lg font-bold mb-2" style={{ color: '#C9A961' }}>WhatsApp</h4>
               <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline" style={{ color: '#4A4A4A' }}>
                 +55 34 9810-9317
               </a>
             </div>
-
             <div className="mb-8">
               <h4 className="text-lg font-bold mb-2" style={{ color: '#C9A961' }}>Instagram</h4>
               <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline" style={{ color: '#4A4A4A' }}>
                 @italofreitasmakeup
               </a>
             </div>
-
             <div>
               <h4 className="text-lg font-bold mb-2" style={{ color: '#C9A961' }}>Localização</h4>
               <p style={{ color: '#4A4A4A' }}>Patos de Minas, MG</p>
             </div>
           </div>
-
           <div className="p-8 rounded-lg shadow-lg" style={{ background: 'rgba(255,255,255,0.9)' }}>
             <h3 className="text-2xl font-serif font-bold mb-6" style={{ color: '#2A2A2A' }}>Envie uma Mensagem</h3>
             <form className="space-y-4">
@@ -388,11 +357,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-8 text-center border-t border-amber-100">
-        <p style={{ color: '#4A4A4A' }}>© 2024 Italo Freitas Makeup. Todos os direitos reservados.</p>
+        <p style={{ color: '#4A4A4A' }}>© 2026 Italo Freitas Makeup. Todos os direitos reservados.</p>
         <p style={{ color: '#999' }} className="flex items-center justify-center gap-2">Desenvolvido com elegância, profissionalismo e amor ❤️
-          <img src="/src/lib/rings.png" alt="Alianças" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7 }} />
+          <img src="/rings.png" alt="Alianças" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7 }} />
         </p>
       </footer>
     </div>
