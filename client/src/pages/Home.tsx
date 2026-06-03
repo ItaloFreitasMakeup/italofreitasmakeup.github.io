@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Instagram, MessageCircle } from "lucide-react";
 
-import marbleBg from "./lib/marble.png";
-import logoImg from "./lib/logo.png";
-import profileImg from "./lib/profile.jpg";
-import ringsImg from "./lib/rings.png";
+import marbleBg from "../lib/marble.png";
+import logoImg from "../lib/logo.png";
+import profileImg from "../lib/profile.jpg";
+import ringsImg from "../lib/rings.png";
 
 function StreamingCarousel({ posts }: { posts: string[] }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
