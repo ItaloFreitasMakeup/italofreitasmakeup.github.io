@@ -155,12 +155,12 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(249,247,244,0.95) 100%), url(/lib/marble-background_8e7c5f9a.png)', backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
+    <div className="min-h-screen" style={{ background: 'url(../lib/marble.png)', backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
       {/* Navegação */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-amber-100">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/lib/logo.png" alt="Logo" className="h-10 w-10" />
+            <img src="../lib/logo.png" alt="Logo" className="h-10 w-10" />
             <span className="font-serif text-xl font-bold" style={{ color: '#2A2A2A' }}>Italo Freitas</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
@@ -214,11 +214,11 @@ export default function Home() {
         <h2 className="text-5xl font-serif font-bold mb-16 text-center" style={{ color: '#2A2A2A' }}>Sobre Mim</h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="rounded-lg overflow-hidden shadow-2xl">
-            <img src="/lib/profile.jpg" alt="Italo Freitas" className="w-full h-auto" />
+            <img src="../lib/profile.jpg" alt="Italo Freitas" className="w-full h-auto" />
           </div>
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img src="/lib/rings.png" alt="Alianças" width="32" height="32" style={{ objectFit: 'contain' }} />
+              <img src="../lib/rings.png" alt="Alianças" width="32" height="32" style={{ objectFit: 'contain' }} />
               <h3 className="text-3xl font-serif font-bold" style={{ color: '#2A2A2A' }}>Italo Freitas</h3>
             </div>
             <p className="text-lg mb-6" style={{ color: '#4A4A4A' }}>
@@ -392,7 +392,7 @@ export default function Home() {
       <footer className="py-8 text-center border-t border-amber-100">
         <p style={{ color: '#4A4A4A' }}>© 2024 Italo Freitas Makeup. Todos os direitos reservados.</p>
         <p style={{ color: '#999' }} className="flex items-center justify-center gap-2">Desenvolvido com elegância, profissionalismo e amor ❤️
-          <img src="/lib/rings.png" alt="Alianças" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7 }} />
+          <img src="../lib/rings.png" alt="Alianças" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7 }} />
         </p>
       </footer>
     </div>
