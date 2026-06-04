@@ -248,7 +248,7 @@ export default function Home() {
       backgroundRepeat: 'repeat',
       backgroundSize: '400px',
       filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
-      opacity: isDark ? 0.2 : 0.1, // Abaixa a transparência para "esconder" as emendas duras
+      opacity: isDark ? 0.15 : 0.2, // Abaixa a transparência para "esconder" as emendas duras
       mixBlendMode: isDark ? 'screen' : 'multiply' // Mescla a textura perfeitamente com a cor base
     }}
   />
