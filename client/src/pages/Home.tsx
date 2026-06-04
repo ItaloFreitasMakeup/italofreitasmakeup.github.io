@@ -233,26 +233,17 @@ export default function Home() {
   return (
     <div className="min-h-screen transition-colors duration-300 relative">
 {/* Elemento de fundo fixo e acessível */}
-<div className="fixed inset-0 z-[-1]" aria-hidden="true">
-  {/* 1. Cor de base (escuro no modo dark, quase branco no modo light) */}
-  <div 
-    className="absolute inset-0 transition-colors duration-500"
-    style={{ backgroundColor: isDark ? '#121212' : '#f8f8f8' }}
-  />
-  
-  {/* 2. Textura do mármore por cima, atenuada */}
-  <div 
-    className="absolute inset-0 transition-all duration-500"
-    style={{ 
-      backgroundImage: `url(${marbleBg})`, 
-      backgroundRepeat: 'repeat',
-      backgroundSize: '400px',
-      filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
-      opacity: isDark ? 0.15 : 0.2, // Abaixa a transparência para "esconder" as emendas duras
-      mixBlendMode: isDark ? 'screen' : 'multiply' // Mescla a textura perfeitamente com a cor base
-    }}
-  />
-</div>
+<div 
+  className="fixed inset-0 z-[-1] transition-all duration-700"
+  style={{
+    // Combinações de luzes radiais para simular um brilho luxuoso
+    background: isDark 
+      ? 'radial-gradient(at 20% 20%, rgba(201, 169, 97, 0.15) 0px, transparent 50%), radial-gradient(at 80% 0%, rgba(30, 30, 30, 1) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(201, 169, 97, 0.05) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(18, 18, 18, 1) 0px, transparent 50%)'
+      : 'radial-gradient(at 0% 0%, rgba(255, 255, 255, 1) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(254, 243, 199, 0.6) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(243, 244, 246, 1) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(255, 255, 255, 1) 0px, transparent 50%)',
+    backgroundColor: isDark ? '#121212' : '#FAFAFA'
+  }}
+  aria-hidden="true"
+/>
       
       {/* Navegação */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
