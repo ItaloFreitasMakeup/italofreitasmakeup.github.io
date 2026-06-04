@@ -246,9 +246,9 @@ export default function Home() {
     style={{ 
       backgroundImage: `url(${marbleBg})`, 
       backgroundRepeat: 'repeat',
-      backgroundSize: '400px', // Você pode aumentar/diminuir para alterar a escala do mármore
+      backgroundSize: '400px',
       filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
-      opacity: isDark ? 0.15 : 0.4, // Abaixa a transparência para "esconder" as emendas duras
+      opacity: isDark ? 0.2 : 0.1, // Abaixa a transparência para "esconder" as emendas duras
       mixBlendMode: isDark ? 'screen' : 'multiply' // Mescla a textura perfeitamente com a cor base
     }}
   />
