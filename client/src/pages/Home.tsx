@@ -3,15 +3,26 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Instagram, MessageCircle, Moon, Sun, Languages } from "lucide-react";
 
-// Mantenha os caminhos com ../ que resolvemos!
 import marbleBg from "../lib/marble.png";
 import logoImg from "../lib/logo.png";
 import profileImg from "../lib/profile.jpg";
 import ringsImg from "../lib/rings.png";
 
-// Dicionário de Traduções
 const translations = {
   pt: {
+    a11y: {
+      logoAlt: "Logomarca de Italo Freitas",
+      langBtn: "Alternar idioma para inglês",
+      themeBtnDark: "Ativar modo claro",
+      themeBtnLight: "Ativar modo escuro",
+      instaLinkNav: "Acessar perfil do Instagram de Italo Freitas",
+      whatsAppLinkNav: "Enviar mensagem para o WhatsApp de Italo Freitas",
+      carouselLeft: "Rolar carrossel para a esquerda",
+      carouselRight: "Rolar carrossel para a direita",
+      instaPostTitle: "Publicação do Instagram do portfólio",
+      mapTitle: "Mapa do Google Maps mostrando a localização do estúdio",
+      profileAlt: "Foto de perfil de Italo Freitas maquiado profissionalmente"
+    },
     nav: { about: "Sobre", portfolio: "Portfólio", courses: "Cursos", contact: "Contato" },
     hero: { subtitle: "Profissional de Maquiagem", desc: "Especializado em maquiagem profissional para eventos, produções audiovisuais e transformações de beleza. Oferecendo cursos e consultoria personalizada.", btn1: "Solicitar Orçamento", btn2: "Conhecer Cursos" },
     about: { title: "Sobre Mim", desc: "Maquiador profissional com especialização em maquiagem artística, blindagem de sobrancelhas e beauty. Referência em durabilidade e elegância em Patos de Minas, MG.", topic1: "Profissionalismo", topic1Desc: "Anos de experiência em maquiagem profissional e transformação de beleza", topic2: "Portfólio Diverso", topic2Desc: "Trabalhos em eventos, produções audiovisuais e sessões fotográficas", topic3: "Educação", topic3Desc: "Oferecendo cursos e workshops para profissionais e iniciantes" },
@@ -30,6 +41,19 @@ const translations = {
     footer: { rights: "© 2026 Italo Freitas Makeup. Todos os direitos reservados.", dev: "Desenvolvido com elegância, profissionalismo e amor" }
   },
   en: {
+    a11y: {
+      logoAlt: "Italo Freitas Logo",
+      langBtn: "Switch language to Portuguese",
+      themeBtnDark: "Activate light mode",
+      themeBtnLight: "Activate dark mode",
+      instaLinkNav: "Visit Italo Freitas' Instagram profile",
+      whatsAppLinkNav: "Send a message to Italo Freitas' WhatsApp",
+      carouselLeft: "Scroll carousel to the left",
+      carouselRight: "Scroll carousel to the right",
+      instaPostTitle: "Instagram portfolio post embed",
+      mapTitle: "Google Maps showing the studio's location",
+      profileAlt: "Profile photo of Italo Freitas with professional makeup"
+    },
     nav: { about: "About", portfolio: "Portfolio", courses: "Courses", contact: "Contact" },
     hero: { subtitle: "Makeup Professional", desc: "Specialized in professional makeup for events, audiovisual productions, and beauty transformations. Offering personalized courses and consulting.", btn1: "Request a Quote", btn2: "View Courses" },
     about: { title: "About Me", desc: "Professional makeup artist specializing in artistic makeup, eyebrow shielding, and beauty. A reference in durability and elegance in Patos de Minas, MG.", topic1: "Professionalism", topic1Desc: "Years of experience in professional makeup and beauty transformation", topic2: "Diverse Portfolio", topic2Desc: "Work in events, audiovisual productions, and photoshoots", topic3: "Education", topic3Desc: "Offering courses and workshops for professionals and beginners" },
@@ -49,7 +73,8 @@ const translations = {
   }
 };
 
-function StreamingCarousel({ posts }: { posts: string[] }) {
+// Interface para passar as traduções de acessibilidade para o carrossel
+function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: any }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -98,8 +123,9 @@ function StreamingCarousel({ posts }: { posts: string[] }) {
           onClick={() => scroll('left')}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full transition-all hover:scale-110"
           style={{ background: 'rgba(201, 169, 97, 0.9)', color: 'white' }}
+          aria-label={a11yTexts.carouselLeft}
         >
-          <ChevronLeft size={28} />
+          <ChevronLeft size={28} aria-hidden="true" />
         </button>
       )}
 
@@ -125,6 +151,7 @@ function StreamingCarousel({ posts }: { posts: string[] }) {
             }}
           >
             <iframe
+              title={`${a11yTexts.instaPostTitle} - ID: ${getPostId(post)}`}
               src={`https://www.instagram.com/p/${getPostId(post)}/embed`}
               width="100%"
               height="100%"
@@ -142,8 +169,9 @@ function StreamingCarousel({ posts }: { posts: string[] }) {
           onClick={() => scroll('right')}
           className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full transition-all hover:scale-110"
           style={{ background: 'rgba(201, 169, 97, 0.9)', color: 'white' }}
+          aria-label={a11yTexts.carouselRight}
         >
-          <ChevronRight size={28} />
+          <ChevronRight size={28} aria-hidden="true" />
         </button>
       )}
     </div>
@@ -151,21 +179,17 @@ function StreamingCarousel({ posts }: { posts: string[] }) {
 }
 
 export default function Home() {
-  // Estados para Idioma e Tema
   const [lang, setLang] = useState<'pt' | 'en'>('pt');
   const [isDark, setIsDark] = useState(false);
 
-  // Variáveis ativas baseadas no estado
   const t = translations[lang];
   
-  // Paleta dinâmica baseada no tema
   const colors = {
-    bg: isDark ? '#121212' : `url(${marbleBg})`,
     navBg: isDark ? 'rgba(18, 18, 18, 0.8)' : 'rgba(255, 255, 255, 0.8)',
     textPrimary: isDark ? '#F3F4F6' : '#2A2A2A',
     textSecondary: isDark ? '#D1D5DB' : '#4A4A4A',
     cardBg: isDark ? 'rgba(30, 30, 30, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-    border: isDark ? '#333' : '#FEF3C7', // amber-100 para claro
+    border: isDark ? '#333' : '#FEF3C7',
   };
 
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
@@ -207,14 +231,24 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen transition-colors duration-300" style={{ background: colors.bg, backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
+    <div className="min-h-screen transition-colors duration-300 relative">
+      <div 
+        className="fixed inset-0 z-[-1] transition-all duration-500"
+        style={{ 
+          backgroundImage: `url(${marbleBg})`, 
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
+        }}
+        aria-hidden="true" // Esconde o fundo do leitor de tela
+      />
       
       {/* Navegação */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src={logoImg} alt="Logo" className="h-10 w-10" />
-            <span className="font-serif text-xl font-bold" style={{ color: colors.textPrimary }}>Italo Freitas</span>
+            <img src={logoImg} alt={t.a11y.logoAlt} className="h-10 w-10" />
+            <span className="font-serif text-xl font-bold" style={{ color: colors.textPrimary }} aria-hidden="true">Italo Freitas</span>
           </div>
           
           <div className="hidden md:flex items-center gap-8">
@@ -227,20 +261,24 @@ export default function Home() {
           <div className="flex items-center gap-4">
             {/* Botão de Tradução */}
             <button onClick={toggleLang} className="text-amber-600 hover:text-amber-700 flex items-center gap-1 font-semibold text-sm transition-transform hover:scale-110">
-              <Languages size={20} />
-              <span className="hidden sm:inline">{lang === 'pt' ? 'EN' : 'PT'}</span>
+              <span className="sr-only">{t.a11y.langBtn}</span>
+              <Languages size={20} aria-hidden="true" />
+              <span className="hidden sm:inline" aria-hidden="true">{lang === 'pt' ? 'EN' : 'PT'}</span>
             </button>
             
             {/* Botão de Dark Mode */}
             <button onClick={toggleTheme} className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              <span className="sr-only">{isDark ? t.a11y.themeBtnDark : t.a11y.themeBtnLight}</span>
+              {isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
             </button>
 
             <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
-              <Instagram size={20} />
+              <span className="sr-only">{t.a11y.instaLinkNav}</span>
+              <Instagram size={20} aria-hidden="true" />
             </a>
             <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
-              <MessageCircle size={20} />
+              <span className="sr-only">{t.a11y.whatsAppLinkNav}</span>
+              <MessageCircle size={20} aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -280,11 +318,11 @@ export default function Home() {
         <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.about.title}</h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="rounded-lg overflow-hidden shadow-2xl">
-            <img src={profileImg} alt="Italo Freitas" className="w-full h-auto" />
+            <img src={profileImg} alt={t.a11y.profileAlt} className="w-full h-auto" />
           </div>
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img src={ringsImg} alt="Alianças" width="32" height="32" style={{ objectFit: 'contain', filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
+              <img src={ringsImg} alt="" aria-hidden="true" width="32" height="32" style={{ objectFit: 'contain', filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
               <h3 className="text-3xl font-serif font-bold transition-colors" style={{ color: colors.textPrimary }}>Italo Freitas</h3>
             </div>
             <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>
@@ -292,15 +330,15 @@ export default function Home() {
             </p>
             <div className="space-y-4">
               <div>
-                <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}>✨ {t.about.topic1}</p>
+                <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">✨</span> {t.about.topic1}</p>
                 <p className="transition-colors" style={{ color: colors.textSecondary }}>{t.about.topic1Desc}</p>
               </div>
               <div>
-                <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}>🎨 {t.about.topic2}</p>
+                <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">🎨</span> {t.about.topic2}</p>
                 <p className="transition-colors" style={{ color: colors.textSecondary }}>{t.about.topic2Desc}</p>
               </div>
               <div>
-                <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}>📚 {t.about.topic3}</p>
+                <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">📚</span> {t.about.topic3}</p>
                 <p className="transition-colors" style={{ color: colors.textSecondary }}>{t.about.topic3Desc}</p>
               </div>
             </div>
@@ -314,9 +352,11 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-2xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>{t.location.addressTitle}</h3>
-            <p className="text-lg font-semibold mb-2 transition-colors" style={{ color: colors.textSecondary }}>Rua Dona Maria Resende, 171</p>
-            <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>Vila Garcia - Patos de Minas, MG</p>
-            <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>CEP: 38700-000</p>
+            <address className="not-italic">
+              <p className="text-lg font-semibold mb-2 transition-colors" style={{ color: colors.textSecondary }}>Rua Dona Maria Resende, 171</p>
+              <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>Vila Garcia - Patos de Minas, MG</p>
+              <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>CEP: 38700-000</p>
+            </address>
             <div className="flex gap-4">
               <a
                 href="https://wa.me/553498109317"
@@ -340,6 +380,7 @@ export default function Home() {
           </div>
           <div className="rounded-lg overflow-hidden shadow-lg h-96">
             <iframe
+              title={t.a11y.mapTitle}
               src="https://maps.google.com/maps?q=Rua+Dona+Maria+Resende,+171+Vila+Garcia+Patos+de+Minas&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
@@ -355,15 +396,15 @@ export default function Home() {
       {/* Portfólio */}
       <section id="portfolio" className="py-20">
         <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.portfolio.title}</h2>
-        <div className="mb-12"><StreamingCarousel posts={portfolioPosts1} /></div>
-        <div className="mb-12"><StreamingCarousel posts={portfolioPosts2} /></div>
-        <div className="mb-12"><StreamingCarousel posts={portfolioPosts3} /></div>
+        <div className="mb-12"><StreamingCarousel posts={portfolioPosts1} a11yTexts={t.a11y} /></div>
+        <div className="mb-12"><StreamingCarousel posts={portfolioPosts2} a11yTexts={t.a11y} /></div>
+        <div className="mb-12"><StreamingCarousel posts={portfolioPosts3} a11yTexts={t.a11y} /></div>
       </section>
 
       {/* Eventos */}
       <section className="py-20">
         <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.events.title}</h2>
-        <StreamingCarousel posts={eventPosts} />
+        <StreamingCarousel posts={eventPosts} a11yTexts={t.a11y} />
       </section>
 
       {/* Cursos */}
@@ -389,7 +430,8 @@ export default function Home() {
                 <div className="flex items-center justify-between">
                   <p className="text-xl font-bold" style={{ color: '#C9A961' }}>{course.price}</p>
                   <a href="#contact" className="px-4 py-2 rounded-lg font-semibold transition-all" style={{ background: '#C9A961', color: 'white' }}>
-                    {t.courses.btn}
+                    <span className="sr-only">{`Inscrever-se no curso de ${course.title}`}</span>
+                    <span aria-hidden="true">{t.courses.btn}</span>
                   </a>
                 </div>
               </div>
@@ -409,14 +451,16 @@ export default function Home() {
             <div className="mb-8">
               <h4 className="text-lg font-bold mb-2" style={{ color: '#C9A961' }}>WhatsApp</h4>
               <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline transition-colors" style={{ color: colors.textSecondary }}>
-                +55 34 9810-9317
+                <span className="sr-only">{t.a11y.whatsAppLinkNav}</span>
+                <span aria-hidden="true">+55 34 9810-9317</span>
               </a>
             </div>
 
             <div className="mb-8">
               <h4 className="text-lg font-bold mb-2" style={{ color: '#C9A961' }}>Instagram</h4>
               <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline transition-colors" style={{ color: colors.textSecondary }}>
-                @italofreitasmakeup
+                <span className="sr-only">{t.a11y.instaLinkNav}</span>
+                <span aria-hidden="true">@italofreitasmakeup</span>
               </a>
             </div>
 
@@ -429,9 +473,15 @@ export default function Home() {
           <div className="p-8 rounded-lg shadow-lg transition-colors" style={{ background: colors.cardBg }}>
             <h3 className="text-2xl font-serif font-bold mb-6 transition-colors" style={{ color: colors.textPrimary }}>{t.contact.subtitle2}</h3>
             <form className="space-y-4">
-              <input type="text" placeholder={t.contact.nameHolder} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-              <input type="email" placeholder={t.contact.emailHolder} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-              <textarea placeholder={t.contact.msgHolder} rows={4} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+              <label htmlFor="name" className="sr-only">{t.contact.nameHolder}</label>
+              <input id="name" type="text" placeholder={t.contact.nameHolder} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+              
+              <label htmlFor="email" className="sr-only">{t.contact.emailHolder}</label>
+              <input id="email" type="email" placeholder={t.contact.emailHolder} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+              
+              <label htmlFor="message" className="sr-only">{t.contact.msgHolder}</label>
+              <textarea id="message" placeholder={t.contact.msgHolder} rows={4} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+              
               <button type="submit" className="w-full py-3 rounded-lg font-semibold transition-all hover:brightness-110" style={{ background: '#C9A961', color: 'white' }}>
                 {t.contact.sendBtn}
               </button>
@@ -444,8 +494,8 @@ export default function Home() {
       <footer className="py-8 text-center border-t transition-colors" style={{ borderColor: colors.border }}>
         <p className="transition-colors" style={{ color: colors.textSecondary }}>{t.footer.rights}</p>
         <p className="flex items-center justify-center gap-2 mt-2 transition-colors" style={{ color: isDark ? '#9CA3AF' : '#999' }}>
-          {t.footer.dev} ❤️
-          <img src={ringsImg} alt="Alianças" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
+          {t.footer.dev} <span aria-hidden="true">❤️</span>
+          <img src={ringsImg} alt="" aria-hidden="true" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
         </p>
       </footer>
     </div>
