@@ -232,16 +232,27 @@ export default function Home() {
 
   return (
     <div className="min-h-screen transition-colors duration-300 relative">
-      <div 
-        className="fixed inset-0 z-[-1] transition-all duration-500"
-        style={{ 
-          backgroundImage: `url(${marbleBg})`, 
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
-        }}
-        aria-hidden="true" // Esconde o fundo do leitor de tela
-      />
+{/* Elemento de fundo fixo e acessível */}
+<div className="fixed inset-0 z-[-1]" aria-hidden="true">
+  {/* 1. Cor de base (escuro no modo dark, quase branco no modo light) */}
+  <div 
+    className="absolute inset-0 transition-colors duration-500"
+    style={{ backgroundColor: isDark ? '#121212' : '#f8f8f8' }}
+  />
+  
+  {/* 2. Textura do mármore por cima, atenuada */}
+  <div 
+    className="absolute inset-0 transition-all duration-500"
+    style={{ 
+      backgroundImage: `url(${marbleBg})`, 
+      backgroundRepeat: 'repeat',
+      backgroundSize: '400px', // Você pode aumentar/diminuir para alterar a escala do mármore
+      filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
+      opacity: isDark ? 0.15 : 0.4, // Abaixa a transparência para "esconder" as emendas duras
+      mixBlendMode: isDark ? 'screen' : 'multiply' // Mescla a textura perfeitamente com a cor base
+    }}
+  />
+</div>
       
       {/* Navegação */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
