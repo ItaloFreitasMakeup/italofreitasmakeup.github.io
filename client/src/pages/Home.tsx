@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, Instagram, MessageCircle, Moon, Sun, Languages } from "lucide-react";
+import { ChevronLeft, ChevronRight, Instagram, MessageCircle, Moon, Sun, Languages, Check, Calendar } from "lucide-react";
 
 import marbleBg from "../lib/marble.png";
 import logoImg from "../lib/logo.png";
@@ -23,18 +23,88 @@ const translations = {
       mapTitle: "Mapa do Google Maps mostrando a localização do estúdio",
       profileAlt: "Foto de perfil de Italo Freitas maquiado profissionalmente"
     },
-    nav: { about: "Sobre", portfolio: "Portfólio", courses: "Cursos", contact: "Contato" },
-    hero: { subtitle: "Profissional de Maquiagem", desc: "Especializado em maquiagem profissional para eventos, produções audiovisuais e transformações de beleza. Oferecendo cursos e consultoria personalizada.", btn1: "Solicitar Orçamento", btn2: "Conhecer Cursos" },
-    about: { title: "Sobre Mim", desc: "Maquiador profissional com especialização em maquiagem artística, blindagem de sobrancelhas e beauty. Referência em durabilidade e elegância em Patos de Minas, MG.", topic1: "Profissionalismo", topic1Desc: "Anos de experiência em maquiagem profissional e transformação de beleza", topic2: "Portfólio Diverso", topic2Desc: "Trabalhos em eventos, produções audiovisuais e sessões fotográficas", topic3: "Educação", topic3Desc: "Oferecendo cursos e workshops para profissionais e iniciantes" },
+    nav: { about: "Sobre", services: "Serviços", portfolio: "Portfólio", courses: "Cursos", contact: "Contato" },
+    hero: { 
+      subtitle: "Profissional de Maquiagem", 
+      desc: "Especializado em maquiagem profissional para eventos, produções audiovisuais e transformações de beleza. Oferecendo cursos e consultoria personalizada.", 
+      btn1: "Solicitar Orçamento", 
+      btnSchedule: "Marcar Horário",
+      btn2: "Conhecer Cursos" 
+    },
+    about: { 
+      title: "Sobre Mim", 
+      desc: "Maquiador profissional com especialização em maquiagem artística, blindagem de sobrancelhas e beauty. Referência em durabilidade e elegância em Patos de Minas, MG.", 
+      topic1: "Profissionalismo", 
+      topic1Desc: "anos de experiência em maquiagem profissional e transformação de beleza", 
+      topic2: "Portfólio Diverso", 
+      topic2Desc: "Trabalhos em eventos, produções audiovisuais e sessões fotográficas", 
+      topic3: "Educação", 
+      topic3Desc: "Oferecendo cursos e workshops para profissionais e iniciantes" 
+    },
+    services: {
+      title: "Valores & Atendimentos",
+      singleTitle: "Maquiagem Individual",
+      singlePrice: "R$ 180,00",
+      packageTitle: "Pacote Especial (Acima de 4 Makes)",
+      packagePrice: "R$ 150,00 cada",
+      badge: "Especialidade",
+      specialtyText: "MINHA ESPECIALIDADE É REALÇAR A BELEZA FEMININA SEM TRANSFORMAR!!!"
+    },
     location: { title: "Localização", addressTitle: "Endereço", btn1: "WhatsApp", btn2: "Instagram" },
     portfolio: { title: "Portfólio" },
     events: { title: "Eventos" },
-    courses: { title: "Cursos", tab1: "Cursos Ministrados", tab2: "Cursos Realizados", contentLabel: "Conteúdo:", btn: "Inscrever",
+    courses: { 
+      title: "Cursos", 
+      tab1: "Cursos Ministrados", 
+      tab2: "Cursos Realizados", 
+      contentLabel: "Conteúdo:", 
+      btn: "Inscrever-se via WhatsApp",
+      obsLabel: "Obs:",
+      paymentLabel: "Formas de Pagamento:",
+      paymentDesc: "Esse valor para pagamento à vista ou em até 2x no cartão, todos meus cursos podem ser parcelados em mais vezes, somando as pequenas taxas da máquina.",
+      modelsLabel: "Modelos:",
+      modelsDesc: "Já está incluso os cachês das modelos e são de minha responsabilidade.",
+      
       list: [
-        { title: "Maquiagem Básica", desc: "Aprenda os fundamentos da maquiagem profissional", content: "Técnicas básicas, produtos, aplicação e cuidados", price: "R$ 299,00" },
-        { title: "Maquiagem Avançada", desc: "Técnicas avançadas para eventos e produções", content: "Contouring, iluminação, efeitos especiais", price: "R$ 499,00" },
-        { title: "Maquiagem para Noivas", desc: "Especialização em maquiagem nupcial", content: "Técnicas para casamentos, durabilidade, acabamento", price: "R$ 399,00" },
-        { title: "Maquiagem Artística", desc: "Expressão criativa através da maquiagem", content: "Cores, texturas, criatividade e inovação", price: "R$ 349,00" },
+        {
+          id: "professional",
+          title: "CURSO PROFISSIONAL DE MAQUIAGEM ❣️",
+          desc: "Desenvolvi meu curso profissional pensando nas dificuldades durante atendimentos. Passo e explico como pequenas atitudes fidelizam uma cliente, além de várias dicas para agilizar conseguindo agendar mais clientes durante um dia, assim rendendo mais $.",
+          features: [
+            "O curso é destinado tanto a maquiadores profissionais quanto a iniciantes;",
+            "Realizo as aulas no meu espaço, em Patos de Minas - MG;",
+            "Horários de acordo com a disponibilidade do aluno;",
+            "Todo material usado no curso é disponibilizado por mim (disponibilizo lista de materiais essenciais para iniciantes);",
+            "O Curso é 100% prático: reproduzo um lado e, com minha total supervisão, o(a) aluno(a) reproduz o outro lado.",
+            "As técnicas ensinadas são todas escolhidas pelo aluno, sendo todas usáveis por clientes e atemporais;",
+            "Todas as técnicas são desenvolvidas em modelos, com preparação de pele completa (da Asepsia até os contornos e iluminações).",
+            "É passado todas as dicas de iluminação e fotos ao aluno(a) durante o Curso Vip.",
+            "Ao término do curso será emitido o certificado de realização ao aluno."
+          ],
+          obs: "Será ensinada a técnica de pele resistente.",
+          prices: [
+            { label: "1 Técnica", value: "R$ 450,00" },
+            { label: "2 Técnicas", value: "R$ 550,00" },
+            { label: "3 Técnicas", value: "R$ 750,00 ❤️" }
+          ]
+        },
+        {
+          id: "self",
+          title: "CURSO DE AUTO MAQUIAGEM ❣️",
+          desc: "Desenvolvi meu curso de auto maquiagem pensando no embelezamento que a make proporciona sem deixar de lado a agilidade do dia a dia e praticidade.",
+          features: [
+            "Realizo as aulas no meu espaço, em Patos de Minas - MG;",
+            "Horários de acordo com a disponibilidade do aluno;",
+            "Todo material usado no curso é disponibilizado por mim (disponibilizo toda lista de materiais essenciais para sua make do dia a dia e fazemos uma lista do passo a passo);",
+            "O Curso é 100% prático: enquanto vou explicando e fazendo um lado, o(a) aluno(a) faz o outro lado.",
+            "As técnicas ensinadas são todas escolhidas pelo aluno, usáveis no dia a dia e atemporais (se preferir uma técnica mais artística fazemos também);",
+            "Em todas as técnicas fazemos preparação de pele completa, desde a Asepsia da Pele até os contornos e iluminações."
+          ],
+          obs: "Será ensinada a técnica de pele resistente.",
+          prices: [
+            { label: "2 Técnicas", value: "R$ 450,00" }
+          ]
+        }
       ]
     },
     contact: { title: "Entre em Contato", subtitle1: "Vamos Conversar", subtitle2: "Envie uma Mensagem", nameHolder: "Seu nome", emailHolder: "seu@email.com", msgHolder: "Sua mensagem aqui", sendBtn: "Enviar Mensagem" },
@@ -54,18 +124,88 @@ const translations = {
       mapTitle: "Google Maps showing the studio's location",
       profileAlt: "Profile photo of Italo Freitas with professional makeup"
     },
-    nav: { about: "About", portfolio: "Portfolio", courses: "Courses", contact: "Contact" },
-    hero: { subtitle: "Makeup Professional", desc: "Specialized in professional makeup for events, audiovisual productions, and beauty transformations. Offering personalized courses and consulting.", btn1: "Request a Quote", btn2: "View Courses" },
-    about: { title: "About Me", desc: "Professional makeup artist specializing in artistic makeup, eyebrow shielding, and beauty. A reference in durability and elegance in Patos de Minas, MG.", topic1: "Professionalism", topic1Desc: "Years of experience in professional makeup and beauty transformation", topic2: "Diverse Portfolio", topic2Desc: "Work in events, audiovisual productions, and photoshoots", topic3: "Education", topic3Desc: "Offering courses and workshops for professionals and beginners" },
+    nav: { about: "About", services: "Services", portfolio: "Portfolio", courses: "Courses", contact: "Contact" },
+    hero: { 
+      subtitle: "Makeup Professional", 
+      desc: "Specialized in professional makeup for events, audiovisual productions, and beauty transformations. Offering personalized courses and consulting.", 
+      btn1: "Request a Quote", 
+      btnSchedule: "Book Appointment",
+      btn2: "View Courses" 
+    },
+    about: { 
+      title: "About Me", 
+      desc: "Professional makeup artist specializing in artistic makeup, eyebrow shielding, and beauty. A reference in durability and elegance in Patos de Minas, MG.", 
+      topic1: "Professionalism", 
+      topic1Desc: "years of experience in professional makeup and beauty transformation", 
+      topic2: "Diverse Portfolio", 
+      topic2Desc: "Work in events, audiovisual productions, and photoshoots", 
+      topic3: "Education", 
+      topic3Desc: "Offering courses and workshops for professionals and beginners" 
+    },
+    services: {
+      title: "Prices & Services",
+      singleTitle: "Single Makeup Application",
+      singlePrice: "$ 35.00",
+      packageTitle: "Special Package (Over 4 Makes)",
+      packagePrice: "$ 30.00 each",
+      badge: "Specialty",
+      specialtyText: "MY SPECIALTY IS TO ENHANCE FEMININE BEAUTY WITHOUT TRANSFORMING IT!!!"
+    },
     location: { title: "Location", addressTitle: "Address", btn1: "WhatsApp", btn2: "Instagram" },
     portfolio: { title: "Portfolio" },
     events: { title: "Events" },
-    courses: { title: "Courses", tab1: "Taught Courses", tab2: "Taken Courses", contentLabel: "Content:", btn: "Enroll",
+    courses: { 
+      title: "Courses", 
+      tab1: "Taught Courses", 
+      tab2: "Taken Courses", 
+      contentLabel: "Content:", 
+      btn: "Enroll via WhatsApp",
+      obsLabel: "Note:",
+      paymentLabel: "Payment Methods:",
+      paymentDesc: "This value for cash payment or up to 2x on the credit card, all my courses can be financed in more installments, adding the small machine fees.",
+      modelsLabel: "Models:",
+      modelsDesc: "Model fees are already included and are my responsibility.",
+      
       list: [
-        { title: "Basic Makeup", desc: "Learn the fundamentals of professional makeup", content: "Basic techniques, products, application, and care", price: "$ 60.00" },
-        { title: "Advanced Makeup", desc: "Advanced techniques for events and productions", content: "Contouring, lighting, special effects", price: "$ 100.00" },
-        { title: "Bridal Makeup", desc: "Specialization in bridal makeup", content: "Wedding techniques, durability, finishing", price: "$ 80.00" },
-        { title: "Artistic Makeup", desc: "Creative expression through makeup", content: "Colors, textures, creativity, and innovation", price: "$ 70.00" },
+        {
+          id: "professional",
+          title: "PROFESSIONAL MAKEUP COURSE ❣️",
+          desc: "I developed my professional course thinking about the difficulties during appointments. I teach and explain how small actions retain a client, plus various tips to speed up, allowing you to book more clients during a day, thus yielding more $.",
+          features: [
+            "The course is intended for both professional makeup artists and beginners;",
+            "I conduct classes in my studio, in Patos de Minas - MG;",
+            "Schedules according to student availability;",
+            "All material used in the course is provided by me (I provide a list of essential materials for beginners);",
+            "The Course is 100% practical: I replicate one side and, with my total supervision, the student reproduces the other side.",
+            "The techniques taught are all chosen by the student, all usable by clients and timeless;",
+            "All techniques are developed on models, with complete skin preparation (from Asepsis to contours and highlights).",
+            "All lighting and photo tips are passed to the student during the Vip Course.",
+            "Upon completion of the course, a certificate of completion will be issued to the student."
+          ],
+          obs: "Resistant skin technique will be taught.",
+          prices: [
+            { label: "1 Technique", value: "$ 90.00" },
+            { label: "2 Techniques", value: "$ 110.00" },
+            { label: "3 Techniques", value: "$ 150.00 ❤️" }
+          ]
+        },
+        {
+          id: "self",
+          title: "SELF-MAKEUP COURSE ❣️",
+          desc: "I developed my self-makeup course thinking about the beauty that makeup provides without leaving aside daily agility and practicality.",
+          features: [
+            "I conduct classes in my studio, in Patos de Minas - MG;",
+            "Schedules according to student availability;",
+            "All material used in the course is provided by me (I provide a list of essential materials for your daily makeup and we make a step-by-step list);",
+            "The Course is 100% practical: while I explain and do one side, the student does the other side.",
+            "The techniques taught are all chosen by the student, usable in daily life and timeless (if you prefer a more artistic technique, we do it too);",
+            "In all techniques we do complete skin preparation, from Skin Asepsis to contours and highlights."
+          ],
+          obs: "Resistant skin technique will be taught.",
+          prices: [
+            { label: "2 Techniques", value: "$ 90.00" }
+          ]
+        }
       ]
     },
     contact: { title: "Get in Touch", subtitle1: "Let's Talk", subtitle2: "Send a Message", nameHolder: "Your name", emailHolder: "your@email.com", msgHolder: "Your message here", sendBtn: "Send Message" },
@@ -73,7 +213,6 @@ const translations = {
   }
 };
 
-// Interface para passar as traduções de acessibilidade para o carrossel
 function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: any }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -131,13 +270,8 @@ function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: a
 
       <div
         ref={scrollContainerRef}
-        className="flex overflow-x-auto scroll-smooth"
-        style={{
-          paddingLeft: '1rem',
-          paddingRight: '1rem',
-          scrollPaddingLeft: '1rem',
-          scrollSnapType: 'x mandatory',
-        }}
+        className="flex overflow-x-auto scroll-smooth gap-3 px-4"
+        style={{ scrollSnapType: 'x mandatory' }}
       >
         {posts.map((post) => (
           <div
@@ -147,7 +281,6 @@ function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: a
               width: 'clamp(200px, 25vw, 300px)',
               aspectRatio: '9/16',
               scrollSnapAlign: 'start',
-              marginRight: '0.75rem',
             }}
           >
             <iframe
@@ -181,6 +314,10 @@ function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: a
 export default function Home() {
   const [lang, setLang] = useState<'pt' | 'en'>('pt');
   const [isDark, setIsDark] = useState(false);
+
+  // Variável solicitada para cálculo dinâmico dos anos de experiência
+  const ano_atual = new Date().getFullYear();
+  const anosExperiencia = ano_atual - 2021;
 
   const t = translations[lang];
   
@@ -232,27 +369,24 @@ export default function Home() {
 
   return (
     <div className="min-h-screen transition-colors duration-300 relative">
-{/* Elemento de fundo fixo e acessível */}
-<div className="fixed inset-0 z-[-1]" aria-hidden="true">
-  {/* 1. Cor de base (escuro no modo dark, quase branco no modo light) */}
-  <div 
-    className="absolute inset-0 transition-colors duration-500"
-    style={{ backgroundColor: isDark ? '#121212' : '#f8f8f8' }}
-  />
-  
-  {/* 2. Textura do mármore por cima, atenuada */}
-  <div 
-    className="absolute inset-0 transition-all duration-500"
-    style={{ 
-      backgroundImage: `url(${marbleBg})`, 
-      backgroundRepeat: 'repeat',
-      backgroundSize: '100%',
-      filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
-      opacity: isDark ? 0.15 : 0.4, // Abaixa a transparência para "esconder" as emendas duras
-      mixBlendMode: isDark ? 'screen' : 'multiply' // Mescla a textura perfeitamente com a cor base
-    }}
-  />
-</div>
+      {/* Elemento de fundo fixo e acessível */}
+      <div className="fixed inset-0 z-[-1]" aria-hidden="true">
+        <div 
+          className="absolute inset-0 transition-colors duration-500"
+          style={{ backgroundColor: isDark ? '#121212' : '#f8f8f8' }}
+        />
+        <div 
+          className="absolute inset-0 transition-all duration-500"
+          style={{ 
+            backgroundImage: `url(${marbleBg})`, 
+            backgroundRepeat: 'repeat',
+            backgroundSize: '100%',
+            filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
+            opacity: isDark ? 0.15 : 0.4,
+            mixBlendMode: isDark ? 'screen' : 'multiply'
+          }}
+        />
+      </div>
       
       {/* Navegação */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
@@ -264,20 +398,19 @@ export default function Home() {
           
           <div className="hidden md:flex items-center gap-8">
             <a href="#about" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.about}</a>
+            <a href="#services" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.services}</a>
             <a href="#portfolio" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.portfolio}</a>
             <a href="#courses" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.courses}</a>
             <a href="#contact" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.contact}</a>
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Botão de Tradução */}
             <button onClick={toggleLang} className="text-amber-600 hover:text-amber-700 flex items-center gap-1 font-semibold text-sm transition-transform hover:scale-110">
               <span className="sr-only">{t.a11y.langBtn}</span>
               <Languages size={20} aria-hidden="true" />
               <span className="hidden sm:inline" aria-hidden="true">{lang === 'pt' ? 'EN' : 'PT'}</span>
             </button>
             
-            {/* Botão de Dark Mode */}
             <button onClick={toggleTheme} className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
               <span className="sr-only">{isDark ? t.a11y.themeBtnDark : t.a11y.themeBtnLight}</span>
               {isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
@@ -309,15 +442,27 @@ export default function Home() {
             href="https://wa.me/553498109317"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105"
+            className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 shadow-md flex items-center justify-center gap-2"
             style={{ background: '#C9A961', color: 'white' }}
           >
+            <MessageCircle size={18} />
             {t.hero.btn1}
+          </a>
+          {/* Botão Marcar Horário similar ao de Orçamento */}
+          <a
+            href="https://wa.me/553498109317"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2 flex items-center justify-center gap-2"
+            style={{ borderColor: '#C9A961', color: '#C9A961' }}
+          >
+            <Calendar size={18} />
+            {t.hero.btnSchedule}
           </a>
           <a
             href="#courses"
-            className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2"
-            style={{ borderColor: '#C9A961', color: '#C9A961' }}
+            className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2 flex items-center justify-center"
+            style={{ borderColor: isDark ? '#444' : '#E5E7EB', color: colors.textPrimary }}
           >
             {t.hero.btn2}
           </a>
@@ -342,7 +487,8 @@ export default function Home() {
             <div className="space-y-4">
               <div>
                 <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">✨</span> {t.about.topic1}</p>
-                <p className="transition-colors" style={{ color: colors.textSecondary }}>{t.about.topic1Desc}</p>
+                {/* Citando os anos de experiência calculados dinamicamente */}
+                <p className="transition-colors" style={{ color: colors.textSecondary }}>{anosExperiencia} {t.about.topic1Desc}</p>
               </div>
               <div>
                 <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">🎨</span> {t.about.topic2}</p>
@@ -357,8 +503,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Seção Atendimentos & Valores Integrada */}
+      <section id="services" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }}>
+        <h2 className="text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.services.title}</h2>
+        <div className="w-24 h-1 bg-amber-500 mx-auto mb-12"></div>
+        
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+          <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02]" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
+            <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: colors.textPrimary }}>{t.services.singleTitle}</h3>
+            <p className="text-4xl font-bold my-4" style={{ color: '#C9A961' }}>{t.services.singlePrice}</p>
+            <p className="text-sm transition-colors" style={{ color: colors.textSecondary }}>Aplicações individuais exclusivas com máxima fixação.</p>
+          </div>
+
+          <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02]" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
+            <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: colors.textPrimary }}>{t.services.packageTitle}</h3>
+            <p className="text-4xl font-bold my-4" style={{ color: '#C9A961' }}>{t.services.packagePrice}</p>
+            <p className="text-sm transition-colors" style={{ color: colors.textSecondary }}>Condição especial para grupos de madrinhas, formandas ou convidadas.</p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-lg text-center max-w-3xl mx-auto border-2 border-dashed" style={{ borderColor: '#C9A961' }}>
+          <span className="inline-block text-xs font-bold tracking-wider uppercase px-3 py-1 rounded bg-amber-600 text-white mb-2">{t.services.badge}</span>
+          <p className="text-xl font-serif font-semibold italic" style={{ color: colors.textPrimary }}>
+            "{t.services.specialtyText}"
+          </p>
+        </div>
+      </section>
+
       {/* Localização */}
-      <section className="py-20 container mx-auto px-4">
+      <section className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }}>
         <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
         <div className="grid md:grid-cols-2 gap-12">
           <div>
@@ -419,12 +592,12 @@ export default function Home() {
       </section>
 
       {/* Cursos */}
-      <section id="courses" className="py-20 container mx-auto px-4">
+      <section id="courses" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }}>
         <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
         
         <div className="mb-12">
-          <div className="flex gap-4 justify-center mb-8">
-            <button className="px-6 py-2 rounded-lg font-semibold" style={{ background: '#C9A961', color: 'white' }}>
+          <div className="flex gap-4 justify-center mb-12">
+            <button className="px-6 py-2 rounded-lg font-semibold shadow" style={{ background: '#C9A961', color: 'white' }}>
               {t.courses.tab1}
             </button>
             <button className="px-6 py-2 rounded-lg font-semibold border-2 transition-colors" style={{ borderColor: '#C9A961', color: isDark ? '#E5C57C' : '#C9A961' }}>
@@ -432,17 +605,60 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             {t.courses.list.map((course) => (
-              <div key={course.title} className="p-6 rounded-lg shadow-lg transition-colors" style={{ background: colors.cardBg }}>
-                <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: colors.textPrimary }}>{course.title}</h3>
-                <p className="mb-4" style={{ color: colors.textSecondary }}>{course.desc}</p>
-                <p className="text-sm mb-4" style={{ color: isDark ? '#9CA3AF' : '#666' }}>{t.courses.contentLabel} {course.content}</p>
-                <div className="flex items-center justify-between">
-                  <p className="text-xl font-bold" style={{ color: '#C9A961' }}>{course.price}</p>
-                  <a href="#contact" className="px-4 py-2 rounded-lg font-semibold transition-all" style={{ background: '#C9A961', color: 'white' }}>
-                    <span className="sr-only">{`Inscrever-se no curso de ${course.title}`}</span>
-                    <span aria-hidden="true">{t.courses.btn}</span>
+              <div key={course.id} className="p-8 rounded-xl shadow-xl transition-colors flex flex-col justify-between h-full border" style={{ background: colors.cardBg, borderColor: colors.border }}>
+                <div>
+                  <h3 className="text-2xl font-serif font-bold mb-4 border-b pb-2" style={{ color: colors.textPrimary }}>
+                    {course.title}
+                  </h3>
+                  <p className="mb-6 text-base leading-relaxed" style={{ color: colors.textSecondary }}>
+                    {course.desc}
+                  </p>
+                  
+                  <ul className="space-y-3 mb-6">
+                    {course.features.map((feat, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm transition-colors" style={{ color: colors.textSecondary }}>
+                        <span className="text-amber-500 mt-1 flex-shrink-0"><Check size={16} /></span>
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {course.obs && (
+                    <div className="p-3 rounded mb-6 bg-amber-50/50 dark:bg-amber-950/20 border-l-4 border-amber-500 text-sm">
+                      <span className="font-bold" style={{ color: colors.textPrimary }}>{t.courses.obsLabel}</span>{" "}
+                      <span style={{ color: colors.textSecondary }}>{course.obs}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-6 border-t pt-6" style={{ borderColor: colors.border }}>
+                  <div className="grid grid-cols-3 gap-2 mb-6">
+                    {course.prices.map((p, pIdx) => (
+                      <div key={pIdx} className="p-3 text-center rounded bg-gray-50 dark:bg-zinc-800/50">
+                        <span className="text-xs uppercase block text-gray-400 font-semibold">{p.label}</span>
+                        <span className="text-base font-bold" style={{ color: '#C9A961' }}>{p.value}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="text-xs space-y-1 mb-6" style={{ color: colors.textSecondary }}>
+                    <p><strong>{t.courses.paymentLabel}</strong> {t.courses.paymentDesc}</p>
+                    {course.id === "professional" && (
+                      <p><strong>{t.courses.modelsLabel}</strong> {t.courses.modelsDesc}</p>
+                    )}
+                  </div>
+
+                  <a 
+                    href="https://wa.me/553498109317" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 shadow-md hover:brightness-110" 
+                    style={{ background: '#C9A961', color: 'white' }}
+                  >
+                    <MessageCircle size={18} />
+                    {t.courses.btn}
                   </a>
                 </div>
               </div>
@@ -452,7 +668,7 @@ export default function Home() {
       </section>
 
       {/* Contato */}
-      <section id="contact" className="py-20 container mx-auto px-4">
+      <section id="contact" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }}>
         <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
         
         <div className="grid md:grid-cols-2 gap-12">
