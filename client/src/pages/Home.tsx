@@ -10,6 +10,11 @@ import ringsImg from "../lib/rings.png";
 
 const translations = {
   pt: {
+    seo: {
+      title: "Italo Freitas | Maquiador Profissional em Patos de Minas",
+      description: "Maquiador profissional em Patos de Minas, MG. Especializado em maquiagem para noivas, eventos e transformações de beleza. Cursos de automaquiagem e profissional.",
+      keywords: "maquiador, maquiagem profissional, Patos de Minas, curso de maquiagem, automaquiagem, noivas, beleza, Italo Freitas"
+    },
     a11y: {
       logoAlt: "Logomarca de Italo Freitas",
       langBtn: "Alternar idioma para inglês",
@@ -64,7 +69,6 @@ const translations = {
       paymentDesc: "Esse valor para pagamento à vista ou em até 2x no cartão, todos meus cursos podem ser parcelados em mais vezes, somando as pequenas taxas da máquina.",
       modelsLabel: "Modelos:",
       modelsDesc: "Já está incluso os cachês das modelos e são de minha responsabilidade.",
-      
       list: [
         {
           id: "professional",
@@ -111,6 +115,11 @@ const translations = {
     footer: { rights: "© 2026 Italo Freitas Makeup. Todos os direitos reservados.", dev: "Desenvolvido com elegância, profissionalismo e amor" }
   },
   en: {
+    seo: {
+      title: "Italo Freitas | Professional Makeup Artist in Patos de Minas",
+      description: "Professional makeup artist in Patos de Minas, MG. Specialized in bridal, events, and beauty transformations. Self-makeup and professional courses.",
+      keywords: "makeup artist, professional makeup, Patos de Minas, makeup course, bridal makeup, beauty, Italo Freitas"
+    },
     a11y: {
       logoAlt: "Italo Freitas Logo",
       langBtn: "Switch language to Portuguese",
@@ -165,7 +174,6 @@ const translations = {
       paymentDesc: "This value for cash payment or up to 2x on the credit card, all my courses can be financed in more installments, adding the small machine fees.",
       modelsLabel: "Models:",
       modelsDesc: "Model fees are already included and are my responsibility.",
-      
       list: [
         {
           id: "professional",
@@ -315,7 +323,6 @@ export default function Home() {
   const [lang, setLang] = useState<'pt' | 'en'>('pt');
   const [isDark, setIsDark] = useState(false);
 
-  // Variável solicitada para cálculo dinâmico dos anos de experiência
   const ano_atual = new Date().getFullYear();
   const anosExperiencia = ano_atual - 2021;
 
@@ -331,6 +338,26 @@ export default function Home() {
 
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
   const toggleTheme = () => setIsDark(prev => !prev);
+
+  // JSON-LD para SEO Local (Schema.org)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    "name": "Italo Freitas Makeup",
+    "image": "https://seusite.com/profile.jpg", 
+    "description": t.seo.description,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rua Dona Maria Resende, 171",
+      "addressLocality": "Patos de Minas",
+      "addressRegion": "MG",
+      "postalCode": "38700-000",
+      "addressCountry": "BR"
+    },
+    "telephone": "+553498109317",
+    "priceRange": "$$",
+    "url": "https://seusite.com"
+  };
 
   const portfolioPosts1 = [
     "https://www.instagram.com/p/DDIdE_epRKk/?igsh=eDdqaGUwMzNuZWZ3",
@@ -368,7 +395,16 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen transition-colors duration-300 relative">
+    <main className="min-h-screen transition-colors duration-300 relative">
+      {/* Injeção de Meta Tags Dinâmicas e JSON-LD para SEO */}
+      <title>{t.seo.title}</title>
+      <meta name="description" content={t.seo.description} />
+      <meta name="keywords" content={t.seo.keywords} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Elemento de fundo fixo e acessível */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div 
@@ -388,50 +424,53 @@ export default function Home() {
         />
       </div>
       
-      {/* Navegação */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src={logoImg} alt={t.a11y.logoAlt} className="h-10 w-10" />
-            <span className="font-serif text-xl font-bold" style={{ color: colors.textPrimary }} aria-hidden="true">Italo Freitas</span>
-          </div>
-          
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#about" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.about}</a>
-            <a href="#services" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.services}</a>
-            <a href="#portfolio" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.portfolio}</a>
-            <a href="#courses" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.courses}</a>
-            <a href="#contact" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.contact}</a>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button onClick={toggleLang} className="text-amber-600 hover:text-amber-700 flex items-center gap-1 font-semibold text-sm transition-transform hover:scale-110">
-              <span className="sr-only">{t.a11y.langBtn}</span>
-              <Languages size={20} aria-hidden="true" />
-              <span className="hidden sm:inline" aria-hidden="true">{lang === 'pt' ? 'EN' : 'PT'}</span>
-            </button>
+      {/* Navegação agrupada em header semântico */}
+      <header>
+        <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <img src={logoImg} alt={t.a11y.logoAlt} className="h-10 w-10" />
+              <span className="font-serif text-xl font-bold" style={{ color: colors.textPrimary }} aria-hidden="true">Italo Freitas</span>
+            </div>
             
-            <button onClick={toggleTheme} className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
-              <span className="sr-only">{isDark ? t.a11y.themeBtnDark : t.a11y.themeBtnLight}</span>
-              {isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
-            </button>
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#about" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.about}</a>
+              <a href="#services" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.services}</a>
+              <a href="#portfolio" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.portfolio}</a>
+              <a href="#courses" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.courses}</a>
+              <a href="#contact" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.contact}</a>
+            </div>
 
-            <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
-              <span className="sr-only">{t.a11y.instaLinkNav}</span>
-              <Instagram size={20} aria-hidden="true" />
-            </a>
-            <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
-              <span className="sr-only">{t.a11y.whatsAppLinkNav}</span>
-              <MessageCircle size={20} aria-hidden="true" />
-            </a>
+            <div className="flex items-center gap-4">
+              <button onClick={toggleLang} className="text-amber-600 hover:text-amber-700 flex items-center gap-1 font-semibold text-sm transition-transform hover:scale-110">
+                <span className="sr-only">{t.a11y.langBtn}</span>
+                <Languages size={20} aria-hidden="true" />
+                <span className="hidden sm:inline" aria-hidden="true">{lang === 'pt' ? 'EN' : 'PT'}</span>
+              </button>
+              
+              <button onClick={toggleTheme} className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
+                <span className="sr-only">{isDark ? t.a11y.themeBtnDark : t.a11y.themeBtnLight}</span>
+                {isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
+              </button>
+
+              <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
+                <span className="sr-only">{t.a11y.instaLinkNav}</span>
+                <Instagram size={20} aria-hidden="true" />
+              </a>
+              <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
+                <span className="sr-only">{t.a11y.whatsAppLinkNav}</span>
+                <MessageCircle size={20} aria-hidden="true" />
+              </a>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 text-center">
-        <h1 className="text-6xl md:text-7xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>
-          Italo Freitas
+      <section className="pt-32 pb-20 text-center" aria-labelledby="hero-title">
+        {/* Keyword injection invisível no H1 para crawlers */}
+        <h1 id="hero-title" className="text-6xl md:text-7xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>
+          Italo Freitas <span className="sr-only">- Maquiador Profissional em Patos de Minas, MG</span>
         </h1>
         <p className="text-2xl mb-8" style={{ color: '#C9A961' }}>{t.hero.subtitle}</p>
         <p className="text-lg max-w-2xl mx-auto mb-12 px-4 transition-colors" style={{ color: colors.textSecondary }}>
@@ -448,7 +487,6 @@ export default function Home() {
             <MessageCircle size={18} />
             {t.hero.btn1}
           </a>
-          {/* Botão Marcar Horário similar ao de Orçamento */}
           <a
             href="https://wa.me/553498109317"
             target="_blank"
@@ -470,8 +508,8 @@ export default function Home() {
       </section>
 
       {/* Sobre Mim */}
-      <section id="about" className="py-20 container mx-auto px-4">
-        <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.about.title}</h2>
+      <section id="about" className="py-20 container mx-auto px-4" aria-labelledby="about-title">
+        <h2 id="about-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.about.title}</h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="rounded-lg overflow-hidden shadow-2xl">
             <img src={profileImg} alt={t.a11y.profileAlt} className="w-full h-auto" />
@@ -487,7 +525,6 @@ export default function Home() {
             <div className="space-y-4">
               <div>
                 <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">✨</span> {t.about.topic1}</p>
-                {/* Citando os anos de experiência calculados dinamicamente */}
                 <p className="transition-colors" style={{ color: colors.textSecondary }}>{anosExperiencia} {t.about.topic1Desc}</p>
               </div>
               <div>
@@ -503,9 +540,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seção Atendimentos & Valores Integrada */}
-      <section id="services" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }}>
-        <h2 className="text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.services.title}</h2>
+      {/* Serviços */}
+      <section id="services" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="services-title">
+        <h2 id="services-title" className="text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.services.title}</h2>
         <div className="w-24 h-1 bg-amber-500 mx-auto mb-12"></div>
         
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
@@ -531,8 +568,8 @@ export default function Home() {
       </section>
 
       {/* Localização */}
-      <section className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }}>
-        <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
+      <section className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="location-title">
+        <h2 id="location-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-2xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>{t.location.addressTitle}</h3>
@@ -578,22 +615,22 @@ export default function Home() {
       </section>
 
       {/* Portfólio */}
-      <section id="portfolio" className="py-20">
-        <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.portfolio.title}</h2>
+      <section id="portfolio" className="py-20" aria-labelledby="portfolio-title">
+        <h2 id="portfolio-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.portfolio.title}</h2>
         <div className="mb-12"><StreamingCarousel posts={portfolioPosts1} a11yTexts={t.a11y} /></div>
         <div className="mb-12"><StreamingCarousel posts={portfolioPosts2} a11yTexts={t.a11y} /></div>
         <div className="mb-12"><StreamingCarousel posts={portfolioPosts3} a11yTexts={t.a11y} /></div>
       </section>
 
       {/* Eventos */}
-      <section className="py-20">
-        <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.events.title}</h2>
+      <section className="py-20" aria-labelledby="events-title">
+        <h2 id="events-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.events.title}</h2>
         <StreamingCarousel posts={eventPosts} a11yTexts={t.a11y} />
       </section>
 
       {/* Cursos */}
-      <section id="courses" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }}>
-        <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
+      <section id="courses" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="courses-title">
+        <h2 id="courses-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
         
         <div className="mb-12">
           <div className="flex gap-4 justify-center mb-12">
@@ -668,8 +705,8 @@ export default function Home() {
       </section>
 
       {/* Contato */}
-      <section id="contact" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }}>
-        <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
+      <section id="contact" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="contact-title">
+        <h2 id="contact-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
         
         <div className="grid md:grid-cols-2 gap-12">
           <div>
@@ -725,6 +762,6 @@ export default function Home() {
           <img src={ringsImg} alt="" aria-hidden="true" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
         </p>
       </footer>
-    </div>
+    </main>
   );
 }
