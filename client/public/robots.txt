@@ -1,0 +1,10 @@
+# Bloqueia o acesso a arquivos de sistema ou pastas de backup, se houver
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_manus_/
+Disallow: /qrcode.html
+Disallow: /aha.jpeg
+
+# Indica onde o sitemap está localizado
+Sitemap: https://italofreitasmakeup.com.br/sitemap.xml

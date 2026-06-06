@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- URL principal -->
+  <url>
+    <loc>https://italofreitasmakeup.github.io/</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <!-- Adicione outras subpáginas aqui se necessário, 
+       mas como o site é um SPA (Single Page Application), 
+       a URL principal é a mais importante. -->
+</urlset>
