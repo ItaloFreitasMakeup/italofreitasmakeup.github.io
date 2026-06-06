@@ -50,8 +50,10 @@ const translations = {
       title: "Valores & Atendimentos",
       singleTitle: "Maquiagem Individual",
       singlePrice: "R$ 180,00",
+      singleDesc: "Aplicações individuais exclusivas com máxima fixação.",
       packageTitle: "Pacote Especial (Acima de 4 Makes)",
       packagePrice: "R$ 150,00 cada",
+      packageDesc: "Condição especial para grupos de madrinhas, formandas ou convidadas.",
       badge: "Especialidade",
       specialtyText: "MINHA ESPECIALIDADE É REALÇAR A BELEZA FEMININA SEM TRANSFORMAR!!!"
     },
@@ -155,8 +157,10 @@ const translations = {
       title: "Prices & Services",
       singleTitle: "Single Makeup Application",
       singlePrice: "$ 35.00",
+      singleDesc: "Exclusive individual applications with maximum hold.",
       packageTitle: "Special Package (Over 4 Makes)",
       packagePrice: "$ 30.00 each",
+      packageDesc: "Special condition for groups of bridesmaids, graduates, or guests.",
       badge: "Specialty",
       specialtyText: "MY SPECIALTY IS TO ENHANCE FEMININE BEAUTY WITHOUT TRANSFORMING IT!!!"
     },
@@ -339,7 +343,6 @@ export default function Home() {
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
   const toggleTheme = () => setIsDark(prev => !prev);
 
-  // JSON-LD para SEO Local (Schema.org)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "HealthAndBeautyBusiness",
@@ -359,44 +362,8 @@ export default function Home() {
     "url": "https://seusite.com"
   };
 
-  const portfolioPosts1 = [
-    "https://www.instagram.com/p/DDIdE_epRKk/?igsh=eDdqaGUwMzNuZWZ3",
-    "https://www.instagram.com/p/DCB9FYvJO4n/?igsh=cW8yNW96dGVkZml1",
-    "https://www.instagram.com/p/DDrmPN5pzlw/?img_index=1&igsh=bnV4emNkbmo4eGY1",
-    "https://www.instagram.com/p/DGDel_wpia4/?img_index=2&igsh=NXE1N3ZobWV0aWEy",
-    "https://www.instagram.com/p/DFvuwiDpfOI/?igsh=aW1yeW13enc2NXh3",
-    "https://www.instagram.com/p/DF0_YazpgFp/?img_index=3&igsh=MXh1dnBsa25zempjaQ==",
-  ];
-
-  const portfolioPosts2 = [
-    "https://www.instagram.com/p/DIRSjMnxByK/?igsh=b3FjaTBqdTM4Z2R5",
-    "https://www.instagram.com/p/DFvuwiDpfOI/?igsh=aW1yeW13enc2NXh3",
-    "https://www.instagram.com/p/DF0_YazpgFp/?img_index=3&igsh=MXh1dnBsa25zempjaQ==",
-    "https://www.instagram.com/p/DIRSjMnxByK/?igsh=b3FjaTBqdTM4Z2R5",
-    "https://www.instagram.com/p/DKiRdN8p9k_/?img_index=1&igsh=N2M3dmt5OHUxczI=",
-    "https://www.instagram.com/p/DF0_YazpgFp/?img_index=3&igsh=MXh1dnBsa25zempjaQ==",
-  ];
-
-  const portfolioPosts3 = [
-    "https://www.instagram.com/p/DOLnOqakZck/?igsh=OTJ1eWQycWFiZzdy",
-    "https://www.instagram.com/p/DSxba6qEUzW/?igsh=Y2ZsMXp5dGc1YjJk",
-    "https://www.instagram.com/p/DP4lzt7kYCG/?igsh=aWJ4NWNjN3V6cXdv",
-    "https://www.instagram.com/p/DQZPTRkkUwP/?img_index=1&igsh=MW5pajQ2Ym9zNmo5bQ==",
-    "https://www.instagram.com/p/DQuMGd_EfSs/?img_index=1&igsh=MTk5ZWQ3N3RpZG9ycg==",
-    "https://www.instagram.com/p/DT5qi1Oke2j/?igsh=MTl5dWtoNzhkZHllbA==",
-  ];
-
-  const eventPosts = [
-    "https://www.instagram.com/p/DYP8S18iRnJ/?img_index=1&igsh=Z3MwaGlrOGhmYnd4",
-    "https://www.instagram.com/reel/DRpiLoFkYpl/?igsh=MTljNjlnbWUzcXVtYg==",
-    "https://www.instagram.com/reel/DRE7xYRkWEI/?igsh=c2dqYmpxc21sdWpj",
-    "https://www.instagram.com/p/DFoO0jIxRGh/?igsh=MTB3cTlkcGV6cTE0bQ==",
-    "https://www.instagram.com/p/DXt1I0HnLOQ/?igsh=MXZibG02ZGV1enp3eg==",
-  ];
-
   return (
     <main className="min-h-screen transition-colors duration-300 relative">
-      {/* Injeção de Meta Tags Dinâmicas e JSON-LD para SEO */}
       <title>{t.seo.title}</title>
       <meta name="description" content={t.seo.description} />
       <meta name="keywords" content={t.seo.keywords} />
@@ -405,7 +372,6 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Elemento de fundo fixo e acessível */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div 
           className="absolute inset-0 transition-colors duration-500"
@@ -424,7 +390,6 @@ export default function Home() {
         />
       </div>
       
-      {/* Navegação agrupada em header semântico */}
       <header>
         <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -466,9 +431,7 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Hero Section */}
       <section className="pt-32 pb-20 text-center" aria-labelledby="hero-title">
-        {/* Keyword injection invisível no H1 para crawlers */}
         <h1 id="hero-title" className="text-6xl md:text-7xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>
           Italo Freitas <span className="sr-only">- Maquiador Profissional em Patos de Minas, MG</span>
         </h1>
@@ -499,15 +462,14 @@ export default function Home() {
           </a>
           <a
             href="#courses"
-            className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2 flex items-center justify-center"
-            style={{ borderColor: isDark ? '#444' : '#E5E7EB', color: colors.textPrimary }}
+            className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 shadow-md flex items-center justify-center gap-2"
+            style={{ background: '#C9A961', color: 'white' }}
           >
             {t.hero.btn2}
           </a>
         </div>
       </section>
 
-      {/* Sobre Mim */}
       <section id="about" className="py-20 container mx-auto px-4" aria-labelledby="about-title">
         <h2 id="about-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.about.title}</h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -540,7 +502,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Serviços */}
       <section id="services" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="services-title">
         <h2 id="services-title" className="text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.services.title}</h2>
         <div className="w-24 h-1 bg-amber-500 mx-auto mb-12"></div>
@@ -549,57 +510,28 @@ export default function Home() {
           <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02]" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
             <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: colors.textPrimary }}>{t.services.singleTitle}</h3>
             <p className="text-4xl font-bold my-4" style={{ color: '#C9A961' }}>{t.services.singlePrice}</p>
-            <p className="text-sm transition-colors" style={{ color: colors.textSecondary }}>Aplicações individuais exclusivas com máxima fixação.</p>
+            <p className="text-sm transition-colors" style={{ color: colors.textSecondary }}>{t.services.singleDesc}</p>
           </div>
 
           <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02]" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
             <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: colors.textPrimary }}>{t.services.packageTitle}</h3>
             <p className="text-4xl font-bold my-4" style={{ color: '#C9A961' }}>{t.services.packagePrice}</p>
-            <p className="text-sm transition-colors" style={{ color: colors.textSecondary }}>Condição especial para grupos de madrinhas, formandas ou convidadas.</p>
+            <p className="text-sm transition-colors" style={{ color: colors.textSecondary }}>{t.services.packageDesc}</p>
           </div>
-        </div>
-
-        <div className="p-6 rounded-lg text-center max-w-3xl mx-auto border-2 border-dashed" style={{ borderColor: '#C9A961' }}>
-          <span className="inline-block text-xs font-bold tracking-wider uppercase px-3 py-1 rounded bg-amber-600 text-white mb-2">{t.services.badge}</span>
-          <p className="text-xl font-serif font-semibold italic" style={{ color: colors.textPrimary }}>
-            "{t.services.specialtyText}"
-          </p>
         </div>
       </section>
 
-      {/* Localização */}
-      <section className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="location-title">
+      <section className="py-20 container mx-auto px-4 flex flex-col items-center border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="location-title">
         <h2 id="location-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
+        <div className="w-full max-w-5xl grid md:grid-cols-2 gap-12 items-center justify-items-center">
+          <div className="text-center md:text-left">
             <h3 className="text-2xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>{t.location.addressTitle}</h3>
             <address className="not-italic">
               <p className="text-lg font-semibold mb-2 transition-colors" style={{ color: colors.textSecondary }}>Rua Dona Maria Resende, 171</p>
               <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>Vila Garcia - Patos de Minas, MG</p>
-              <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>CEP: 38700-000</p>
             </address>
-            <div className="flex gap-4">
-              <a
-                href="https://wa.me/553498109317"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 rounded-lg font-semibold transition-all"
-                style={{ background: '#C9A961', color: 'white' }}
-              >
-                {t.location.btn1}
-              </a>
-              <a
-                href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA=="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 rounded-lg font-semibold transition-all border-2"
-                style={{ borderColor: '#C9A961', color: '#C9A961' }}
-              >
-                {t.location.btn2}
-              </a>
-            </div>
           </div>
-          <div className="rounded-lg overflow-hidden shadow-lg h-96">
+          <div className="rounded-lg overflow-hidden shadow-lg h-96 w-full">
             <iframe
               title={t.a11y.mapTitle}
               src="https://maps.google.com/maps?q=Rua+Dona+Maria+Resende,+171+Vila+Garcia+Patos+de+Minas&t=&z=15&ie=UTF8&iwloc=&output=embed"
@@ -607,160 +539,33 @@ export default function Home() {
               height="100%"
               style={{ border: 0, borderRadius: '8px' }}
               allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
         </div>
       </section>
 
-      {/* Portfólio */}
-      <section id="portfolio" className="py-20" aria-labelledby="portfolio-title">
-        <h2 id="portfolio-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.portfolio.title}</h2>
-        <div className="mb-12"><StreamingCarousel posts={portfolioPosts1} a11yTexts={t.a11y} /></div>
-        <div className="mb-12"><StreamingCarousel posts={portfolioPosts2} a11yTexts={t.a11y} /></div>
-        <div className="mb-12"><StreamingCarousel posts={portfolioPosts3} a11yTexts={t.a11y} /></div>
-      </section>
-
-      {/* Eventos */}
-      <section className="py-20" aria-labelledby="events-title">
-        <h2 id="events-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.events.title}</h2>
-        <StreamingCarousel posts={eventPosts} a11yTexts={t.a11y} />
-      </section>
-
-      {/* Cursos */}
-      <section id="courses" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="courses-title">
-        <h2 id="courses-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
-        
-        <div className="mb-12">
-          <div className="flex gap-4 justify-center mb-12">
-            <button className="px-6 py-2 rounded-lg font-semibold shadow" style={{ background: '#C9A961', color: 'white' }}>
-              {t.courses.tab1}
-            </button>
-            <button className="px-6 py-2 rounded-lg font-semibold border-2 transition-colors" style={{ borderColor: '#C9A961', color: isDark ? '#E5C57C' : '#C9A961' }}>
-              {t.courses.tab2}
-            </button>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {t.courses.list.map((course) => (
-              <div key={course.id} className="p-8 rounded-xl shadow-xl transition-colors flex flex-col justify-between h-full border" style={{ background: colors.cardBg, borderColor: colors.border }}>
-                <div>
-                  <h3 className="text-2xl font-serif font-bold mb-4 border-b pb-2" style={{ color: colors.textPrimary }}>
-                    {course.title}
-                  </h3>
-                  <p className="mb-6 text-base leading-relaxed" style={{ color: colors.textSecondary }}>
-                    {course.desc}
-                  </p>
-                  
-                  <ul className="space-y-3 mb-6">
-                    {course.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm transition-colors" style={{ color: colors.textSecondary }}>
-                        <span className="text-amber-500 mt-1 flex-shrink-0"><Check size={16} /></span>
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {course.obs && (
-                    <div className="p-3 rounded mb-6 bg-amber-50/50 dark:bg-amber-950/20 border-l-4 border-amber-500 text-sm">
-                      <span className="font-bold" style={{ color: colors.textPrimary }}>{t.courses.obsLabel}</span>{" "}
-                      <span style={{ color: colors.textSecondary }}>{course.obs}</span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-6 border-t pt-6" style={{ borderColor: colors.border }}>
-                  <div className="grid grid-cols-3 gap-2 mb-6">
-                    {course.prices.map((p, pIdx) => (
-                      <div key={pIdx} className="p-3 text-center rounded bg-gray-50 dark:bg-zinc-800/50">
-                        <span className="text-xs uppercase block text-gray-400 font-semibold">{p.label}</span>
-                        <span className="text-base font-bold" style={{ color: '#C9A961' }}>{p.value}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="text-xs space-y-1 mb-6" style={{ color: colors.textSecondary }}>
-                    <p><strong>{t.courses.paymentLabel}</strong> {t.courses.paymentDesc}</p>
-                    {course.id === "professional" && (
-                      <p><strong>{t.courses.modelsLabel}</strong> {t.courses.modelsDesc}</p>
-                    )}
-                  </div>
-
-                  <a 
-                    href="https://wa.me/553498109317" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 shadow-md hover:brightness-110" 
-                    style={{ background: '#C9A961', color: 'white' }}
-                  >
-                    <MessageCircle size={18} />
-                    {t.courses.btn}
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contato */}
-      <section id="contact" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="contact-title">
+      <section id="contact" className="py-20 container mx-auto px-4 flex flex-col items-center border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="contact-title">
         <h2 id="contact-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
-        
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
+        <div className="w-full max-w-4xl grid md:grid-cols-2 gap-12 justify-items-center">
+          <div className="text-center md:text-left">
             <h3 className="text-2xl font-serif font-bold mb-8 transition-colors" style={{ color: colors.textPrimary }}>{t.contact.subtitle1}</h3>
-            
-            <div className="mb-8">
-              <h4 className="text-lg font-bold mb-2" style={{ color: '#C9A961' }}>WhatsApp</h4>
-              <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline transition-colors" style={{ color: colors.textSecondary }}>
-                <span className="sr-only">{t.a11y.whatsAppLinkNav}</span>
-                <span aria-hidden="true">+55 34 9810-9317</span>
-              </a>
-            </div>
-
-            <div className="mb-8">
-              <h4 className="text-lg font-bold mb-2" style={{ color: '#C9A961' }}>Instagram</h4>
-              <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline transition-colors" style={{ color: colors.textSecondary }}>
-                <span className="sr-only">{t.a11y.instaLinkNav}</span>
-                <span aria-hidden="true">@italofreitasmakeup</span>
-              </a>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-bold mb-2" style={{ color: '#C9A961' }}>{t.location.title}</h4>
-              <p className="transition-colors" style={{ color: colors.textSecondary }}>Patos de Minas, MG</p>
-            </div>
+            <p className="mb-4 text-lg" style={{ color: colors.textSecondary }}>+55 34 9810-9317</p>
+            <p className="text-lg" style={{ color: colors.textSecondary }}>@italofreitasmakeup</p>
           </div>
-
-          <div className="p-8 rounded-lg shadow-lg transition-colors" style={{ background: colors.cardBg }}>
-            <h3 className="text-2xl font-serif font-bold mb-6 transition-colors" style={{ color: colors.textPrimary }}>{t.contact.subtitle2}</h3>
+          <div className="p-8 rounded-lg shadow-lg w-full transition-colors" style={{ background: colors.cardBg }}>
+            <h3 className="text-2xl font-serif font-bold mb-6 text-center" style={{ color: colors.textPrimary }}>{t.contact.subtitle2}</h3>
             <form className="space-y-4">
-              <label htmlFor="name" className="sr-only">{t.contact.nameHolder}</label>
-              <input id="name" type="text" placeholder={t.contact.nameHolder} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-              
-              <label htmlFor="email" className="sr-only">{t.contact.emailHolder}</label>
-              <input id="email" type="email" placeholder={t.contact.emailHolder} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-              
-              <label htmlFor="message" className="sr-only">{t.contact.msgHolder}</label>
-              <textarea id="message" placeholder={t.contact.msgHolder} rows={4} className="w-full p-3 border rounded-lg bg-transparent transition-colors outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-              
-              <button type="submit" className="w-full py-3 rounded-lg font-semibold transition-all hover:brightness-110" style={{ background: '#C9A961', color: 'white' }}>
-                {t.contact.sendBtn}
-              </button>
+              <input type="text" placeholder={t.contact.nameHolder} className="w-full p-3 border rounded-lg bg-transparent outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+              <input type="email" placeholder={t.contact.emailHolder} className="w-full p-3 border rounded-lg bg-transparent outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+              <textarea placeholder={t.contact.msgHolder} rows={4} className="w-full p-3 border rounded-lg bg-transparent outline-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+              <button type="submit" className="w-full py-3 rounded-lg font-semibold transition-all hover:brightness-110" style={{ background: '#C9A961', color: 'white' }}>{t.contact.sendBtn}</button>
             </form>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-8 text-center border-t transition-colors" style={{ borderColor: colors.border }}>
         <p className="transition-colors" style={{ color: colors.textSecondary }}>{t.footer.rights}</p>
-        <p className="flex items-center justify-center gap-2 mt-2 transition-colors" style={{ color: isDark ? '#9CA3AF' : '#999' }}>
-          {t.footer.dev} <span aria-hidden="true">❤️</span>
-          <img src={ringsImg} alt="" aria-hidden="true" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
-        </p>
       </footer>
     </main>
   );
