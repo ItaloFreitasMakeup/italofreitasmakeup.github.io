@@ -176,7 +176,7 @@ const translations = {
           title: "Curso Profissional de Maquiagem", 
           desc: "Curso completo para profissionais e iniciantes em Patos de Minas-MG", 
           content: "Aulas práticas, todo material incluso, técnicas escolhidas pelo aluno, preparação completa de pele, técnica de pele resistente, dicas de iluminação e fotos. Certificado emitido ao término.", 
-          price: "1 técnica: R$ 450,00 | 2 técnicas: R$ 550,00 | 3 técnicas: R$ 750,00" 
+          price: "1 técnica: R$ 450,00 2 técnicas: R$ 550,00 3 técnicas: R$ 750,00" 
         },
         { 
           title: "Curso de Auto Maquiagem", 
@@ -257,7 +257,7 @@ const translations = {
           title: "Professional Makeup Course", 
           desc: "Complete course for professionals and beginners in Patos de Minas-MG", 
           content: "Practical classes, all materials included, techniques chosen by student, complete skin preparation, resistant skin technique, lighting and photo tips. Certificate issued upon completion.", 
-          price: "1 technique: R$450 | 2 techniques: R$550 | 3 techniques: R$750" 
+          price: "1 technique: R$450,00 2 techniques: R$550,00 3 techniques: R$750,00" 
         },
         { 
           title: "Self-Makeup Course", 
@@ -507,22 +507,22 @@ export default function Home() {
           <StreamingCarousel posts={eventPosts} a11yTexts={t.a11y} />
         </section>
 
-        {/* Cursos - Atualizado para parecer com Serviços */}
+        {/* Cursos */}
         <section id="courses" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="courses-title">
           <h2 id="courses-title" className="text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
           <div className="w-24 h-1 bg-amber-500 mx-auto mb-12"></div>
 
           {/* Abas mantidas para navegação lógica, mas com estilo simplificado */}
-          <div className="flex gap-4 justify-center mb-12">
+          {/* <div className="flex gap-4 justify-center mb-12">
             <button className="px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105 shadow-sm" style={{ background: '#C9A961', color: 'white' }}>
               {t.courses.tab1}
             </button>
             <button className="px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105" style={{ border: `1px solid ${colors.border}`, color: isDark ? '#E5C57C' : '#C9A961' }}>
               {t.courses.tab2}
             </button>
-          </div>
+          </div> */}
 
-          {/* Grid de Cartões (Estilo igual a Serviços) */}
+          {/* Grid de Cartões */}
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
             {t.courses.list.map((course) => (
               <div key={course.title} className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02] flex flex-col h-full" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
@@ -543,13 +543,13 @@ export default function Home() {
 
                 <div className="mt-auto pt-6 border-t" style={{ borderColor: colors.border }}>
                   <p className="text-4xl font-bold mb-4" style={{ color: '#C9A961' }}>{course.price}</p>
-                  <a 
+                  {/* <a 
                     href="#contact" 
                     className="inline-block w-full px-6 py-3 rounded-lg font-semibold transition-all hover:brightness-110"
                     style={{ background: '#C9A961', color: 'white' }}
                   >
                     {t.courses.btn}
-                  </a>
+                  </a> */}
                 </div>
               </div>
             ))}
