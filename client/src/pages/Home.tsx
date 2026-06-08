@@ -457,6 +457,14 @@ export default function Home() {
     ? `${yearsOfExperience} anos de experiência em maquiagem profissional e transformação de beleza`
     : `${yearsOfExperience} years of experience in professional makeup and beauty transformation`;
 
+  // Configuração das URLs do WhatsApp com mensagens pré-definidas
+  const whatsappNumber = "553498109317";
+  const quoteMessagePt = encodeURIComponent("Olá! Gostaria de solicitar um orçamento para maquiagem.");
+  const scheduleMessagePt = encodeURIComponent("Olá! Gostaria de verificar disponibilidade para agendar um horário.");
+  
+  const quoteMessageEn = encodeURIComponent("Hello! I would like to request a quote for makeup services.");
+  const scheduleMessageEn = encodeURIComponent("Hello! I would like to check availability to schedule an appointment.");
+
   const colors = {
     navBg: isDark ? 'rgba(15, 15, 15, 0.95)' : 'rgba(255, 255, 255, 0.9)',
     textPrimary: isDark ? '#F9FAFB' : '#1F2937',
@@ -472,6 +480,19 @@ export default function Home() {
 
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
   const toggleTheme = () => setIsDark(prev => !prev);
+
+  // Determina qual URL usar baseada no idioma
+  const getQuoteUrl = () => {
+    return lang === 'pt' 
+      ? `https://wa.me/${whatsappNumber}?text=${quoteMessagePt}`
+      : `https://wa.me/${whatsappNumber}?text=${quoteMessageEn}`;
+  };
+
+  const getScheduleUrl = () => {
+    return lang === 'pt'
+      ? `https://wa.me/${whatsappNumber}?text=${scheduleMessagePt}`
+      : `https://wa.me/${whatsappNumber}?text=${scheduleMessageEn}`;
+  };
 
   const coursesList = t.courses.list.map((c) => ({
     ...c,
@@ -532,21 +553,15 @@ export default function Home() {
             right: 0,
             bottom: 0,
             backgroundImage: `url(${marbleBg})`,
-            // Cor de fundo visível caso a imagem falhe ou para contraste
             backgroundColor: isDark ? '#0f172a' : '#fefce8',
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
             backgroundPosition: 'center center',
             backgroundAttachment: 'fixed',
-            
-            // Opacidade controlada para não sumir com o conteúdo
             opacity: isDark ? 0.9 : 0.7,
-            
-            // Filtro leve: apenas escala de cinza e ajuste de brilho suave
             filter: isDark 
               ? 'grayscale(100%) invert(100%) brightness(1.3)' 
               : 'brightness(1.1)',
-              
             transition: 'opacity 0.5s ease, filter 0.5s ease'
           }}
         />
@@ -604,7 +619,8 @@ export default function Home() {
               <span className="sr-only">{t.a11y.instaLinkNav}</span>
               <Instagram size={20} />
             </a>
-            <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500">
+            {/* Botão genérico de WhatsApp na navegação mantém o link simples */}
+            <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500">
               <span className="sr-only">{t.a11y.whatsAppLinkNav}</span>
               <MessageCircle size={20} />
             </a>
@@ -623,8 +639,9 @@ export default function Home() {
             {t.hero.desc}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* BOTÃO SOLICITAR ORÇAMENTO COM MENSAGEM PRONTA */}
             <a
-              href="https://wa.me/553498109317"
+              href={getQuoteUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 hover:brightness-110 shadow-md flex items-center justify-center gap-2 min-w-[160px]"
@@ -633,8 +650,10 @@ export default function Home() {
               <MessageCircle size={18} />
               {t.hero.btn1}
             </a>
+            
+            {/* BOTÃO AGENDAR HORÁRIO COM MENSAGEM PRONTA */}
             <a
-              href="https://wa.me/553498109317"
+              href={getScheduleUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2 flex items-center justify-center gap-2 min-w-[160px]"
@@ -643,6 +662,7 @@ export default function Home() {
               <Calendar size={18} />
               {t.hero.btnSchedule}
             </a>
+
             <a
               href="#courses"
               className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 hover:bg-amber-50 dark:hover:bg-gray-800 shadow-md flex items-center justify-center gap-2 min-w-[160px]"
@@ -836,7 +856,8 @@ export default function Home() {
                   <p className="text-xl transition-colors" style={{ color: colors.textSecondary }}>CEP: 38700-000</p>
                 </address>
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                  <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all hover:shadow-lg hover:brightness-110" style={{ background: colors.accentGold, color: 'white' }}>{t.location.btn1}</a>
+                  {/* Botão WhatsApp na seção de Localização com mensagem pronta de contato geral */}
+                  <a href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(lang === 'pt' ? "Olá! Vi sua localização e gostaria de saber mais." : "Hello! I saw your location and would like to know more.")}`} target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all hover:shadow-lg hover:brightness-110" style={{ background: colors.accentGold, color: 'white' }}>{t.location.btn1}</a>
                   <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all border-2 hover:bg-amber-50 dark:hover:bg-gray-800" style={{ borderColor: colors.accentGold, color: colors.accentGold }}>{t.location.btn2}</a>
                 </div>
               </div>
