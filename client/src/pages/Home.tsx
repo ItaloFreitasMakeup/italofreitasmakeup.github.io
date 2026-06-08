@@ -521,17 +521,17 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 relative font-sans`}>
+    <div className={`min-h-screen transition-colors duration-300 relative font-sans ${isDark ? 'bg-gray-950' : 'bg-white'}`}>
       {/* Elemento de fundo fixo */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div 
-          className="absolute inset-0 transition-all duration-500 mix-blend-overlay opacity-30"
+          className="absolute inset-0 transition-all duration-500 mix-blend-overlay opacity-70"
           style={{ 
             backgroundImage: `url(${marbleBg})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
             // 🔧 MELHORIA: filtro invertido mais suave para modo escuro
-            filter: isDark ? 'invert(100%) grayscale(100%) brightness(-5%)' : '',
+            filter: isDark ? 'invert(100%) grayscale(100%) brightness(5%)' : '',
           }}
           onError={() => handleImageError('logo')}
         />
