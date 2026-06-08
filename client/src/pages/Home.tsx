@@ -15,13 +15,12 @@ import {
 } from "lucide-react";
 
 // --- Imports de Imagem (Com Fallback Handle) ---
-// Nota: Certifique-se que estes arquivos existem em ./lib/ ou ajuste o caminho.
 import marbleBg from "../lib/marble.png";
 import logoImg from "../lib/logo.png";
 import profileImg from "../lib/profile.jpg";
 import ringsImg from "../lib/rings.png";
 
-// --- Definições de Tipos (Solução do Erro de Tipagem) ---
+// --- Definições de Tipos ---
 interface A11yTexts {
   logoAlt: string;
   langBtn: string;
@@ -157,7 +156,6 @@ function StreamingCarousel({ posts, a11yTexts }: CarouselProps) {
   const checkScroll = () => {
     const container = scrollContainerRef.current;
     if (container) {
-      // Margem pequena para evitar falsos positivos em bordas
       setCanScrollLeft(container.scrollLeft > 0.5);
       setCanScrollRight(
         container.scrollLeft < (container.scrollWidth - container.clientWidth - 5)
@@ -440,7 +438,6 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>('pt');
   const [isDark, setIsDark] = useState(false);
   
-  // Estado para rastrear imagens carregadas
   const [imagesLoaded, setImagesLoaded] = useState({
     logo: true,
     profile: true,
@@ -471,11 +468,11 @@ export default function Home() {
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
   const toggleTheme = () => setIsDark(prev => !prev);
 
-  // Processar cursos conforme idioma
-  const coursesList = t.courses.list.map(c => ({
+  // ✅ CORREÇÃO PRINCIPAL: Lógica correta para alternar idiomas nos cursos
+  const coursesList = t.courses.list.map((c) => ({
     ...c,
-    desc: c.desc_pt,
-    content: c.content_pt
+    desc: lang === 'pt' ? c.desc_pt : c.desc_en,
+    content: lang === 'pt' ? c.content_pt : c.content_en,
   }));
 
   const unique = (arr: string[]) => [...new Set(arr)];
@@ -530,7 +527,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 transition-all duration-500 mix-blend-overlay opacity-40"
           style={{ 
-            backgroundImage: imagesLoaded.logo ? `url(${logoImg})` : `url(${marbleBg})`, 
+            backgroundImage: `url(${marbleBg})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
             filter: isDark ? 'invert(100%) grayscale(100%) brightness(0.5)' : 'grayscale(50%)',
