@@ -465,7 +465,7 @@ export default function Home() {
     border: isDark ? '#4B5563' : '#FEF3C7',
     notesBg: isDark ? 'rgba(40, 40, 40, 0.7)' : 'rgba(253, 245, 230, 0.8)',
     accentGold: '#C9A961',
-    accentDark: '#B45309',
+    accentDark: '#b4ab09',
   };
 
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
@@ -809,12 +809,6 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="p-8 rounded-lg shadow-lg w-full transition-colors" style={{ background: colors.cardBg }}>
-              <h3 className="text-2xl font-serif font-bold mb-6 text-center" style={{ color: colors.textPrimary }}>{t.contact.subtitle2}</h3>
-              <p className="text-center text-sm text-gray-500 italic">
-                O formulário de contato estará disponível em breve.
-              </p>
-            </div>
           </div>
         </section>
 
