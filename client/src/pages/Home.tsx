@@ -366,7 +366,7 @@ const translations: Record<Lang, TranslationSet> = {
     hero: { 
       subtitle: "Makeup Professional", 
       desc: "Specialized in professional makeup for events, audiovisual productions, and beauty transformations. Offering personalized courses and consulting.", 
-      btn1: "Request Quote via WhatsApp",
+      btn1: "Request Quote",
       btnSchedule: "Schedule Appointment",
       btn2: "View Courses" 
     },
@@ -525,7 +525,7 @@ export default function Home() {
             backgroundImage: `url(${marbleBg})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
-            filter: isDark ? 'invert(100%) grayscale(100%) brightness(0.1)' : '',
+            filter: isDark ? 'invert(100%) grayscale(100%) brightness(10%)' : '',
           }}
           onError={() => handleImageError('logo')}
         />
