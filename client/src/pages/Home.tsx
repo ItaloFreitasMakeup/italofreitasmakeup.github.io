@@ -531,7 +531,7 @@ export default function Home() {
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
             // 🔧 MELHORIA: filtro invertido mais suave para modo escuro
-            filter: isDark ? 'invert(100%) grayscale(100%) brightness(5%)' : '',
+            filter: isDark ? 'invert(100%) grayscale(100%) brightness(-5%)' : '',
           }}
           onError={() => handleImageError('logo')}
         />
