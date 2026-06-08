@@ -520,7 +520,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 relative font-sans ${isDark ? 'bg-gray-950' : 'bg-white'}`}>
+    <div className={`min-h-screen transition-colors duration-300 relative font-sans`}>
       
       {/* --- FUNDO CORRIGIDO --- */}
       <div className="fixed inset-0 z-[-1] pointer-events-none" aria-hidden="true">
