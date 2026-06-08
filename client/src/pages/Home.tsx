@@ -14,7 +14,8 @@ import {
   GraduationCap
 } from "lucide-react";
 
-// --- Imports de Imagem (Com Fallback Handle) ---
+// --- Imports de Imagem ---
+// Certifique-se de que marble.png está em ./lib/marble.png
 import marbleBg from "../lib/marble.png";
 import logoImg from "../lib/logo.png";
 import profileImg from "../lib/profile.jpg";
@@ -443,7 +444,7 @@ export default function Home() {
     logo: true,
     profile: true,
     rings: true,
-    marbleBg: true  // 🔧 Adicionado tracking para marbleBg
+    marbleBg: true
   });
 
   const t = translations[lang];
@@ -456,7 +457,6 @@ export default function Home() {
     ? `${yearsOfExperience} anos de experiência em maquiagem profissional e transformação de beleza`
     : `${yearsOfExperience} years of experience in professional makeup and beauty transformation`;
 
-  // 🔧 MELHORIAS PARA MODO ESCURO - Cores otimizadas para melhor contraste
   const colors = {
     navBg: isDark ? 'rgba(15, 15, 15, 0.95)' : 'rgba(255, 255, 255, 0.9)',
     textPrimary: isDark ? '#F9FAFB' : '#1F2937',
@@ -473,7 +473,6 @@ export default function Home() {
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
   const toggleTheme = () => setIsDark(prev => !prev);
 
-  // ✅ CORREÇÃO PRINCIPAL: Lógica correta para alternar idiomas nos cursos
   const coursesList = t.courses.list.map((c) => ({
     ...c,
     desc: lang === 'pt' ? c.desc_pt : c.desc_en,
@@ -516,30 +515,43 @@ export default function Home() {
   ]);
 
   const handleImageError = (key: keyof typeof imagesLoaded) => {
-    console.warn(`Imagem não encontrada: ${key}. Usando fallback.`);
+    console.warn(`Imagem não encontrada: ${key}.`, key === 'marbleBg' ? 'Verifique se marble.png está na pasta ./lib/' : '');
     setImagesLoaded(prev => ({ ...prev, [key]: false }));
   };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 relative font-sans ${isDark ? 'bg-gray-950' : 'bg-white'}`}>
-      {/* Elemento de fundo fixo - 🔧 CORREÇÕES DE FUNDO */}
-      <div className="fixed inset-0 z-[-1]" aria-hidden="true">
-        <div 
-          className="absolute inset-0 transition-all duration-500 opacity-50"
-          style={{ 
-            // 🔧 REMOVIDO: mix-blend-overlay (pode esconder a imagem)
+      
+      {/* --- FUNDO CORRIGIDO --- */}
+      <div className="fixed inset-0 z-[-1] pointer-events-none" aria-hidden="true">
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             backgroundImage: `url(${marbleBg})`,
+            // Cor de fundo visível caso a imagem falhe ou para contraste
+            backgroundColor: isDark ? '#0f172a' : '#fefce8',
             backgroundRepeat: 'repeat',
-            // 🔧 ALTERADO: backgroundSize para um valor fixo que funciona bem com padrões
             backgroundSize: '400px',
-            // 🔧 MELHORADO: filtro mais suave que preserva visibilidade no modo escuro
+            backgroundPosition: 'center center',
+            backgroundAttachment: 'fixed',
+            
+            // Opacidade controlada para não sumir com o conteúdo
+            opacity: isDark ? 0.15 : 0.12,
+            
+            // Filtro leve: apenas escala de cinza e ajuste de brilho suave
             filter: isDark 
-              ? 'brightness(0.4) saturate(0.3) contrast(1.2)' 
-              : 'brightness(0.8) saturate(0.7)',
+              ? 'grayscale(100%) brightness(1.3)' 
+              : 'grayscale(50%) brightness(1.1)',
+              
+            transition: 'opacity 0.5s ease, filter 0.5s ease'
           }}
-          // 🔧 REMOVIDO: onError deste div (não funciona com backgroundImage)
         />
       </div>
+      {/* --- FIM DO FUNDO CORRIGIDO --- */}
       
       {/* Navegação */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300 shadow-sm" 
