@@ -535,7 +535,7 @@ export default function Home() {
             // Cor de fundo visível caso a imagem falhe ou para contraste
             backgroundColor: isDark ? '#0f172a' : '#fefce8',
             backgroundRepeat: 'repeat',
-            backgroundSize: '400px',
+            backgroundSize: '100%',
             backgroundPosition: 'center center',
             backgroundAttachment: 'fixed',
             
@@ -545,7 +545,7 @@ export default function Home() {
             // Filtro leve: apenas escala de cinza e ajuste de brilho suave
             filter: isDark 
               ? 'grayscale(100%) brightness(1.3)' 
-              : 'grayscale(50%) brightness(1.1)',
+              : 'brightness(1.1)',
               
             transition: 'opacity 0.5s ease, filter 0.5s ease'
           }}
