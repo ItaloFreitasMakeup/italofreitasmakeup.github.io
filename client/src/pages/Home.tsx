@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+
 import { ChevronLeft, ChevronRight, Instagram, MessageCircle, Moon, Sun, Languages, Calendar, MapPin, Mail, BookOpen, User, GraduationCap } from "lucide-react";
 
 // Imagens (assegure-se que estas existam na pasta lib/ do seu projeto)
@@ -48,7 +49,6 @@ function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: a
   };
 
   const getPostId = (url: string) => {
-    // Suporta links normais e embeds com parâmetros
     const match = url.match(/\/p\/([^/]+)|\/reel\/([^/]+)/);
     return match ? (match[1] || match[2]) : '';
   };
@@ -350,7 +350,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 transition-all duration-500"
           style={{ 
-            backgroundImage: `url(${marbleBg.src})`, 
+            backgroundImage: `url(${marbleBg})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
             filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
@@ -364,7 +364,7 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src={logoImg.src} alt={t.a11y.logoAlt} className="h-10 w-10 object-contain" />
+            <img src={logoImg} alt={t.a11y.logoAlt} className="h-10 w-10 object-contain" />
           </div>
           
           <div className="hidden md:flex items-center gap-8">
@@ -445,11 +445,11 @@ export default function Home() {
           <h2 id="about-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.about.title}</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="rounded-lg overflow-hidden shadow-2xl">
-              <img src={profileImg.src} alt={t.a11y.profileAlt} className="w-full h-auto object-cover" />
+              <img src={profileImg} alt={t.a11y.profileAlt} className="w-full h-auto object-cover" />
             </div>
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img src={ringsImg.src} alt="" aria-hidden="true" width="32" height="32" style={{ objectFit: 'contain', filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
+                <img src={ringsImg} alt="" aria-hidden="true" width="32" height="32" style={{ objectFit: 'contain', filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
                 <h3 className="text-3xl font-serif font-bold transition-colors" style={{ color: colors.textPrimary }}>Italo Freitas</h3>
               </div>
               <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>
@@ -507,58 +507,66 @@ export default function Home() {
           <StreamingCarousel posts={eventPosts} a11yTexts={t.a11y} />
         </section>
 
-        {/* Cursos - MOVIDO PARA ANTES DA LOCALIZAÇÃO */}
-        <section id="courses" className="py-20 container mx-auto px-4">
-          <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
-          
-          <div className="max-w-6xl mx-auto">
-            <div className="flex gap-4 justify-center mb-8">
-              <button className="px-8 py-3 rounded-lg font-semibold text-lg shadow-md transition-all hover:scale-105" style={{ background: '#C9A961', color: 'white' }}>
-                {t.courses.tab1}
-              </button>
-              <button className="px-8 py-3 rounded-lg font-semibold text-lg border-2 transition-all hover:bg-amber-50 dark:hover:bg-gray-800" style={{ borderColor: '#C9A961', color: isDark ? '#E5C57C' : '#C9A961' }}>
-                {t.courses.tab2}
-              </button>
-            </div>
+        {/* Cursos - Atualizado para parecer com Serviços */}
+        <section id="courses" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="courses-title">
+          <h2 id="courses-title" className="text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
+          <div className="w-24 h-1 bg-amber-500 mx-auto mb-12"></div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              {t.courses.list.map((course) => (
-                <div key={course.title} className="p-8 rounded-xl shadow-lg transition-all hover:shadow-2xl transform hover:-translate-y-1 flex flex-col h-full" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="p-3 rounded-full" style={{ background: 'rgba(201, 169, 97, 0.1)' }}>
-                      <User size={24} className="text-amber-600" />
-                    </div>
-                    <h3 className="text-2xl font-serif font-bold" style={{ color: colors.textPrimary }}>{course.title}</h3>
-                  </div>
-                  <p className="mb-4 text-base leading-relaxed" style={{ color: colors.textSecondary }}>{course.desc}</p>
-                  <div className="flex-grow">
-                    <p className="text-sm italic mb-4" style={{ color: isDark ? '#9CA3AF' : '#666' }}>
-                      <strong>{t.courses.contentLabel}</strong> {course.content}
-                    </p>
-                  </div>
-                  <div className="mt-6 pt-6 border-t flex items-center justify-between" style={{ borderColor: colors.border }}>
-                    <p className="text-2xl font-bold" style={{ color: '#C9A961' }}>{course.price}</p>
-                    <a href="#contact" className="inline-flex items-center gap-2 px-6 py-2 rounded-lg font-semibold transition-all hover:bg-amber-600 hover:text-white" style={{ color: '#C9A961' }}>
-                      {t.courses.btn} <span>→</span>
-                    </a>
-                  </div>
+          {/* Abas mantidas para navegação lógica, mas com estilo simplificado */}
+          <div className="flex gap-4 justify-center mb-12">
+            <button className="px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105 shadow-sm" style={{ background: '#C9A961', color: 'white' }}>
+              {t.courses.tab1}
+            </button>
+            <button className="px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105" style={{ border: `1px solid ${colors.border}`, color: isDark ? '#E5C57C' : '#C9A961' }}>
+              {t.courses.tab2}
+            </button>
+          </div>
+
+          {/* Grid de Cartões (Estilo igual a Serviços) */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+            {t.courses.list.map((course) => (
+              <div key={course.title} className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02] flex flex-col h-full" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
+                
+                <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: colors.textPrimary }}>
+                  {course.title}
+                </h3>
+                
+                <p className="text-base mb-6 leading-relaxed" style={{ color: colors.textSecondary }}>
+                  {course.desc}
+                </p>
+
+                <div className="flex-grow mb-4">
+                  <p className="text-sm italic" style={{ color: isDark ? '#9CA3AF' : '#666' }}>
+                    <strong>{t.courses.contentLabel}</strong> {course.content}
+                  </p>
                 </div>
-              ))}
-            </div>
 
-            {/* Notas informativas sobre cursos - Centralizadas e embelezadas */}
-            <div className="bg-gradient-to-r from-amber-50 to-white dark:from-gray-800 dark:to-gray-700 p-8 rounded-2xl shadow-inner border max-w-4xl mx-auto" style={{ borderColor: colors.border }}>
-              <div className="space-y-4 text-center">
-                <p className="text-base font-medium" style={{ color: colors.textSecondary }}>
-                  <span className="inline-block mr-2">💳</span> {t.courses.notes.payment}
-                </p>
-                <p className="text-base font-medium" style={{ color: colors.textSecondary }}>
-                  <span className="inline-block mr-2">❤️</span> {t.courses.notes.modelsFee}
-                </p>
-                <p className="text-xl font-bold mt-4" style={{ color: '#C9A961' }}>
-                  <span className="inline-block mr-2">✨</span> {t.courses.notes.specialty}
-                </p>
+                <div className="mt-auto pt-6 border-t" style={{ borderColor: colors.border }}>
+                  <p className="text-4xl font-bold mb-4" style={{ color: '#C9A961' }}>{course.price}</p>
+                  <a 
+                    href="#contact" 
+                    className="inline-block w-full px-6 py-3 rounded-lg font-semibold transition-all hover:brightness-110"
+                    style={{ background: '#C9A961', color: 'white' }}
+                  >
+                    {t.courses.btn}
+                  </a>
+                </div>
               </div>
+            ))}
+          </div>
+
+          {/* Notas Informativas - Mantidas abaixo com destaque sutil */}
+          <div className="bg-gradient-to-r from-amber-50 to-white dark:from-gray-800 dark:to-gray-700 p-6 rounded-xl shadow-inner border max-w-3xl mx-auto text-center" style={{ borderColor: colors.border }}>
+            <div className="space-y-3">
+              <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
+                <span className="inline-block mr-2">💳</span> {t.courses.notes.payment}
+              </p>
+              <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
+                <span className="inline-block mr-2">❤️</span> {t.courses.notes.modelsFee}
+              </p>
+              <p className="text-lg font-bold mt-2" style={{ color: '#C9A961' }}>
+                <span className="inline-block mr-2">✨</span> {t.courses.notes.specialty}
+              </p>
             </div>
           </div>
         </section>
@@ -641,7 +649,7 @@ export default function Home() {
         <p className="transition-colors mb-2" style={{ color: colors.textSecondary }}>{t.footer.rights}</p>
         <p className="flex items-center justify-center gap-2 text-sm transition-colors" style={{ color: isDark ? '#9CA3AF' : '#999' }}>
           {t.footer.dev} <span aria-hidden="true">❤️</span>
-          <img src={ringsImg.src} alt="" aria-hidden="true" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
+          <img src={ringsImg} alt="" aria-hidden="true" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
         </p>
       </footer>
     </div>
