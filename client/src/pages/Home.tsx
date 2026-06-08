@@ -11,7 +11,7 @@ import {
   Languages, 
   Calendar, 
   MapPin, 
-  GraduationCap 
+  GraduationCap
 } from "lucide-react";
 
 // --- Imports de Imagem (Com Fallback Handle) ---
@@ -224,12 +224,13 @@ function StreamingCarousel({ posts, a11yTexts }: CarouselProps) {
           return (
             <div
               key={`${post}-${postId}`}
-              className="flex-shrink-0 relative rounded-lg overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700"
+              className="flex-shrink-0 relative rounded-lg overflow-hidden shadow-xl border transition-colors duration-300"
               style={{
                 width: 'clamp(220px, 28vw, 320px)',
                 aspectRatio: '9/16',
                 scrollSnapAlign: 'start',
-                backgroundColor: '#f3f3f3'
+                backgroundColor: '#f5f5f5',
+                borderColor: 'rgba(75, 85, 99, 0.3)'
               }}
             >
               <iframe
@@ -454,15 +455,19 @@ export default function Home() {
     ? `${yearsOfExperience} anos de experiência em maquiagem profissional e transformação de beleza`
     : `${yearsOfExperience} years of experience in professional makeup and beauty transformation`;
 
+  // 🔧 MELHORIAS PARA MODO ESCURO - Cores otimizadas para melhor contraste
   const colors = {
-    navBg: isDark ? 'rgba(18, 18, 18, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-    textPrimary: isDark ? '#F3F4F6' : '#2A2A2A',
-    textSecondary: isDark ? '#D1D5DB' : '#4A4A4A',
-    cardBg: isDark ? 'rgba(30, 30, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+    navBg: isDark ? 'rgba(15, 15, 15, 0.95)' : 'rgba(255, 255, 255, 0.9)',
+    textPrimary: isDark ? '#F9FAFB' : '#1F2937',
+    textSecondary: isDark ? '#D1D5DB' : '#4B5563',
+    cardBg: isDark ? 'rgba(25, 25, 25, 0.95)' : 'rgba(255, 255, 255, 0.95)',
     border: isDark ? '#4B5563' : '#FEF3C7',
-    notesBg: isDark ? 'rgba(40, 40, 40, 0.7)' : 'rgba(253, 245, 230, 0.8)',
+    notesBg: isDark ? 'rgba(35, 35, 35, 0.85)' : 'rgba(254, 243, 199, 0.8)',
     accentGold: '#C9A961',
     accentDark: '#b4ab09',
+    eventsSectionBg: isDark ? 'rgba(10, 10, 10, 0.5)' : 'rgba(255,255,255,0.5)',
+    // Novo: cor mais escura para elementos em destaque no modo escuro
+    goldTextInverted: isDark ? '#FCD34D' : '#C9A961',
   };
 
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
@@ -516,16 +521,17 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen transition-colors duration-300 relative font-sans">
+    <div className={`min-h-screen transition-colors duration-300 relative font-sans ${isDark ? 'bg-gray-950' : 'bg-white'}`}>
       {/* Elemento de fundo fixo */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div 
-          className="absolute inset-0 transition-all duration-500 mix-blend-overlay opacity-40"
+          className="absolute inset-0 transition-all duration-500 mix-blend-overlay opacity-30"
           style={{ 
             backgroundImage: `url(${marbleBg})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
-            filter: isDark ? 'invert(100%) grayscale(100%) brightness(10%)' : '',
+            // 🔧 MELHORIA: filtro invertido mais suave para modo escuro
+            filter: isDark ? 'invert(100%) grayscale(100%) brightness(5%)' : '',
           }}
           onError={() => handleImageError('logo')}
         />
@@ -548,15 +554,15 @@ export default function Home() {
             {[t.nav.about, t.nav.portfolio, t.nav.courses, t.nav.contact, t.nav.location].map((item, idx) => {
                const ids = ['about', 'portfolio', 'courses', 'contact', 'location'];
                return (
-                 <a 
-                   key={idx} 
-                   href={`#${ids[idx]}`} 
-                   className="text-sm font-medium hover:text-amber-600 transition-colors" 
-                   style={{ color: colors.textPrimary }}
-                 >
-                   {item}
-                 </a>
-               );
+                <a 
+                  key={idx} 
+                  href={`#${ids[idx]}`} 
+                  className="text-sm font-medium hover:text-amber-600 transition-colors" 
+                  style={{ color: colors.textPrimary }}
+                >
+                  {item}
+                </a>
+              );
             })}
           </div>
 
@@ -686,13 +692,13 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02] group" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
               <h3 className="text-2xl font-serif font-bold mb-3" style={{ color: colors.textPrimary }}>{t.services.singleTitle}</h3>
-              <p className="text-4xl font-bold my-4 tracking-wide" style={{ color: colors.accentGold }}>{t.services.singlePrice}</p>
+              <p className="text-4xl font-bold my-4 tracking-wide" style={{ color: colors.goldTextInverted }}>{t.services.singlePrice}</p>
               <p className="text-sm transition-colors mt-4" style={{ color: colors.textSecondary }}>{t.services.singleDesc}</p>
             </div>
 
             <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02] group" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
               <h3 className="text-2xl font-serif font-bold mb-3" style={{ color: colors.textPrimary }}>{t.services.packageTitle}</h3>
-              <p className="text-3xl font-bold my-4 italic" style={{ color: colors.accentGold }}>{t.services.packagePrice}</p>
+              <p className="text-3xl font-bold my-4 italic" style={{ color: colors.goldTextInverted }}>{t.services.packagePrice}</p>
               <p className="text-sm transition-colors mt-4" style={{ color: colors.textSecondary }}>{t.services.packageDesc}</p>
             </div>
           </div>
@@ -707,7 +713,7 @@ export default function Home() {
         </section>
 
         {/* Eventos */}
-        <section className="py-20 container mx-auto px-4 bg-opacity-50" style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.5)' }}>
+        <section className="py-20 container mx-auto px-4 bg-opacity-50 transition-colors duration-300" style={{ backgroundColor: colors.eventsSectionBg }}>
           <h2 className="text-4xl md:text-5xl font-serif font-bold mb-12 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.events.title}</h2>
           <StreamingCarousel posts={eventPosts} a11yTexts={t.a11y} />
         </section>
@@ -730,8 +736,8 @@ export default function Home() {
                     {course.desc}
                   </p>
 
-                  <div className="mb-6 bg-opacity-10 p-4 rounded-lg" style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }}>
-                    <p className="text-sm italic leading-relaxed" style={{ color: isDark ? '#9CA3AF' : '#666' }}>
+                  <div className="mb-6 bg-opacity-10 p-4 rounded-lg" style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)' }}>
+                    <p className="text-sm italic leading-relaxed" style={{ color: isDark ? '#E5E7EB' : '#666' }}>
                       <strong>{t.courses.contentLabel}</strong> {course.content}
                     </p>
                   </div>
@@ -740,12 +746,12 @@ export default function Home() {
                 <div className="mt-auto pt-6 border-t space-y-2" style={{ borderColor: colors.border }}>
                   {Array.isArray(course.priceData) ? (
                     course.priceData.map((priceLine, idx) => (
-                      <p key={idx} className="text-xl md:text-2xl font-bold" style={{ color: colors.accentGold }}>
+                      <p key={idx} className="text-xl md:text-2xl font-bold" style={{ color: colors.goldTextInverted }}>
                         {priceLine}
                       </p>
                     ))
                   ) : (
-                    <p className="text-3xl font-bold" style={{ color: colors.accentGold }}>{course.priceData}</p>
+                    <p className="text-3xl font-bold" style={{ color: colors.goldTextInverted }}>{course.priceData}</p>
                   )}
                 </div>
               </div>
