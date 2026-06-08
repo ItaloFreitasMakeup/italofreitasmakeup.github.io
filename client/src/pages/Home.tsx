@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, Instagram, MessageCircle, Moon, Sun, Languages, Calendar, MapPin, Mail, BookOpen, User } from "lucide-react";
+import { ChevronLeft, ChevronRight, Instagram, MessageCircle, Moon, Sun, Languages, Calendar, MapPin, Mail, BookOpen, User, GraduationCap } from "lucide-react";
 
 // Imagens (assegure-se que estas existam na pasta lib/ do seu projeto)
 import marbleBg from "../lib/marble.png";
@@ -186,7 +186,7 @@ const translations = {
         },
       ],
       notes: {
-        payment: "Pagamento à vista ou até 2x no cartão. Parcelamento em mais vezes disponível com taxas da máquina.",
+        payment: "Pagamento à vista ou até 2x sem juros no cartão.",
         modelsFee: "Valor já inclui cachês das modelos ❤️",
         specialty: "Minha especialidade é realçar a beleza feminina sem transformar! ✨"
       }
@@ -267,7 +267,7 @@ const translations = {
         },
       ],
       notes: {
-        payment: "Cash or up to 2x on card. Extended installment plans available with machine fees.",
+        payment: "Cash or up to 2x interest-free on card.",
         modelsFee: "Price includes model fees ❤️",
         specialty: "My specialty is enhancing feminine beauty without transforming! ✨"
       }
@@ -350,7 +350,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 transition-all duration-500"
           style={{ 
-            backgroundImage: `url(${marbleBg})`, 
+            backgroundImage: `url(${marbleBg.src})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
             filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
@@ -423,11 +423,10 @@ export default function Home() {
               href="https://wa.me/553498109317"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2 flex items-center justify-center gap-2 gap-2"
+              className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2 flex items-center justify-center gap-2"
               style={{ borderColor: '#C9A961', color: '#C9A961' }}
             >
               <Calendar size={18} />
-              <BookOpen size={18} />
               {t.hero.btnSchedule}
             </a>
             <a
@@ -435,6 +434,7 @@ export default function Home() {
               className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 shadow-md flex items-center justify-center gap-2"
               style={{ background: '#C9A961', color: 'white' }}
             >
+              <GraduationCap size={18} />
               {t.hero.btn2}
             </a>
           </div>
@@ -507,80 +507,95 @@ export default function Home() {
           <StreamingCarousel posts={eventPosts} a11yTexts={t.a11y} />
         </section>
 
-        {/* Localização */}
-        <section id="location" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="location-title">
-          <h2 id="location-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
-          <div className="w-full max-w-5xl grid md:grid-cols-2 gap-12 items-center justify-items-center">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>{t.location.addressTitle}</h3>
-              <address className="not-italic">
-                <p className="text-lg font-semibold mb-2 transition-colors" style={{ color: colors.textSecondary }}>Rua Dona Maria Resende, 171</p>
-                <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>Vila Garcia - Patos de Minas, MG</p>
-                <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>CEP: 38700-000</p>
-              </address>
-              <div className="flex gap-4 justify-center md:justify-start">
-                <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="px-6 py-2 rounded-lg font-semibold transition-all" style={{ background: '#C9A961', color: 'white' }}>{t.location.btn1}</a>
-                <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="px-6 py-2 rounded-lg font-semibold transition-all border-2" style={{ borderColor: '#C9A961', color: '#C9A961' }}>{t.location.btn2}</a>
-              </div>
-            </div>
-            <div className="rounded-lg overflow-hidden shadow-lg h-96 w-full">
-              <iframe
-                title={t.a11y.mapTitle}
-                src="https://maps.google.com/maps?q=Rua+Dona+Maria+Resende,+171+Vila+Garcia+Patos+de+Minas&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0, borderRadius: '8px' }}
-                allowFullScreen
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Cursos */}
+        {/* Cursos - MOVIDO PARA ANTES DA LOCALIZAÇÃO */}
         <section id="courses" className="py-20 container mx-auto px-4">
           <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
           
-          <div className="mb-12">
+          <div className="max-w-6xl mx-auto">
             <div className="flex gap-4 justify-center mb-8">
-              <button className="px-6 py-2 rounded-lg font-semibold" style={{ background: '#C9A961', color: 'white' }}>
+              <button className="px-8 py-3 rounded-lg font-semibold text-lg shadow-md transition-all hover:scale-105" style={{ background: '#C9A961', color: 'white' }}>
                 {t.courses.tab1}
               </button>
-              <button className="px-6 py-2 rounded-lg font-semibold border-2 transition-colors" style={{ borderColor: '#C9A961', color: isDark ? '#E5C57C' : '#C9A961' }}>
+              <button className="px-8 py-3 rounded-lg font-semibold text-lg border-2 transition-all hover:bg-amber-50 dark:hover:bg-gray-800" style={{ borderColor: '#C9A961', color: isDark ? '#E5C57C' : '#C9A961' }}>
                 {t.courses.tab2}
               </button>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
               {t.courses.list.map((course) => (
-                <div key={course.title} className="p-6 rounded-lg shadow-lg transition-all hover:shadow-xl" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <User size={20} className="text-amber-600" />
-                    <h3 className="text-xl font-serif font-bold" style={{ color: colors.textPrimary }}>{course.title}</h3>
+                <div key={course.title} className="p-8 rounded-xl shadow-lg transition-all hover:shadow-2xl transform hover:-translate-y-1 flex flex-col h-full" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-full" style={{ background: 'rgba(201, 169, 97, 0.1)' }}>
+                      <User size={24} className="text-amber-600" />
+                    </div>
+                    <h3 className="text-2xl font-serif font-bold" style={{ color: colors.textPrimary }}>{course.title}</h3>
                   </div>
-                  <p className="mb-3 text-sm" style={{ color: colors.textSecondary }}>{course.desc}</p>
-                  <p className="text-xs mb-4 italic" style={{ color: isDark ? '#9CA3AF' : '#666' }}>{t.courses.contentLabel} {course.content}</p>
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t" style={{ borderColor: colors.border }}>
-                    <p className="text-lg font-bold" style={{ color: '#C9A961' }}>{course.price}</p>
-                    <a href="#contact" className="text-sm font-semibold hover:underline" style={{ color: '#C9A961' }}>
-                      {t.courses.btn} →
+                  <p className="mb-4 text-base leading-relaxed" style={{ color: colors.textSecondary }}>{course.desc}</p>
+                  <div className="flex-grow">
+                    <p className="text-sm italic mb-4" style={{ color: isDark ? '#9CA3AF' : '#666' }}>
+                      <strong>{t.courses.contentLabel}</strong> {course.content}
+                    </p>
+                  </div>
+                  <div className="mt-6 pt-6 border-t flex items-center justify-between" style={{ borderColor: colors.border }}>
+                    <p className="text-2xl font-bold" style={{ color: '#C9A961' }}>{course.price}</p>
+                    <a href="#contact" className="inline-flex items-center gap-2 px-6 py-2 rounded-lg font-semibold transition-all hover:bg-amber-600 hover:text-white" style={{ color: '#C9A961' }}>
+                      {t.courses.btn} <span>→</span>
                     </a>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Notas informativas sobre cursos */}
-            <div className="max-w-4xl mx-auto space-y-4 p-6 rounded-lg" style={{ background: isDark ? 'rgba(50, 50, 50, 0.8)' : 'rgba(255, 250, 240, 0.8)', border: `1px solid ${colors.border}` }}>
-              <p className="text-center text-sm" style={{ color: colors.textSecondary }}>
-                <span aria-hidden="true">💳</span> {t.courses.notes.payment}
-              </p>
-              <p className="text-center text-sm" style={{ color: colors.textSecondary }}>
-                <span aria-hidden="true">❤️</span> {t.courses.notes.modelsFee}
-              </p>
-              <p className="text-center font-semibold" style={{ color: '#C9A961' }}>
-                <span aria-hidden="true">✨</span> {t.courses.notes.specialty}
-              </p>
+            {/* Notas informativas sobre cursos - Centralizadas e embelezadas */}
+            <div className="bg-gradient-to-r from-amber-50 to-white dark:from-gray-800 dark:to-gray-700 p-8 rounded-2xl shadow-inner border max-w-4xl mx-auto" style={{ borderColor: colors.border }}>
+              <div className="space-y-4 text-center">
+                <p className="text-base font-medium" style={{ color: colors.textSecondary }}>
+                  <span className="inline-block mr-2">💳</span> {t.courses.notes.payment}
+                </p>
+                <p className="text-base font-medium" style={{ color: colors.textSecondary }}>
+                  <span className="inline-block mr-2">❤️</span> {t.courses.notes.modelsFee}
+                </p>
+                <p className="text-xl font-bold mt-4" style={{ color: '#C9A961' }}>
+                  <span className="inline-block mr-2">✨</span> {t.courses.notes.specialty}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Localização */}
+        <section id="location" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="location-title">
+          <h2 id="location-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
+          <div className="w-full max-w-5xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-12 items-center justify-center">
+              
+              {/* Coluna de Texto Centralizada */}
+              <div className="text-center md:text-center w-full">
+                <h3 className="text-3xl font-serif font-bold mb-6 transition-colors" style={{ color: colors.textPrimary }}>{t.location.addressTitle}</h3>
+                <address className="not-italic mb-8">
+                  <p className="text-xl font-semibold mb-2 transition-colors" style={{ color: colors.textSecondary }}>Rua Dona Maria Resende, 171</p>
+                  <p className="text-xl mb-2 transition-colors" style={{ color: colors.textSecondary }}>Vila Garcia - Patos de Minas, MG</p>
+                  <p className="text-xl transition-colors" style={{ color: colors.textSecondary }}>CEP: 38700-000</p>
+                </address>
+                <div className="flex flex-wrap gap-4 justify-center">
+                  <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all hover:shadow-lg" style={{ background: '#C9A961', color: 'white' }}>{t.location.btn1}</a>
+                  <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all border-2 hover:bg-amber-50 dark:hover:bg-gray-800" style={{ borderColor: '#C9A961', color: '#C9A961' }}>{t.location.btn2}</a>
+                </div>
+              </div>
+
+              {/* Mapa Centralizado */}
+              <div className="w-full max-w-md rounded-xl overflow-hidden shadow-2xl h-80">
+                <iframe
+                  title={t.a11y.mapTitle}
+                  src="https://maps.google.com/maps?q=Rua+Dona+Maria+Resende,+171+Vila+Garcia+Patos+de+Minas&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+
             </div>
           </div>
         </section>
@@ -589,20 +604,20 @@ export default function Home() {
         <section id="contact" className="py-20 container mx-auto px-4 flex flex-col items-center border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="contact-title">
           <h2 id="contact-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
           <div className="w-full max-w-4xl grid md:grid-cols-2 gap-12 justify-items-center">
-            <div className="text-center md:text-left space-y-6">
+            <div className="text-center md:text-center space-y-6">
               <h3 className="text-2xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>{t.contact.subtitle1}</h3>
               
-              <div className="flex items-center gap-3 justify-center md:justify-start">
+              <div className="flex items-center gap-3 justify-center">
                 <MessageCircle className="text-amber-600" size={24} />
                 <p className="text-lg" style={{ color: colors.textSecondary }}>+55 34 9810-9317</p>
               </div>
               
-              <div className="flex items-center gap-3 justify-center md:justify-start">
+              <div className="flex items-center gap-3 justify-center">
                 <Instagram className="text-amber-600" size={24} />
                 <p className="text-lg" style={{ color: colors.textSecondary }}>@italofreitasmakeup</p>
               </div>
 
-              <div className="flex items-center gap-3 justify-center md:justify-start">
+              <div className="flex items-center gap-3 justify-center">
                 <MapPin className="text-amber-600" size={24} />
                 <p className="text-lg" style={{ color: colors.textSecondary }}>Patos de Minas, MG</p>
               </div>
