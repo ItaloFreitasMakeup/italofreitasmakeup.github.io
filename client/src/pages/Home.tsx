@@ -177,12 +177,12 @@ const translations = {
           title: "Curso Profissional de Maquiagem", 
           desc: "Curso completo para profissionais e iniciantes", 
           content: "Aulas práticas, todo material incluso, técnicas escolhidas pelo aluno, preparação completa de pele, técnica de pele resistente, dicas de iluminação e fotos.", 
-          price: "1 técnica: R$ 450,00\n2 técnicas: R$ 550,00\n3 técnicas: R$ 750,00" 
+          price: "1 técnica: R$ 450,00 </br> 2 técnicas: R$ 550,00 </br> 3 técnicas: R$ 750,00" 
         },
         { 
           title: "Curso de Auto Maquiagem", 
           desc: "Embelezamento diário com agilidade e praticidade", 
-          content: "Aulas práticas, material incluso, lista de materiais essenciais, preparo completo da pele, técnicas usáveis no dia a dia ou artísticas (opcional), passo a passo personalizado.", 
+          content: "Aulas práticas, material incluso, lista de materiais essenciais, preparo completo da pele, técnicas úteis no dia a dia ou artísticas (opcional), passo a passo personalizado.", 
           price: "2 técnicas: R$ 450,00" 
         },
       ],
@@ -259,7 +259,7 @@ const translations = {
           title: "Professional Makeup Course", 
           desc: "Complete course for professionals and beginners", 
           content: "Practical classes, all materials included, techniques chosen by student, complete skin preparation, resistant skin technique, lighting and photo tips.", 
-          price: "1 technique: R$450\n2 techniques: R$550\n3 techniques: R$750" 
+          price: "1 technique: R$450 </br> 2 techniques: R$550 </br> 3 techniques: R$750" 
         },
         { 
           title: "Self-Makeup Course", 
