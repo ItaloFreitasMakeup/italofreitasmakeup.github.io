@@ -548,9 +548,6 @@ export default function Home() {
               className="h-10 w-10 object-contain"
               onError={() => handleImageError('logo')}
             />
-            <span className={`hidden sm:block font-serif font-bold text-lg ${isDark ? 'text-white' : 'text-gray-800'}`}>
-              Italo Freitas
-            </span>
           </div>
           
           <div className="hidden md:flex items-center gap-8">
