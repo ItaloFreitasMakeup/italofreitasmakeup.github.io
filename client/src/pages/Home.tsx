@@ -1,27 +1,166 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Instagram, 
+  MessageCircle, 
+  Moon, 
+  Sun, 
+  Languages, 
+  Calendar, 
+  MapPin, 
+  GraduationCap 
+} from "lucide-react";
 
-import { ChevronLeft, ChevronRight, Instagram, MessageCircle, Moon, Sun, Languages, Calendar, MapPin, Mail, BookOpen, User, GraduationCap } from "lucide-react";
-
-// Imagens (assegure-se que estas existam na pasta lib/ do seu projeto)
+// --- Imports de Imagem (Com Fallback Handle) ---
+// Nota: Certifique-se que estes arquivos existem em ./lib/ ou ajuste o caminho.
 import marbleBg from "../lib/marble.png";
 import logoImg from "../lib/logo.png";
 import profileImg from "../lib/profile.jpg";
 import ringsImg from "../lib/rings.png";
 
-// --- Componente Carrossel Restaurado ---
-function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: any }) {
+// --- Definições de Tipos (Solução do Erro de Tipagem) ---
+interface A11yTexts {
+  logoAlt: string;
+  langBtn: string;
+  themeBtnDark: string;
+  themeBtnLight: string;
+  instaLinkNav: string;
+  whatsAppLinkNav: string;
+  carouselLeft: string;
+  carouselRight: string;
+  instaPostTitle: string;
+  mapTitle: string;
+  profileAlt: string;
+}
+
+interface NavTexts {
+  about: string;
+  portfolio: string;
+  courses: string;
+  contact: string;
+  location: string;
+}
+
+interface HeroTexts {
+  subtitle: string;
+  desc: string;
+  btn1: string;
+  btnSchedule: string;
+  btn2: string;
+}
+
+interface AboutTexts {
+  title: string;
+  desc: string;
+  topic1: string;
+  topic2: string;
+  topic2Desc: string;
+  topic3: string;
+  topic3Desc: string;
+}
+
+interface ServicesTexts {
+  title: string;
+  singleTitle: string;
+  singlePrice: string;
+  singleDesc: string;
+  packageTitle: string;
+  packagePrice: string;
+  packageDesc: string;
+}
+
+interface LocationTexts {
+  title: string;
+  addressTitle: string;
+  btn1: string;
+  btn2: string;
+}
+
+interface PortfolioTexts {
+  title: string;
+}
+
+interface EventsTexts {
+  title: string;
+}
+
+interface CoursesNotes {
+  payment: string;
+  modelsFee: string;
+  specialty: string;
+}
+
+interface RawCourseItem {
+  title: string;
+  desc_pt: string;
+  desc_en: string;
+  content_pt: string;
+  content_en: string;
+  priceData: string[];
+}
+
+interface CoursesTexts {
+  title: string;
+  tab1: string;
+  tab2: string;
+  contentLabel: string;
+  btn: string;
+  notes: CoursesNotes;
+  list: RawCourseItem[];
+}
+
+interface ContactTexts {
+  title: string;
+  subtitle1: string;
+  subtitle2: string;
+  nameHolder: string;
+  emailHolder: string;
+  msgHolder: string;
+  sendBtn: string;
+}
+
+interface FooterTexts {
+  rights: string;
+  dev: string;
+}
+
+type Lang = 'pt' | 'en';
+
+interface TranslationSet {
+  a11y: A11yTexts;
+  nav: NavTexts;
+  hero: HeroTexts;
+  about: AboutTexts;
+  services: ServicesTexts;
+  location: LocationTexts;
+  portfolio: PortfolioTexts;
+  events: EventsTexts;
+  courses: CoursesTexts;
+  contact: ContactTexts;
+  footer: FooterTexts;
+}
+
+// --- Componente Carrossel ---
+interface CarouselProps {
+  posts: string[];
+  a11yTexts: A11yTexts;
+}
+
+function StreamingCarousel({ posts, a11yTexts }: CarouselProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const checkScroll = () => {
     const container = scrollContainerRef.current;
     if (container) {
-      setCanScrollLeft(container.scrollLeft > 0);
+      // Margem pequena para evitar falsos positivos em bordas
+      setCanScrollLeft(container.scrollLeft > 0.5);
       setCanScrollRight(
-        container.scrollLeft < container.scrollWidth - container.clientWidth - 10
+        container.scrollLeft < (container.scrollWidth - container.clientWidth - 5)
       );
     }
   };
@@ -29,20 +168,24 @@ function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: a
   useEffect(() => {
     checkScroll();
     const container = scrollContainerRef.current;
-    container?.addEventListener('scroll', checkScroll);
-    window.addEventListener('resize', checkScroll);
+    
+    const handleScroll = () => checkScroll();
+    const handleResize = () => checkScroll();
+
+    container?.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+
     return () => {
-      container?.removeEventListener('scroll', checkScroll);
-      window.removeEventListener('resize', checkScroll);
+      container?.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   const scroll = (direction: 'left' | 'right') => {
     const container = scrollContainerRef.current;
     if (container) {
-      const scrollAmount = 500;
       container.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        left: direction === 'left' ? -400 : 400,
         behavior: 'smooth'
       });
     }
@@ -54,73 +197,75 @@ function StreamingCarousel({ posts, a11yTexts }: { posts: string[], a11yTexts: a
   };
 
   return (
-    <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] mb-8">
+    <div className="relative w-full max-w-[calc(100vw-2rem)] mx-auto mb-8">
       {canScrollLeft && (
         <button
           onClick={() => scroll('left')}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full transition-all hover:scale-110 shadow-lg"
-          style={{ background: 'rgba(201, 169, 97, 0.9)', color: 'white' }}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full shadow-lg transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          style={{ background: 'rgba(201, 169, 97, 0.95)', color: 'white' }}
           aria-label={a11yTexts.carouselLeft}
         >
-          <ChevronLeft size={28} aria-hidden="true" />
+          <ChevronLeft size={28} />
         </button>
       )}
 
       <div
         ref={scrollContainerRef}
-        className="flex overflow-x-auto scroll-smooth pb-4 px-4 no-scrollbar"
-        style={{
-          scrollPaddingLeft: '1rem',
-          scrollSnapType: 'x mandatory',
-          scrollbarWidth: 'none', // Firefox
-        }}
+        className="flex overflow-x-auto scroll-smooth pb-4 pl-4 gap-4 no-scrollbar touch-pan-x"
+        style={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none' }}
       >
-        {/* Usando __html corretamente para evitar erros de TS no React */}
         <style dangerouslySetInnerHTML={{ __html: `
           .no-scrollbar::-webkit-scrollbar { display: none; }
           .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         ` }} />
         
-        {posts.map((post) => (
-          <div
-            key={post}
-            className="flex-shrink-0 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow mr-4 last:mr-0"
-            style={{
-              width: 'clamp(200px, 25vw, 300px)',
-              aspectRatio: '9/16',
-              scrollSnapAlign: 'start',
-            }}
-          >
-            <iframe
-              title={`${a11yTexts.instaPostTitle} - ID: ${getPostId(post)}`}
-              src={`https://www.instagram.com/p/${getPostId(post)}/embed`}
-              width="100%"
-              height="100%"
-              scrolling="no"
-              allowTransparency={true}
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              style={{ border: 0, borderRadius: '8px' }}
-            />
-          </div>
-        ))}
+        {posts.map((post) => {
+          const postId = getPostId(post);
+          if (!postId) return null;
+
+          return (
+            <div
+              key={`${post}-${postId}`}
+              className="flex-shrink-0 relative rounded-lg overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700"
+              style={{
+                width: 'clamp(220px, 28vw, 320px)',
+                aspectRatio: '9/16',
+                scrollSnapAlign: 'start',
+                backgroundColor: '#f3f3f3'
+              }}
+            >
+              <iframe
+                title={`${a11yTexts.instaPostTitle} - ${postId}`}
+                src={`https://www.instagram.com/p/${postId}/embed`}
+                width="100%"
+                height="100%"
+                scrolling="no"
+                allowTransparency={true}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                style={{ border: 0 }}
+                loading="lazy"
+              />
+            </div>
+          );
+        })}
       </div>
 
       {canScrollRight && (
         <button
           onClick={() => scroll('right')}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full transition-all hover:scale-110 shadow-lg"
-          style={{ background: 'rgba(201, 169, 97, 0.9)', color: 'white' }}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full shadow-lg transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          style={{ background: 'rgba(201, 169, 97, 0.95)', color: 'white' }}
           aria-label={a11yTexts.carouselRight}
         >
-          <ChevronRight size={28} aria-hidden="true" />
+          <ChevronRight size={28} />
         </button>
       )}
     </div>
   );
 }
 
-// --- Traduções Completas Restauradas ---
-const translations = {
+// --- Dados e Traduções Completas ---
+const translations: Record<Lang, TranslationSet> = {
   pt: {
     a11y: {
       logoAlt: "Logomarca de Italo Freitas",
@@ -147,8 +292,6 @@ const translations = {
       title: "Sobre Mim", 
       desc: "Maquiador profissional com especialização em maquiagem artística, blindagem de sobrancelhas e beauty. Referência em durabilidade e elegância em Patos de Minas, MG.", 
       topic1: "Profissionalismo", 
-      topic1DescDynamic: true, // Marcador para usar cálculo dinâmico
-      topic1DescStatic: "Anos de experiência em maquiagem profissional", 
       topic2: "Portfólio Diverso", 
       topic2Desc: "Trabalhos em eventos, produções audiovisuais e sessões fotográficas", 
       topic3: "Educação", 
@@ -172,25 +315,29 @@ const translations = {
       tab2: "Cursos Realizados", 
       contentLabel: "Conteúdo:", 
       btn: "Inscrever-se",
-      list: [
-        { 
-          title: "Curso Profissional de Maquiagem", 
-          desc: "Curso completo para profissionais e iniciantes", 
-          content: "Aulas práticas, todo material incluso, técnicas escolhidas pelo aluno, preparação completa de pele, técnica de pele resistente, dicas de iluminação e fotos.", 
-          price: "1 técnica: R$ 450,00 </br> 2 técnicas: R$ 550,00 </br> 3 técnicas: R$ 750,00" 
-        },
-        { 
-          title: "Curso de Auto Maquiagem", 
-          desc: "Embelezamento diário com agilidade e praticidade", 
-          content: "Aulas práticas, material incluso, lista de materiais essenciais, preparo completo da pele, técnicas úteis no dia a dia ou artísticas (opcional), passo a passo personalizado.", 
-          price: "2 técnicas: R$ 450,00" 
-        },
-      ],
       notes: {
         payment: "Pagamento em até 2x sem juros no cartão 💳",
         modelsFee: "Valor já inclui modelos e certificados ❤️",
         specialty: "Minha especialidade é realçar a beleza feminina sem transformar! ✨"
-      }
+      },
+      list: [
+        { 
+          title: "Curso Profissional de Maquiagem", 
+          desc_pt: "Curso completo para profissionais e iniciantes", 
+          desc_en: "Complete course for professionals and beginners", 
+          content_pt: "Aulas práticas, todo material incluso, técnicas escolhidas pelo aluno, preparação completa de pele, técnica de pele resistente, dicas de iluminação e fotos.", 
+          content_en: "Practical classes, all materials included, techniques chosen by student, complete skin preparation, resistant skin technique, lighting and photo tips.", 
+          priceData: ["1 técnica: R$ 450,00", "2 técnicas: R$ 550,00", "3 técnicas: R$ 750,00"]
+        },
+        { 
+          title: "Curso de Auto Maquiagem", 
+          desc_pt: "Embelezamento diário com agilidade e praticidade", 
+          desc_en: "Daily beautification with speed and practicality", 
+          content_pt: "Aulas práticas, material incluso, lista de materiais essenciais, preparo completo da pele, técnicas úteis no dia a dia ou artísticas (opcional), passo a passo personalizado.", 
+          content_en: "Practical classes, materials included, essential materials list, complete skin prep, daily-use or artistic techniques (optional), personalized step-by-step guide.", 
+          priceData: ["2 técnicas: R$ 450,00"]
+        },
+      ]
     },
     contact: { 
       title: "Entre em Contato", 
@@ -229,8 +376,6 @@ const translations = {
       title: "About Me", 
       desc: "Professional makeup artist specializing in artistic makeup, eyebrow shielding, and beauty. A reference in durability and elegance in Patos de Minas, MG.", 
       topic1: "Professionalism", 
-      topic1DescDynamic: true,
-      topic1DescStatic: "Years of experience in professional makeup", 
       topic2: "Diverse Portfolio", 
       topic2Desc: "Work in events, audiovisual productions, and photoshoots", 
       topic3: "Education", 
@@ -239,7 +384,7 @@ const translations = {
     services: {
       title: "Services",
       singleTitle: "Individual Makeup",
-      singlePrice: "R$180.00",
+      singlePrice: "R$ 180.00",
       singleDesc: "Ideal for parties, social events, and photoshoots.",
       packageTitle: "Event Packages",
       packagePrice: "Consult Us",
@@ -254,25 +399,29 @@ const translations = {
       tab2: "Taken Courses", 
       contentLabel: "Content:", 
       btn: "Enroll",
-      list: [
-        { 
-          title: "Professional Makeup Course", 
-          desc: "Complete course for professionals and beginners", 
-          content: "Practical classes, all materials included, techniques chosen by student, complete skin preparation, resistant skin technique, lighting and photo tips.", 
-          price: "1 technique: R$450 </br> 2 techniques: R$550 </br> 3 techniques: R$750" 
-        },
-        { 
-          title: "Self-Makeup Course", 
-          desc: "Daily beautification with speed and practicality", 
-          content: "Practical classes, materials included, essential materials list, complete skin prep, daily-use or artistic techniques (optional), personalized step-by-step guide.", 
-          price: "2 techniques: R$450" 
-        },
-      ],
       notes: {
         payment: "Up to 2x interest-free on card 💳",
         modelsFee: "Price includes model and certificate fees ❤️",
         specialty: "My specialty is enhancing feminine beauty without transforming! ✨"
-      }
+      },
+      list: [
+        { 
+          title: "Professional Makeup Course", 
+          desc_pt: "Curso completo para profissionais e iniciantes", 
+          desc_en: "Complete course for professionals and beginners", 
+          content_pt: "Aulas práticas, todo material incluso, técnicas escolhidas pelo aluno, preparação completa de pele, técnica de pele resistente, dicas de iluminação e fotos.", 
+          content_en: "Practical classes, all materials included, techniques chosen by student, complete skin preparation, resistant skin technique, lighting and photo tips.", 
+          priceData: ["1 technique: R$ 450.00", "2 techniques: R$ 550.00", "3 techniques: R$ 750.00"]
+        },
+        { 
+          title: "Self-Makeup Course", 
+          desc_pt: "Embelezamento diário com agilidade e praticidade", 
+          desc_en: "Daily beautification with speed and practicality", 
+          content_pt: "Aulas práticas, material incluso, lista de materiais essenciais, preparo completo da pele, técnicas úteis no dia a dia ou artísticas (opcional), passo a passo personalizado.", 
+          content_en: "Practical classes, materials included, essential materials list, complete skin prep, daily-use or artistic techniques (optional), personalized step-by-step guide.", 
+          priceData: ["2 techniques: R$ 450.00"]
+        },
+      ]
     },
     contact: { 
       title: "Get in Touch", 
@@ -288,69 +437,90 @@ const translations = {
 };
 
 export default function Home() {
-  const [lang, setLang] = useState<'pt' | 'en'>('pt');
+  const [lang, setLang] = useState<Lang>('pt');
   const [isDark, setIsDark] = useState(false);
+  
+  // Estado para rastrear imagens carregadas
+  const [imagesLoaded, setImagesLoaded] = useState({
+    logo: true,
+    profile: true,
+    rings: true
+  });
 
   const t = translations[lang];
   
-  // --- Lógica de Cálculo de Anos de Experiência ---
   const startYear = 2021;
   const currentYear = new Date().getFullYear();
-  const yearsOfExperience = currentYear - startYear;
+  const yearsOfExperience = Math.max(0, currentYear - startYear);
   
   const experienciaTexto = lang === 'pt' 
     ? `${yearsOfExperience} anos de experiência em maquiagem profissional e transformação de beleza`
     : `${yearsOfExperience} years of experience in professional makeup and beauty transformation`;
 
   const colors = {
-    navBg: isDark ? 'rgba(18, 18, 18, 0.8)' : 'rgba(255, 255, 255, 0.8)',
+    navBg: isDark ? 'rgba(18, 18, 18, 0.9)' : 'rgba(255, 255, 255, 0.9)',
     textPrimary: isDark ? '#F3F4F6' : '#2A2A2A',
     textSecondary: isDark ? '#D1D5DB' : '#4A4A4A',
-    cardBg: isDark ? 'rgba(30, 30, 30, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-    border: isDark ? '#333' : '#FEF3C7',
+    cardBg: isDark ? 'rgba(30, 30, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+    border: isDark ? '#4B5563' : '#FEF3C7',
+    notesBg: isDark ? 'rgba(40, 40, 40, 0.7)' : 'rgba(253, 245, 230, 0.8)',
+    accentGold: '#C9A961',
+    accentDark: '#B45309',
   };
 
   const toggleLang = () => setLang(prev => prev === 'pt' ? 'en' : 'pt');
   const toggleTheme = () => setIsDark(prev => !prev);
 
-  const portfolioPosts1 = [
+  // Processar cursos conforme idioma
+  const coursesList = t.courses.list.map(c => ({
+    ...c,
+    desc: c.desc_pt,
+    content: c.content_pt
+  }));
+
+  const unique = (arr: string[]) => [...new Set(arr)];
+
+  const portfolioPosts1 = unique([
     "https://www.instagram.com/p/DDIdE_epRKk/",
     "https://www.instagram.com/p/DCB9FYvJO4n/",
     "https://www.instagram.com/p/DDrmPN5pzlw/",
     "https://www.instagram.com/p/DGDel_wpia4/",
     "https://www.instagram.com/p/DFvuwiDpfOI/",
     "https://www.instagram.com/p/DF0_YazpgFp/",
-  ];
+  ]);
 
-  const portfolioPosts2 = [
+  const portfolioPosts2 = unique([
     "https://www.instagram.com/p/DIRSjMnxByK/",
     "https://www.instagram.com/p/DFvuwiDpfOI/",
     "https://www.instagram.com/p/DF0_YazpgFp/",
-    "https://www.instagram.com/p/DIRSjMnxByK/",
     "https://www.instagram.com/p/DKiRdN8p9k_/",
-    "https://www.instagram.com/p/DF0_YazpgFp/",
-  ];
+  ]);
 
-  const portfolioPosts3 = [
+  const portfolioPosts3 = unique([
     "https://www.instagram.com/p/DOLnOqakZck/",
     "https://www.instagram.com/p/DSxba6qEUzW/",
     "https://www.instagram.com/p/DP4lzt7kYCG/",
     "https://www.instagram.com/p/DQZPTRkkUwP/",
     "https://www.instagram.com/p/DQuMGd_EfSs/",
     "https://www.instagram.com/p/DT5qi1Oke2j/",
-  ];
+  ]);
 
-  const eventPosts = [
+  const eventPosts = unique([
     "https://www.instagram.com/p/DYP8S18iRnJ/",
     "https://www.instagram.com/reel/DRpiLoFkYpl/",
     "https://www.instagram.com/reel/DRE7xYRkWEI/",
     "https://www.instagram.com/p/DFoO0jIxRGh/",
     "https://www.instagram.com/p/DXt1I0HnLOQ/",
-  ];
+  ]);
+
+  const handleImageError = (key: keyof typeof imagesLoaded) => {
+    console.warn(`Imagem não encontrada: ${key}. Usando fallback.`);
+    setImagesLoaded(prev => ({ ...prev, [key]: false }));
+  };
 
   return (
     <div className="min-h-screen transition-colors duration-300 relative font-sans">
-      {/* Elemento de fundo fixo e acessível */}
+      {/* Elemento de fundo fixo */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div 
           className="absolute inset-0 transition-colors duration-500"
@@ -358,75 +528,97 @@ export default function Home() {
         />
         
         <div 
-          className="absolute inset-0 transition-all duration-500"
+          className="absolute inset-0 transition-all duration-500 mix-blend-overlay opacity-40"
           style={{ 
-            backgroundImage: `url(${marbleBg})`, 
+            backgroundImage: imagesLoaded.logo ? `url(${logoImg})` : `url(${marbleBg})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
-            filter: isDark ? 'invert(100%) grayscale(100%)' : 'none',
-            opacity: isDark ? 0.15 : 0.4,
-            mixBlendMode: isDark ? 'screen' : 'multiply' 
+            filter: isDark ? 'invert(100%) grayscale(100%) brightness(0.5)' : 'grayscale(50%)',
+            backgroundColor: isDark ? '#1a1a1a' : '#fffdf5'
           }}
+          onError={() => handleImageError('logo')}
         />
       </div>
       
       {/* Navegação */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300" style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300 shadow-sm" 
+           style={{ backgroundColor: colors.navBg, borderColor: colors.border }}>
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src={logoImg} alt={t.a11y.logoAlt} className="h-10 w-10 object-contain" />
+            <img 
+              src={!imagesLoaded.logo ? "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23C9A961'/%3E%3C/svg%3E" : logoImg} 
+              alt={t.a11y.logoAlt} 
+              className="h-10 w-10 object-contain"
+              onError={() => handleImageError('logo')}
+            />
+            <span className={`hidden sm:block font-serif font-bold text-lg ${isDark ? 'text-white' : 'text-gray-800'}`}>
+              Italo Freitas
+            </span>
           </div>
           
           <div className="hidden md:flex items-center gap-8">
-            <a href="#about" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.about}</a>
-            <a href="#portfolio" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.portfolio}</a>
-            <a href="#courses" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.courses}</a>
-            <a href="#contact" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.contact}</a>
-            {/* Novo link Localização adicionado */}
-            <a href="#location" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.location}</a>
+            {[t.nav.about, t.nav.portfolio, t.nav.courses, t.nav.contact, t.nav.location].map((item, idx) => {
+               const ids = ['about', 'portfolio', 'courses', 'contact', 'location'];
+               return (
+                 <a 
+                   key={idx} 
+                   href={`#${ids[idx]}`} 
+                   className="text-sm font-medium hover:text-amber-600 transition-colors" 
+                   style={{ color: colors.textPrimary }}
+                 >
+                   {item}
+                 </a>
+               );
+            })}
           </div>
 
           <div className="flex items-center gap-4">
-            <button onClick={toggleLang} className="text-amber-600 hover:text-amber-700 flex items-center gap-1 font-semibold text-sm transition-transform hover:scale-110">
-              <span className="sr-only">{t.a11y.langBtn}</span>
-              <Languages size={20} aria-hidden="true" />
-              <span className="hidden sm:inline" aria-hidden="true">{lang === 'pt' ? 'EN' : 'PT'}</span>
+            <button 
+              onClick={toggleLang} 
+              className="text-amber-600 hover:text-amber-700 flex items-center gap-1 font-semibold text-sm transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-amber-500 rounded px-1"
+              aria-label={t.a11y.langBtn}
+            >
+              <Languages size={20} />
+              <span className="hidden sm:inline">{lang === 'pt' ? 'EN' : 'PT'}</span>
             </button>
             
-            <button onClick={toggleTheme} className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
-              <span className="sr-only">{isDark ? t.a11y.themeBtnDark : t.a11y.themeBtnLight}</span>
-              {isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
+            <button 
+              onClick={toggleTheme} 
+              className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500"
+              aria-label={isDark ? t.a11y.themeBtnDark : t.a11y.themeBtnLight}
+            >
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
-            <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
+            <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500">
               <span className="sr-only">{t.a11y.instaLinkNav}</span>
-              <Instagram size={20} aria-hidden="true" />
+              <Instagram size={20} />
             </a>
-            <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110">
+            <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500">
               <span className="sr-only">{t.a11y.whatsAppLinkNav}</span>
-              <MessageCircle size={20} aria-hidden="true" />
+              <MessageCircle size={20} />
             </a>
           </div>
         </div>
       </nav>
 
-      <main className="pt-20">
+      <main className="pt-24">
         {/* Hero Section */}
-        <section className="pt-32 pb-20 text-center" aria-labelledby="hero-title">
-          <h1 id="hero-title" className="text-6xl md:text-7xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>
-            Italo Freitas <span className="sr-only">- Maquiador Profissional em Patos de Minas, MG</span>
+        <section className="pt-20 pb-16 text-center px-4" aria-labelledby="hero-title">
+          <h1 id="hero-title" className="text-5xl md:text-7xl font-serif font-bold mb-4 transition-colors break-words" style={{ color: colors.textPrimary }}>
+            Italo Freitas
           </h1>
-          <p className="text-2xl mb-8" style={{ color: '#C9A961' }}>{t.hero.subtitle}</p>
-          <p className="text-lg max-w-2xl mx-auto mb-12 px-4 transition-colors" style={{ color: colors.textSecondary }}>
+          <p className="text-2xl mb-8 font-medium" style={{ color: colors.accentGold }}>{t.hero.subtitle}</p>
+          <p className="text-lg max-w-2xl mx-auto mb-12 px-4 leading-relaxed transition-colors" style={{ color: colors.textSecondary }}>
             {t.hero.desc}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://wa.me/553498109317"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 shadow-md flex items-center justify-center gap-2"
-              style={{ background: '#C9A961', color: 'white' }}
+              className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 hover:brightness-110 shadow-md flex items-center justify-center gap-2 min-w-[160px]"
+              style={{ background: colors.accentGold, color: 'white' }}
             >
               <MessageCircle size={18} />
               {t.hero.btn1}
@@ -435,16 +627,16 @@ export default function Home() {
               href="https://wa.me/553498109317"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2 flex items-center justify-center gap-2"
-              style={{ borderColor: '#C9A961', color: '#C9A961' }}
+              className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 border-2 flex items-center justify-center gap-2 min-w-[160px]"
+              style={{ borderColor: colors.accentGold, color: colors.accentGold }}
             >
               <Calendar size={18} />
               {t.hero.btnSchedule}
             </a>
             <a
               href="#courses"
-              className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 shadow-md flex items-center justify-center gap-2"
-              style={{ background: '#C9A961', color: 'white' }}
+              className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 hover:bg-amber-50 dark:hover:bg-gray-800 shadow-md flex items-center justify-center gap-2 min-w-[160px]"
+              style={{ color: colors.accentGold }}
             >
               <GraduationCap size={18} />
               {t.hero.btn2}
@@ -454,31 +646,43 @@ export default function Home() {
 
         {/* Sobre Mim */}
         <section id="about" className="py-20 container mx-auto px-4" aria-labelledby="about-title">
-          <h2 id="about-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.about.title}</h2>
+          <h2 id="about-title" className="text-4xl md:text-5xl font-serif font-bold mb-12 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.about.title}</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="rounded-lg overflow-hidden shadow-2xl">
-              <img src={profileImg} alt={t.a11y.profileAlt} className="w-full h-auto object-cover" />
+            <div className="rounded-lg overflow-hidden shadow-2xl border-4 border-amber-100 dark:border-gray-700">
+              <img 
+                src={!imagesLoaded.profile ? "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 150'%3E%3Crect width='100' height='150' fill='%23ccc'/%3E%3C/svg%3E" : profileImg} 
+                alt={t.a11y.profileAlt} 
+                className="w-full h-auto object-cover"
+                onError={() => handleImageError('profile')}
+              />
             </div>
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <img src={ringsImg} alt="" aria-hidden="true" width="32" height="32" style={{ objectFit: 'contain', filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
+              <div className="flex items-center gap-3 mb-6">
+                <img 
+                  src={!imagesLoaded.rings ? "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23C9A961'/%3E%3C/svg%3E" : ringsImg} 
+                  alt="" 
+                  aria-hidden="true" 
+                  width="32" 
+                  height="32" 
+                  style={{ objectFit: 'contain', filter: isDark ? 'brightness(0) invert(1)' : 'none' }}
+                  onError={() => handleImageError('rings')}
+                />
                 <h3 className="text-3xl font-serif font-bold transition-colors" style={{ color: colors.textPrimary }}>Italo Freitas</h3>
               </div>
-              <p className="text-lg mb-6 transition-colors" style={{ color: colors.textSecondary }}>
+              <p className="text-lg mb-8 leading-relaxed transition-colors" style={{ color: colors.textSecondary }}>
                 {t.about.desc}
               </p>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">✨</span> {t.about.topic1}</p>
-                  {/* Texto atualizado dinamicamente */}
+              <div className="space-y-6">
+                <div className="border-l-4 pl-4" style={{ borderColor: colors.accentGold }}>
+                  <p className="text-xl font-semibold mb-1" style={{ color: colors.accentGold }}><span aria-hidden="true">✨</span> {t.about.topic1}</p>
                   <p className="transition-colors" style={{ color: colors.textSecondary }}>{experienciaTexto}</p>
                 </div>
-                <div>
-                  <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">🎨</span> {t.about.topic2}</p>
+                <div className="border-l-4 pl-4" style={{ borderColor: colors.accentGold }}>
+                  <p className="text-xl font-semibold mb-1" style={{ color: colors.accentGold }}><span aria-hidden="true">🎨</span> {t.about.topic2}</p>
                   <p className="transition-colors" style={{ color: colors.textSecondary }}>{t.about.topic2Desc}</p>
                 </div>
-                <div>
-                  <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">📚</span> {t.about.topic3}</p>
+                <div className="border-l-4 pl-4" style={{ borderColor: colors.accentGold }}>
+                  <p className="text-xl font-semibold mb-1" style={{ color: colors.accentGold }}><span aria-hidden="true">📚</span> {t.about.topic3}</p>
                   <p className="transition-colors" style={{ color: colors.textSecondary }}>{t.about.topic3Desc}</p>
                 </div>
               </div>
@@ -488,96 +692,94 @@ export default function Home() {
 
         {/* Serviços */}
         <section id="services" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="services-title">
-          <h2 id="services-title" className="text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.services.title}</h2>
+          <h2 id="services-title" className="text-4xl md:text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.services.title}</h2>
           <div className="w-24 h-1 bg-amber-500 mx-auto mb-12"></div>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-            <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02]" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
-              <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: colors.textPrimary }}>{t.services.singleTitle}</h3>
-              <p className="text-4xl font-bold my-4" style={{ color: '#C9A961' }}>{t.services.singlePrice}</p>
-              <p className="text-sm transition-colors" style={{ color: colors.textSecondary }}>{t.services.singleDesc}</p>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02] group" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
+              <h3 className="text-2xl font-serif font-bold mb-3" style={{ color: colors.textPrimary }}>{t.services.singleTitle}</h3>
+              <p className="text-4xl font-bold my-4 tracking-wide" style={{ color: colors.accentGold }}>{t.services.singlePrice}</p>
+              <p className="text-sm transition-colors mt-4" style={{ color: colors.textSecondary }}>{t.services.singleDesc}</p>
             </div>
 
-            <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02]" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
-              <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: colors.textPrimary }}>{t.services.packageTitle}</h3>
-              <p className="text-4xl font-bold my-4" style={{ color: '#C9A961' }}>{t.services.packagePrice}</p>
-              <p className="text-sm transition-colors" style={{ color: colors.textSecondary }}>{t.services.packageDesc}</p>
+            <div className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02] group" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
+              <h3 className="text-2xl font-serif font-bold mb-3" style={{ color: colors.textPrimary }}>{t.services.packageTitle}</h3>
+              <p className="text-3xl font-bold my-4 italic" style={{ color: colors.accentGold }}>{t.services.packagePrice}</p>
+              <p className="text-sm transition-colors mt-4" style={{ color: colors.textSecondary }}>{t.services.packageDesc}</p>
             </div>
           </div>
         </section>
 
         {/* Portfólio */}
         <section id="portfolio" className="py-20 container mx-auto px-4">
-          <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.portfolio.title}</h2>
-          <div className="mb-12"><StreamingCarousel posts={portfolioPosts1} a11yTexts={t.a11y} /></div>
-          <div className="mb-12"><StreamingCarousel posts={portfolioPosts2} a11yTexts={t.a11y} /></div>
-          <div className="mb-12"><StreamingCarousel posts={portfolioPosts3} a11yTexts={t.a11y} /></div>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-12 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.portfolio.title}</h2>
+          <div className="mb-16"><StreamingCarousel posts={portfolioPosts1} a11yTexts={t.a11y} /></div>
+          <div className="mb-16"><StreamingCarousel posts={portfolioPosts2} a11yTexts={t.a11y} /></div>
+          <div className="mb-16"><StreamingCarousel posts={portfolioPosts3} a11yTexts={t.a11y} /></div>
         </section>
 
         {/* Eventos */}
-        <section className="py-20 container mx-auto px-4">
-          <h2 className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.events.title}</h2>
+        <section className="py-20 container mx-auto px-4 bg-opacity-50" style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.5)' }}>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-12 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.events.title}</h2>
           <StreamingCarousel posts={eventPosts} a11yTexts={t.a11y} />
         </section>
 
         {/* Cursos */}
         <section id="courses" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="courses-title">
-          <h2 id="courses-title" className="text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
+          <h2 id="courses-title" className="text-4xl md:text-5xl font-serif font-bold mb-4 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.courses.title}</h2>
           <div className="w-24 h-1 bg-amber-500 mx-auto mb-12"></div>
 
-          {/* Abas mantidas para navegação lógica, mas com estilo simplificado */}
-          {/* <div className="flex gap-4 justify-center mb-12">
-            <button className="px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105 shadow-sm" style={{ background: '#C9A961', color: 'white' }}>
-              {t.courses.tab1}
-            </button>
-            <button className="px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105" style={{ border: `1px solid ${colors.border}`, color: isDark ? '#E5C57C' : '#C9A961' }}>
-              {t.courses.tab2}
-            </button>
-          </div> */}
-
-          {/* Grid de Cartões */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-            {t.courses.list.map((course) => (
-              <div key={course.title} className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02] flex flex-col h-full" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+            {coursesList.map((course, index) => (
+              <div key={index} className="p-8 rounded-lg shadow-lg text-center transition-all hover:scale-[1.02] flex flex-col h-full" style={{ background: colors.cardBg, border: `1px solid ${colors.border}` }}>
                 
-                <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: colors.textPrimary }}>
-                  {course.title}
-                </h3>
-                
-                <p className="text-base mb-6 leading-relaxed" style={{ color: colors.textSecondary }}>
-                  {course.desc}
-                </p>
-
-                <div className="flex-grow mb-4">
-                  <p className="text-sm italic" style={{ color: isDark ? '#9CA3AF' : '#666' }}>
-                    <strong>{t.courses.contentLabel}</strong> {course.content}
+                <div className="flex-grow">
+                  <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: colors.textPrimary }}>
+                    {course.title}
+                  </h3>
+                  
+                  <p className="text-base mb-6 leading-relaxed" style={{ color: colors.textSecondary }}>
+                    {course.desc}
                   </p>
+
+                  <div className="mb-6 bg-opacity-10 p-4 rounded-lg" style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }}>
+                    <p className="text-sm italic leading-relaxed" style={{ color: isDark ? '#9CA3AF' : '#666' }}>
+                      <strong>{t.courses.contentLabel}</strong> {course.content}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="mt-auto pt-6 border-t" style={{ borderColor: colors.border }}>
-                  <p className="text-4xl font-bold mb-4" style={{ color: '#C9A961' }}>{course.price}</p>
-                  {/* <a 
-                    href="#contact" 
-                    className="inline-block w-full px-6 py-3 rounded-lg font-semibold transition-all hover:brightness-110"
-                    style={{ background: '#C9A961', color: 'white' }}
-                  >
-                    {t.courses.btn}
-                  </a> */}
+                <div className="mt-auto pt-6 border-t space-y-2" style={{ borderColor: colors.border }}>
+                  {Array.isArray(course.priceData) ? (
+                    course.priceData.map((priceLine, idx) => (
+                      <p key={idx} className="text-xl md:text-2xl font-bold" style={{ color: colors.accentGold }}>
+                        {priceLine}
+                      </p>
+                    ))
+                  ) : (
+                    <p className="text-3xl font-bold" style={{ color: colors.accentGold }}>{course.priceData}</p>
+                  )}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Notas Informativas - Mantidas abaixo com destaque sutil */}
-          <div className="bg-gradient-to-r from-amber-50 to-white dark:from-gray-800 dark:to-gray-700 p-6 rounded-xl shadow-inner border max-w-3xl mx-auto text-center" style={{ borderColor: colors.border }}>
+          <div 
+            className="p-6 rounded-xl shadow-inner border max-w-3xl mx-auto text-center backdrop-blur-sm transition-colors duration-300"
+            style={{ 
+              backgroundColor: colors.notesBg, 
+              borderColor: colors.border,
+              color: colors.textSecondary 
+            }}
+          >
             <div className="space-y-3">
-              <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
+              <p className="text-sm font-medium">
                 <span className="inline-block mr-2">💳</span> {t.courses.notes.payment}
               </p>
-              <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
+              <p className="text-sm font-medium">
                 <span className="inline-block mr-2">❤️</span> {t.courses.notes.modelsFee}
               </p>
-              <p className="text-lg font-bold mt-2" style={{ color: '#cab177f2' }}>
+              <p className="text-lg font-bold mt-2 italic" style={{ color: isDark ? '#FCD34D' : colors.accentDark }}>
                 <span className="inline-block mr-2">✨</span> {t.courses.notes.specialty}
               </p>
             </div>
@@ -586,61 +788,56 @@ export default function Home() {
 
         {/* Contato */}
         <section id="contact" className="py-20 container mx-auto px-4 flex flex-col items-center border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="contact-title">
-          <h2 id="contact-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
+          <h2 id="contact-title" className="text-4xl md:text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
           <div className="w-full max-w-4xl grid md:grid-cols-2 gap-12 justify-items-center">
-            <div className="text-center md:text-center space-y-6">
+            <div className="text-center space-y-6 w-full">
               <h3 className="text-2xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>{t.contact.subtitle1}</h3>
               
               <div className="flex items-center gap-3 justify-center">
-                <MessageCircle className="text-amber-600" size={24} />
-                <p className="text-lg" style={{ color: colors.textSecondary }}>+55 34 9810-9317</p>
+                <MessageCircle className="text-amber-600" size={28} />
+                <p className="text-xl" style={{ color: colors.textSecondary }}>+55 34 9810-9317</p>
               </div>
               
               <div className="flex items-center gap-3 justify-center">
-                <Instagram className="text-amber-600" size={24} />
-                <p className="text-lg" style={{ color: colors.textSecondary }}>@italofreitasmakeup</p>
+                <Instagram className="text-amber-600" size={28} />
+                <p className="text-xl" style={{ color: colors.textSecondary }}>@italofreitasmakeup</p>
               </div>
 
               <div className="flex items-center gap-3 justify-center">
-                <MapPin className="text-amber-600" size={24} />
-                <p className="text-lg" style={{ color: colors.textSecondary }}>Patos de Minas, MG</p>
+                <MapPin className="text-amber-600" size={28} />
+                <p className="text-xl" style={{ color: colors.textSecondary }}>Patos de Minas, MG</p>
               </div>
             </div>
             
             <div className="p-8 rounded-lg shadow-lg w-full transition-colors" style={{ background: colors.cardBg }}>
               <h3 className="text-2xl font-serif font-bold mb-6 text-center" style={{ color: colors.textPrimary }}>{t.contact.subtitle2}</h3>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <input type="text" placeholder={t.contact.nameHolder} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-                <input type="email" placeholder={t.contact.emailHolder} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-                <textarea placeholder={t.contact.msgHolder} rows={4} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all resize-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-                <button type="submit" className="w-full py-3 rounded-lg font-semibold transition-all hover:brightness-110" style={{ background: '#C9A961', color: 'white' }}>{t.contact.sendBtn}</button>
-              </form>
+              <p className="text-center text-sm text-gray-500 italic">
+                O formulário de contato estará disponível em breve.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Nova Sessão de Localização (Adicionada após Contato) */}
+        {/* Localização */}
         <section id="location" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="location-title">
-          <h2 id="location-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
+          <h2 id="location-title" className="text-4xl md:text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
           <div className="w-full max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row gap-12 items-center justify-center">
               
-              {/* Coluna de Texto Centralizada */}
-              <div className="text-center md:text-center w-full">
-                <h3 className="text-3xl font-serif font-bold mb-6 transition-colors" style={{ color: colors.textPrimary }}>{t.location.addressTitle}</h3>
-                <address className="not-italic mb-8">
-                  <p className="text-xl font-semibold mb-2 transition-colors" style={{ color: colors.textSecondary }}>Rua Dona Maria Resende, 171</p>
-                  <p className="text-xl mb-2 transition-colors" style={{ color: colors.textSecondary }}>Vila Garcia - Patos de Minas, MG</p>
+              <div className="text-center md:text-left w-full md:w-1/2">
+                <h3 className="text-2xl font-serif font-bold mb-6 transition-colors" style={{ color: colors.textPrimary }}>{t.location.addressTitle}</h3>
+                <address className="not-italic mb-8 space-y-2">
+                  <p className="text-xl font-semibold transition-colors" style={{ color: colors.textSecondary }}>Rua Dona Maria Resende, 171</p>
+                  <p className="text-xl transition-colors" style={{ color: colors.textSecondary }}>Vila Garcia - Patos de Minas, MG</p>
                   <p className="text-xl transition-colors" style={{ color: colors.textSecondary }}>CEP: 38700-000</p>
                 </address>
-                <div className="flex flex-wrap gap-4 justify-center">
-                  <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all hover:shadow-lg" style={{ background: '#C9A961', color: 'white' }}>{t.location.btn1}</a>
-                  <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all border-2 hover:bg-amber-50 dark:hover:bg-gray-800" style={{ borderColor: '#C9A961', color: '#C9A961' }}>{t.location.btn2}</a>
+                <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                  <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all hover:shadow-lg hover:brightness-110" style={{ background: colors.accentGold, color: 'white' }}>{t.location.btn1}</a>
+                  <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-lg font-semibold transition-all border-2 hover:bg-amber-50 dark:hover:bg-gray-800" style={{ borderColor: colors.accentGold, color: colors.accentGold }}>{t.location.btn2}</a>
                 </div>
               </div>
 
-              {/* Mapa Centralizado */}
-              <div className="w-full max-w-md rounded-xl overflow-hidden shadow-2xl h-80">
+              <div className="w-full max-w-md rounded-xl overflow-hidden shadow-2xl h-80 border-2 border-amber-200 dark:border-gray-700">
                 <iframe
                   title={t.a11y.mapTitle}
                   src="https://maps.google.com/maps?q=Rua+Dona+Maria+Resende,+171+Vila+Garcia+Patos+de+Minas&t=&z=15&ie=UTF8&iwloc=&output=embed"
@@ -649,6 +846,7 @@ export default function Home() {
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
 
@@ -658,12 +856,20 @@ export default function Home() {
 
       </main>
 
-      {/* Rodapé Restaurado */}
+      {/* Rodapé */}
       <footer className="py-8 text-center border-t transition-colors" style={{ borderColor: colors.border }}>
         <p className="transition-colors mb-2" style={{ color: colors.textSecondary }}>{t.footer.rights}</p>
         <p className="flex items-center justify-center gap-2 text-sm transition-colors" style={{ color: isDark ? '#9CA3AF' : '#999' }}>
           {t.footer.dev} <span aria-hidden="true">❤️</span>
-          <img src={ringsImg} alt="" aria-hidden="true" width="20" height="20" style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
+          <img 
+            src={!imagesLoaded.rings ? "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23C9A961'/%3E%3C/svg%3E" : ringsImg} 
+            alt="" 
+            aria-hidden="true" 
+            width="20" 
+            height="20" 
+            style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }}
+            onError={() => handleImageError('rings')}
+          />
         </p>
       </footer>
     </div>
