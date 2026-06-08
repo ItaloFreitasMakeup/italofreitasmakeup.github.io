@@ -174,20 +174,20 @@ const translations = {
       list: [
         { 
           title: "Curso Profissional de Maquiagem", 
-          desc: "Curso completo para profissionais e iniciantes em Patos de Minas-MG", 
-          content: "Aulas práticas, todo material incluso, técnicas escolhidas pelo aluno, preparação completa de pele, técnica de pele resistente, dicas de iluminação e fotos. Certificado emitido ao término.", 
+          desc: "Curso completo para profissionais e iniciantes", 
+          content: "Aulas práticas, todo material incluso, técnicas escolhidas pelo aluno, preparação completa de pele, técnica de pele resistente, dicas de iluminação e fotos.", 
           price: "1 técnica: R$ 450,00 2 técnicas: R$ 550,00 3 técnicas: R$ 750,00" 
         },
         { 
           title: "Curso de Auto Maquiagem", 
           desc: "Embelezamento diário com agilidade e praticidade", 
-          content: "Aulas práticas no meu espaço, material incluso, lista de materiais essenciais, preparo completo da pele, técnicas usáveis no dia a dia ou artísticas (opcional), passo a passo personalizado.", 
+          content: "Aulas práticas, material incluso, lista de materiais essenciais, preparo completo da pele, técnicas usáveis no dia a dia ou artísticas (opcional), passo a passo personalizado.", 
           price: "2 técnicas: R$ 450,00" 
         },
       ],
       notes: {
-        payment: "Pagamento à vista ou até 2x sem juros no cartão.",
-        modelsFee: "Valor já inclui cachês das modelos ❤️",
+        payment: "Pagamento em até 2x sem juros no cartão.",
+        modelsFee: "Valor já inclui modelos e certificados ❤️",
         specialty: "Minha especialidade é realçar a beleza feminina sem transformar! ✨"
       }
     },
@@ -255,20 +255,20 @@ const translations = {
       list: [
         { 
           title: "Professional Makeup Course", 
-          desc: "Complete course for professionals and beginners in Patos de Minas-MG", 
-          content: "Practical classes, all materials included, techniques chosen by student, complete skin preparation, resistant skin technique, lighting and photo tips. Certificate issued upon completion.", 
-          price: "1 technique: R$450,00 2 techniques: R$550,00 3 techniques: R$750,00" 
+          desc: "Complete course for professionals and beginners", 
+          content: "Practical classes, all materials included, techniques chosen by student, complete skin preparation, resistant skin technique, lighting and photo tips.", 
+          price: "1 technique: R$450 2 techniques: R$550 3 techniques: R$750" 
         },
         { 
           title: "Self-Makeup Course", 
           desc: "Daily beautification with speed and practicality", 
-          content: "Practical classes at my space, materials included, essential materials list, complete skin prep, daily-use or artistic techniques (optional), personalized step-by-step guide.", 
+          content: "Practical classes, materials included, essential materials list, complete skin prep, daily-use or artistic techniques (optional), personalized step-by-step guide.", 
           price: "2 techniques: R$450" 
         },
       ],
       notes: {
-        payment: "Cash or up to 2x interest-free on card.",
-        modelsFee: "Price includes model fees ❤️",
+        payment: "Up to 2x interest-free on card.",
+        modelsFee: "Price includes model and certificate fees ❤️",
         specialty: "My specialty is enhancing feminine beauty without transforming! ✨"
       }
     },
