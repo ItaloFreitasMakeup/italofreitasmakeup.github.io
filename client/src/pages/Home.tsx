@@ -520,17 +520,12 @@ export default function Home() {
       {/* Elemento de fundo fixo */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div 
-          className="absolute inset-0 transition-colors duration-500"
-          style={{ backgroundColor: isDark ? '#121212' : '#f8f8f8' }}
-        />
-        
-        <div 
           className="absolute inset-0 transition-all duration-500 mix-blend-overlay opacity-40"
           style={{ 
             backgroundImage: `url(${marbleBg})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
-            filter: isDark ? 'invert(100%) grayscale(100%) brightness(0.5)' : '',
+            filter: isDark ? 'invert(100%) grayscale(100%) brightness(0.5)' : 'brightness(0.5)',
           }}
           onError={() => handleImageError('logo')}
         />
@@ -568,7 +563,7 @@ export default function Home() {
           <div className="flex items-center gap-4">
             <button 
               onClick={toggleLang} 
-              className="text-amber-600 hover:text-amber-700 flex items-center gap-1 font-semibold text-sm transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-amber-500 rounded px-1"
+              className="text-gold-600 hover:text-gold-700 flex items-center gap-1 font-semibold text-sm transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gold-500 rounded px-1"
               aria-label={t.a11y.langBtn}
             >
               <Languages size={20} />
@@ -577,17 +572,17 @@ export default function Home() {
             
             <button 
               onClick={toggleTheme} 
-              className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="text-gold-600 hover:text-gold-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-gold-500"
               aria-label={isDark ? t.a11y.themeBtnDark : t.a11y.themeBtnLight}
             >
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
-            <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <a href="https://www.instagram.com/italofreitasmakeup?igsh=MW1tbWRtbnA0cWQyNA==" target="_blank" rel="noopener noreferrer" className="text-gold-600 hover:text-gold-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-gold-500">
               <span className="sr-only">{t.a11y.instaLinkNav}</span>
               <Instagram size={20} />
             </a>
-            <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <a href="https://wa.me/553498109317" target="_blank" rel="noopener noreferrer" className="text-gold-600 hover:text-gold-700 transition-transform hover:scale-110 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-gold-500">
               <span className="sr-only">{t.a11y.whatsAppLinkNav}</span>
               <MessageCircle size={20} />
             </a>
