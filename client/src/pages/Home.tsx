@@ -135,7 +135,7 @@ const translations = {
       mapTitle: "Mapa do Google Maps mostrando a localização do estúdio",
       profileAlt: "Foto de perfil de Italo Freitas maquiado profissionalmente"
     },
-    nav: { about: "Sobre", portfolio: "Portfólio", courses: "Cursos", contact: "Contato" },
+    nav: { about: "Sobre", portfolio: "Portfólio", courses: "Cursos", contact: "Contato", location: "Localização" },
     hero: { 
       subtitle: "Profissional de Maquiagem", 
       desc: "Especializado em maquiagem profissional para eventos, produções audiovisuais e transformações de beleza. Oferecendo cursos e consultoria personalizada.", 
@@ -147,7 +147,8 @@ const translations = {
       title: "Sobre Mim", 
       desc: "Maquiador profissional com especialização em maquiagem artística, blindagem de sobrancelhas e beauty. Referência em durabilidade e elegância em Patos de Minas, MG.", 
       topic1: "Profissionalismo", 
-      topic1Desc: "Anos de experiência em maquiagem profissional e transformação de beleza", 
+      topic1DescDynamic: true, // Marcador para usar cálculo dinâmico
+      topic1DescStatic: "Anos de experiência em maquiagem profissional", 
       topic2: "Portfólio Diverso", 
       topic2Desc: "Trabalhos em eventos, produções audiovisuais e sessões fotográficas", 
       topic3: "Educação", 
@@ -186,7 +187,7 @@ const translations = {
         },
       ],
       notes: {
-        payment: "Pagamento em até 2x sem juros no cartão.",
+        payment: "Pagamento em até 2x sem juros no cartão 💳",
         modelsFee: "Valor já inclui modelos e certificados ❤️",
         specialty: "Minha especialidade é realçar a beleza feminina sem transformar! ✨"
       }
@@ -216,7 +217,7 @@ const translations = {
       mapTitle: "Google Maps showing the studio's location",
       profileAlt: "Profile photo of Italo Freitas with professional makeup"
     },
-    nav: { about: "About", portfolio: "Portfolio", courses: "Courses", contact: "Contact" },
+    nav: { about: "About", portfolio: "Portfolio", courses: "Courses", contact: "Contact", location: "Location" },
     hero: { 
       subtitle: "Makeup Professional", 
       desc: "Specialized in professional makeup for events, audiovisual productions, and beauty transformations. Offering personalized courses and consulting.", 
@@ -228,7 +229,8 @@ const translations = {
       title: "About Me", 
       desc: "Professional makeup artist specializing in artistic makeup, eyebrow shielding, and beauty. A reference in durability and elegance in Patos de Minas, MG.", 
       topic1: "Professionalism", 
-      topic1Desc: "Years of experience in professional makeup and beauty transformation", 
+      topic1DescDynamic: true,
+      topic1DescStatic: "Years of experience in professional makeup", 
       topic2: "Diverse Portfolio", 
       topic2Desc: "Work in events, audiovisual productions, and photoshoots", 
       topic3: "Education", 
@@ -267,7 +269,7 @@ const translations = {
         },
       ],
       notes: {
-        payment: "Up to 2x interest-free on card.",
+        payment: "Up to 2x interest-free on card 💳",
         modelsFee: "Price includes model and certificate fees ❤️",
         specialty: "My specialty is enhancing feminine beauty without transforming! ✨"
       }
@@ -290,7 +292,15 @@ export default function Home() {
   const [isDark, setIsDark] = useState(false);
 
   const t = translations[lang];
-  const anosExperiencia = lang === 'pt' ? "Anos de experiência:" : "Years of experience:";
+  
+  // --- Lógica de Cálculo de Anos de Experiência ---
+  const startYear = 2021;
+  const currentYear = new Date().getFullYear();
+  const yearsOfExperience = currentYear - startYear;
+  
+  const experienciaTexto = lang === 'pt' 
+    ? `${yearsOfExperience} anos de experiência em maquiagem profissional e transformação de beleza`
+    : `${yearsOfExperience} years of experience in professional makeup and beauty transformation`;
 
   const colors = {
     navBg: isDark ? 'rgba(18, 18, 18, 0.8)' : 'rgba(255, 255, 255, 0.8)',
@@ -372,6 +382,8 @@ export default function Home() {
             <a href="#portfolio" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.portfolio}</a>
             <a href="#courses" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.courses}</a>
             <a href="#contact" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.contact}</a>
+            {/* Novo link Localização adicionado */}
+            <a href="#location" className="text-sm font-medium hover:text-amber-600 transition" style={{ color: colors.textPrimary }}>{t.nav.location}</a>
           </div>
 
           <div className="flex items-center gap-4">
@@ -458,7 +470,8 @@ export default function Home() {
               <div className="space-y-4">
                 <div>
                   <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">✨</span> {t.about.topic1}</p>
-                  <p className="transition-colors" style={{ color: colors.textSecondary }}>{anosExperiencia} {t.about.topic1Desc}</p>
+                  {/* Texto atualizado dinamicamente */}
+                  <p className="transition-colors" style={{ color: colors.textSecondary }}>{experienciaTexto}</p>
                 </div>
                 <div>
                   <p className="text-xl font-semibold mb-2" style={{ color: '#C9A961' }}><span aria-hidden="true">🎨</span> {t.about.topic2}</p>
@@ -571,7 +584,42 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Localização */}
+        {/* Contato */}
+        <section id="contact" className="py-20 container mx-auto px-4 flex flex-col items-center border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="contact-title">
+          <h2 id="contact-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
+          <div className="w-full max-w-4xl grid md:grid-cols-2 gap-12 justify-items-center">
+            <div className="text-center md:text-center space-y-6">
+              <h3 className="text-2xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>{t.contact.subtitle1}</h3>
+              
+              <div className="flex items-center gap-3 justify-center">
+                <MessageCircle className="text-amber-600" size={24} />
+                <p className="text-lg" style={{ color: colors.textSecondary }}>+55 34 9810-9317</p>
+              </div>
+              
+              <div className="flex items-center gap-3 justify-center">
+                <Instagram className="text-amber-600" size={24} />
+                <p className="text-lg" style={{ color: colors.textSecondary }}>@italofreitasmakeup</p>
+              </div>
+
+              <div className="flex items-center gap-3 justify-center">
+                <MapPin className="text-amber-600" size={24} />
+                <p className="text-lg" style={{ color: colors.textSecondary }}>Patos de Minas, MG</p>
+              </div>
+            </div>
+            
+            <div className="p-8 rounded-lg shadow-lg w-full transition-colors" style={{ background: colors.cardBg }}>
+              <h3 className="text-2xl font-serif font-bold mb-6 text-center" style={{ color: colors.textPrimary }}>{t.contact.subtitle2}</h3>
+              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <input type="text" placeholder={t.contact.nameHolder} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+                <input type="email" placeholder={t.contact.emailHolder} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+                <textarea placeholder={t.contact.msgHolder} rows={4} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all resize-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
+                <button type="submit" className="w-full py-3 rounded-lg font-semibold transition-all hover:brightness-110" style={{ background: '#C9A961', color: 'white' }}>{t.contact.sendBtn}</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        {/* Nova Sessão de Localização (Adicionada após Contato) */}
         <section id="location" className="py-20 container mx-auto px-4 border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="location-title">
           <h2 id="location-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.location.title}</h2>
           <div className="w-full max-w-5xl mx-auto">
@@ -608,40 +656,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Contato */}
-        <section id="contact" className="py-20 container mx-auto px-4 flex flex-col items-center border-t transition-colors" style={{ borderColor: colors.border }} aria-labelledby="contact-title">
-          <h2 id="contact-title" className="text-5xl font-serif font-bold mb-16 text-center transition-colors" style={{ color: colors.textPrimary }}>{t.contact.title}</h2>
-          <div className="w-full max-w-4xl grid md:grid-cols-2 gap-12 justify-items-center">
-            <div className="text-center md:text-center space-y-6">
-              <h3 className="text-2xl font-serif font-bold mb-4 transition-colors" style={{ color: colors.textPrimary }}>{t.contact.subtitle1}</h3>
-              
-              <div className="flex items-center gap-3 justify-center">
-                <MessageCircle className="text-amber-600" size={24} />
-                <p className="text-lg" style={{ color: colors.textSecondary }}>+55 34 9810-9317</p>
-              </div>
-              
-              <div className="flex items-center gap-3 justify-center">
-                <Instagram className="text-amber-600" size={24} />
-                <p className="text-lg" style={{ color: colors.textSecondary }}>@italofreitasmakeup</p>
-              </div>
-
-              <div className="flex items-center gap-3 justify-center">
-                <MapPin className="text-amber-600" size={24} />
-                <p className="text-lg" style={{ color: colors.textSecondary }}>Patos de Minas, MG</p>
-              </div>
-            </div>
-            
-            <div className="p-8 rounded-lg shadow-lg w-full transition-colors" style={{ background: colors.cardBg }}>
-              <h3 className="text-2xl font-serif font-bold mb-6 text-center" style={{ color: colors.textPrimary }}>{t.contact.subtitle2}</h3>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <input type="text" placeholder={t.contact.nameHolder} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-                <input type="email" placeholder={t.contact.emailHolder} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-                <textarea placeholder={t.contact.msgHolder} rows={4} className="w-full p-3 border rounded-lg bg-transparent outline-none focus:ring-2 focus:ring-amber-600 transition-all resize-none" style={{ borderColor: '#C9A961', color: colors.textPrimary }} />
-                <button type="submit" className="w-full py-3 rounded-lg font-semibold transition-all hover:brightness-110" style={{ background: '#C9A961', color: 'white' }}>{t.contact.sendBtn}</button>
-              </form>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* Rodapé Restaurado */}
