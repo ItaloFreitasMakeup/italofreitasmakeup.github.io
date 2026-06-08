@@ -521,7 +521,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 relative font-sans ${isDark ? 'bg-gray-950' : 'bg-white'}`}>
+    <div className={`min-h-screen transition-colors duration-300 relative font-sans ${isDark ? 'bg-gray-950' : 'bg-white'} opacity-30`}>
       {/* Elemento de fundo fixo */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div 
