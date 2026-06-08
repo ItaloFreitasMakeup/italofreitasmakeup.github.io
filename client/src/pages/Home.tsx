@@ -544,7 +544,7 @@ export default function Home() {
             
             // Filtro leve: apenas escala de cinza e ajuste de brilho suave
             filter: isDark 
-              ? 'grayscale(100%) invert(100%) brightness(1.3)' 
+              ? 'grayscale(100%) invert(100%)' 
               : 'brightness(1.1)',
               
             transition: 'opacity 0.5s ease, filter 0.5s ease'
