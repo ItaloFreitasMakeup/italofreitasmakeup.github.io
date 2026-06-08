@@ -540,7 +540,7 @@ export default function Home() {
             backgroundAttachment: 'fixed',
             
             // Opacidade controlada para não sumir com o conteúdo
-            opacity: isDark ? 0.3 : 0.15,
+            opacity: isDark ? 0.3 : 0.5,
             
             // Filtro leve: apenas escala de cinza e ajuste de brilho suave
             filter: isDark 
