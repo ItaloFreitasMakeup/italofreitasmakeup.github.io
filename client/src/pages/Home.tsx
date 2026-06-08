@@ -442,7 +442,8 @@ export default function Home() {
   const [imagesLoaded, setImagesLoaded] = useState({
     logo: true,
     profile: true,
-    rings: true
+    rings: true,
+    marbleBg: true  // 🔧 Adicionado tracking para marbleBg
   });
 
   const t = translations[lang];
@@ -466,7 +467,6 @@ export default function Home() {
     accentGold: '#C9A961',
     accentDark: '#b4ab09',
     eventsSectionBg: isDark ? 'rgba(10, 10, 10, 0.5)' : 'rgba(255,255,255,0.5)',
-    // Novo: cor mais escura para elementos em destaque no modo escuro
     goldTextInverted: isDark ? '#FCD34D' : '#C9A961',
   };
 
@@ -522,18 +522,22 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 relative font-sans ${isDark ? 'bg-gray-950' : 'bg-white'}`}>
-      {/* Elemento de fundo fixo */}
+      {/* Elemento de fundo fixo - 🔧 CORREÇÕES DE FUNDO */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div 
-          className="absolute inset-0 transition-all duration-500 mix-blend-overlay opacity-70"
+          className="absolute inset-0 transition-all duration-500 opacity-50"
           style={{ 
-            backgroundImage: `url(${marbleBg})`, 
+            // 🔧 REMOVIDO: mix-blend-overlay (pode esconder a imagem)
+            backgroundImage: `url(${marbleBg})`,
             backgroundRepeat: 'repeat',
-            backgroundSize: '100%',
-            // 🔧 MELHORIA: filtro invertido mais suave para modo escuro
-            filter: isDark ? 'invert(100%) grayscale(100%) brightness(5%)' : '',
+            // 🔧 ALTERADO: backgroundSize para um valor fixo que funciona bem com padrões
+            backgroundSize: '400px',
+            // 🔧 MELHORADO: filtro mais suave que preserva visibilidade no modo escuro
+            filter: isDark 
+              ? 'brightness(0.4) saturate(0.3) contrast(1.2)' 
+              : 'brightness(0.8) saturate(0.7)',
           }}
-          onError={() => handleImageError('logo')}
+          // 🔧 REMOVIDO: onError deste div (não funciona com backgroundImage)
         />
       </div>
       
