@@ -564,7 +564,7 @@ export default function Home() {
               <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
                 <span className="inline-block mr-2">❤️</span> {t.courses.notes.modelsFee}
               </p>
-              <p className="text-lg font-bold mt-2" style={{ color: '#d6b15a56' }}>
+              <p className="text-lg font-bold mt-2" style={{ color: '#cab177f2' }}>
                 <span className="inline-block mr-2">✨</span> {t.courses.notes.specialty}
               </p>
             </div>
