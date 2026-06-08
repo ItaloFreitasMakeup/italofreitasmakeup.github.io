@@ -531,7 +531,6 @@ export default function Home() {
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
             filter: isDark ? 'invert(100%) grayscale(100%) brightness(0.5)' : 'grayscale(50%)',
-            backgroundColor: isDark ? '#1a1a1a' : '#fffdf5'
           }}
           onError={() => handleImageError('logo')}
         />
