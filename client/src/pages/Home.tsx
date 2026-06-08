@@ -530,7 +530,7 @@ export default function Home() {
             backgroundImage: `url(${marbleBg})`, 
             backgroundRepeat: 'repeat',
             backgroundSize: '100%',
-            filter: isDark ? 'invert(100%) grayscale(100%) brightness(0.5)' : 'grayscale(50%)',
+            filter: isDark ? 'invert(100%) grayscale(100%) brightness(0.5)' : '',
           }}
           onError={() => handleImageError('logo')}
         />
