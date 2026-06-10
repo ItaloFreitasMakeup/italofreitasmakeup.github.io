@@ -282,7 +282,7 @@ const translations: Record<Lang, TranslationSet> = {
     },
     nav: { about: "Sobre", portfolio: "Portfólio", courses: "Cursos", contact: "Contato", location: "Localização" },
     hero: { 
-      subtitle: "Profissional de Maquiagem", 
+      subtitle: "Maquiador Profissional", 
       desc: "Especializado em maquiagem profissional para eventos, produções audiovisuais e transformações de beleza. Oferecendo cursos e consultoria personalizada.", 
       btn1: "Solicitar Orçamento",
       btnSchedule: "Agendar Horário",
