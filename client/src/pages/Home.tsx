@@ -282,7 +282,7 @@ const translations: Record<Lang, TranslationSet> = {
     },
     nav: { about: "Sobre", portfolio: "Portfólio", courses: "Cursos", contact: "Contato", location: "Localização" },
     hero: { 
-      subtitle: "Maquiador Profissional", 
+      subtitle: "Profissional de Maquiagem", 
       desc: "Especializado em maquiagem profissional para eventos, produções audiovisuais e transformações de beleza. Oferecendo cursos e consultoria personalizada.", 
       btn1: "Solicitar Orçamento",
       btnSchedule: "Agendar Horário",
@@ -290,7 +290,7 @@ const translations: Record<Lang, TranslationSet> = {
     },
     about: { 
       title: "Sobre Mim", 
-      desc: "Maquiador profissional com especialização em maquiagem artística, blindagem e beauty. Referência em durabilidade e elegância em Patos de Minas, MG.", 
+      desc: "Maquiador profissional com especialização em maquiagem artística, blindagem de sobrancelhas e beauty. Referência em durabilidade e elegância em Patos de Minas, MG.", 
       topic1: "Profissionalismo", 
       topic2: "Portfólio Diverso", 
       topic2Desc: "Trabalhos em eventos, produções audiovisuais e sessões fotográficas", 
@@ -374,7 +374,7 @@ const translations: Record<Lang, TranslationSet> = {
     },
     about: { 
       title: "About Me", 
-      desc: "Professional makeup artist specializing in artistic makeup, shielding, and beauty. A reference in durability and elegance in Patos de Minas, MG.", 
+      desc: "Professional makeup artist specializing in artistic makeup, eyebrow shielding, and beauty. A reference in durability and elegance in Patos de Minas, MG.", 
       topic1: "Professionalism", 
       topic2: "Diverse Portfolio", 
       topic2Desc: "Work in events, audiovisual productions, and photoshoots", 
