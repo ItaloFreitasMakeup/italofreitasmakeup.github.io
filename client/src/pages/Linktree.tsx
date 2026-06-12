@@ -22,6 +22,8 @@ interface A11yTexts {
   instaLink: string;
   whatsappLink: string;
   siteLink: string;
+  logoLink: string;
+  titleLink: string;
 }
 
 interface LinktreeTexts {
@@ -51,7 +53,9 @@ const translations: Record<Lang, TranslationSet> = {
       themeBtnLight: "Ativar modo escuro",
       instaLink: "Acessar perfil do Instagram de Italo Freitas",
       whatsappLink: "Enviar mensagem para o WhatsApp de Italo Freitas",
-      siteLink: "Acessar o site de Italo Freitas"
+      siteLink: "Acessar o site de Italo Freitas",
+      logoLink: "Ir para o site principal de Italo Freitas",
+      titleLink: "Ir para o site principal de Italo Freitas"
     },
     linktree: {
       title: "Italo Freitas",
@@ -71,7 +75,9 @@ const translations: Record<Lang, TranslationSet> = {
       themeBtnLight: "Activate dark mode",
       instaLink: "Visit Italo Freitas' Instagram profile",
       whatsappLink: "Send a message to Italo Freitas' WhatsApp",
-      siteLink: "Visit Italo Freitas' website"
+      siteLink: "Visit Italo Freitas' website",
+      logoLink: "Go to Italo Freitas' main website",
+      titleLink: "Go to Italo Freitas' main website"
     },
     linktree: {
       title: "Italo Freitas",
@@ -99,6 +105,7 @@ export default function Linktree() {
   const whatsappNumber = "553498109317";
   const quoteMessagePt = encodeURIComponent("Olá! Gostaria de solicitar um orçamento para maquiagem.");
   const quoteMessageEn = encodeURIComponent("Hello! I would like to request a quote for makeup services.");
+  const siteUrl = "https://italofreitasmakeup.github.io/";
 
   const colors = {
     textPrimary: isDark ? '#F9FAFB' : '#1F2937',
@@ -140,7 +147,7 @@ export default function Linktree() {
     {
       id: 'website',
       label: t.linktree.website,
-      url: 'https://italofreitasmakeup.github.io/',
+      url: siteUrl,
       icon: ExternalLink,
       color: colors.accentGold
     }
@@ -203,24 +210,38 @@ export default function Linktree() {
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           
-          {/* Logo */}
-          <div className="flex justify-center mb-8">
+          {/* Logo com Link */}
+          <a 
+            href={siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex justify-center mb-8 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-amber-500 rounded-lg p-2"
+            aria-label={t.a11y.logoLink}
+          >
             <img 
               src={!imagesLoaded.logo ? "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23C9A961'/%3E%3C/svg%3E" : logoImg} 
               alt={t.a11y.logoAlt} 
               className="h-20 w-20 object-contain drop-shadow-lg"
               onError={() => handleImageError('logo')}
             />
-          </div>
+          </a>
 
           {/* Título e Subtítulo */}
           <div className="text-center mb-12">
-            <h1 
-              className="text-4xl md:text-5xl font-serif font-bold mb-2 transition-colors" 
-              style={{ color: colors.textPrimary }}
+            <a 
+              href={siteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block transition-colors hover:text-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 rounded px-2 py-1"
+              aria-label={t.a11y.titleLink}
             >
-              {t.linktree.title}
-            </h1>
+              <h1 
+                className="text-4xl md:text-5xl font-serif font-bold mb-2 transition-colors" 
+                style={{ color: colors.textPrimary }}
+              >
+                {t.linktree.title}
+              </h1>
+            </a>
             <p 
               className="text-xl font-medium mb-4" 
               style={{ color: colors.accentGold }}
@@ -247,8 +268,8 @@ export default function Linktree() {
                   rel="noopener noreferrer"
                   className="group relative w-full overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2"
                   style={{ 
-                    focusRingColor: colors.accentGold,
-                    backgroundColor: colors.cardBg
+                    backgroundColor: colors.cardBg,
+                    outlineColor: colors.accentGold
                   }}
                   aria-label={link.id === 'instagram' ? t.a11y.instaLink : link.id === 'whatsapp' ? t.a11y.whatsappLink : t.a11y.siteLink}
                 >
