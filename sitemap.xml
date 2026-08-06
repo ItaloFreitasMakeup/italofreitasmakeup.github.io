@@ -7,7 +7,29 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Adicione outras subpáginas aqui se necessário, 
-       mas como o site é um SPA (Single Page Application), 
-       a URL principal é a mais importante. -->
+
+  <!-- URL Secundária -->
+  <url>
+    <loc>https://italofreitasmakeup.github.io/linktree</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- URL Terciária -->
+  <url>
+    <loc>https://italofreitasmakeup.github.io/qrcode.html</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+
+  <!-- URL de Erro -->
+  <url>
+    <loc>https://italofreitasmakeup.github.io/404.html</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+
 </urlset>
