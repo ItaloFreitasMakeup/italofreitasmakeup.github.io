@@ -885,17 +885,49 @@ export default function Home() {
       <footer className="py-8 text-center border-t transition-colors" style={{ borderColor: colors.border }}>
         <p className="transition-colors mb-2" style={{ color: colors.textSecondary }}>{t.footer.rights}</p>
         <p className="flex items-center justify-center gap-2 text-sm transition-colors" style={{ color: isDark ? '#9CA3AF' : '#999' }}>
-          {t.footer.dev} <span aria-hidden="true">❤️</span>
-          <img 
-            src={!imagesLoaded.rings ? "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23C9A961'/%3E%3C/svg%3E" : ringsImg} 
-            alt="" 
-            aria-hidden="true" 
-            width="20" 
-            height="20" 
-            style={{ objectFit: 'contain', opacity: 0.7, filter: isDark ? 'brightness(0) invert(1)' : 'none' }}
-            onError={() => handleImageError('rings')}
-          />
+          {t.footer.dev} <span >
+            <a
+            className="wedding-rings-link"
+            href="https://jluckmay.github.io/"
+            aria-label="João Lucas Mayrinck portifolio"
+            title="João Lucas Mayrinck"
+            ><span className="wedding-rings" aria-hidden="true"
+              ><svg viewBox="0 0 32 24" fill="none" focusable="false">
+                <defs>
+                  <mask id="left-ring-weave">
+                    <rect width="32" height="24" fill="white" />
+                    <circle cx="17.2" cy="7.9" r="2.3" fill="black" />
+                  </mask>
+                  <mask id="right-ring-weave">
+                    <rect width="32" height="24" fill="white" />
+                    <circle cx="14.8" cy="16.1" r="2.3" fill="black" />
+                  </mask>
+                </defs>
+                <ellipse
+                  cx="13.5"
+                  cy="12"
+                  rx="10.5"
+                  ry="5.7"
+                  stroke="currentColor"
+                  strokeWidth="2.8"
+                  strokeLinecap="round"
+                  transform="rotate(-42 13.5 12)"
+                  mask="url(#left-ring-weave)"
+                />
+                <ellipse
+                  cx="18.5"
+                  cy="12"
+                  rx="10.5"
+                  ry="5.7"
+                  stroke="currentColor"
+                  strokeWidth="2.8"
+                  strokeLinecap="round"
+                  transform="rotate(42 18.5 12)"
+                  mask="url(#right-ring-weave)"
+                /></svg></span></a>.
+                </span>
         </p>
+          
       </footer>
     </div>
   );
