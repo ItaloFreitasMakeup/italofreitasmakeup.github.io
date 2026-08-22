@@ -34,6 +34,7 @@ interface LinktreeTexts {
   whatsapp: string;
   website: string;
   footer: string;
+  dev: string;
 }
 
 type Lang = 'pt' | 'en';
@@ -64,7 +65,8 @@ const translations: Record<Lang, TranslationSet> = {
       instagram: "Portfólio & Inspirações",
       whatsapp: "Solicitar Orçamento",
       website: "Conhecer Meu Site",
-      footer: "© 2026 Italo Freitas Makeup. Todos os direitos reservados."
+      footer: "© 2026 Italo Freitas Makeup. Todos os direitos reservados.",
+      dev: "Desenvolvido com elegância, profissionalismo e amor"
     }
   },
   en: {
@@ -86,7 +88,8 @@ const translations: Record<Lang, TranslationSet> = {
       instagram: "Portfolio & Inspirations",
       whatsapp: "Request a Quote",
       website: "Visit My Website",
-      footer: "© 2026 Italo Freitas Makeup. All rights reserved."
+      footer: "© 2026 Italo Freitas Makeup. All rights reserved.",
+      dev: "Developed with elegance, professionalism, and love"
     }
   }
 };
@@ -332,6 +335,58 @@ export default function Linktree() {
               style={{ color: colors.textSecondary }}
             >
               {t.linktree.footer}
+            </p>
+            <p
+              className="flex items-center justify-center gap-2 text-xs transition-colors mt-2"
+              style={{ color: colors.textSecondary }}
+            >
+              {t.linktree.dev}
+              <span>
+                <a
+                  className="wedding-rings-link"
+                  href="https://jluckmay.github.io/"
+                  aria-label="João Lucas Mayrinck portfólio"
+                  title="João Lucas Mayrinck"
+                >
+                  <span className="wedding-rings" aria-hidden="true">
+                    <svg viewBox="0 0 32 24" fill="none" focusable="false">
+                      <defs>
+                        <mask id="linktree-left-ring-weave">
+                          <rect width="32" height="24" fill="white" />
+                          <circle cx="17.2" cy="7.9" r="2.3" fill="black" />
+                        </mask>
+                        <mask id="linktree-right-ring-weave">
+                          <rect width="32" height="24" fill="white" />
+                          <circle cx="14.8" cy="16.1" r="2.3" fill="black" />
+                        </mask>
+                      </defs>
+                      <ellipse
+                        cx="13.5"
+                        cy="12"
+                        rx="10.5"
+                        ry="5.7"
+                        stroke="currentColor"
+                        strokeWidth="2.8"
+                        strokeLinecap="round"
+                        transform="rotate(-42 13.5 12)"
+                        mask="url(#linktree-left-ring-weave)"
+                      />
+                      <ellipse
+                        cx="18.5"
+                        cy="12"
+                        rx="10.5"
+                        ry="5.7"
+                        stroke="currentColor"
+                        strokeWidth="2.8"
+                        strokeLinecap="round"
+                        transform="rotate(42 18.5 12)"
+                        mask="url(#linktree-right-ring-weave)"
+                      />
+                    </svg>
+                  </span>
+                </a>
+                .
+              </span>
             </p>
           </footer>
 
