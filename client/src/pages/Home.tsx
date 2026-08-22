@@ -884,8 +884,8 @@ export default function Home() {
       {/* Rodapé */}
       <footer className="py-8 text-center border-t transition-colors" style={{ borderColor: colors.border }}>
         <p className="transition-colors mb-2" style={{ color: colors.textSecondary }}>{t.footer.rights}</p>
-        <p className="flex items-center justify-center gap-2 text-sm transition-colors" style={{ color: isDark ? '#9CA3AF' : '#999' }}>
-          {t.footer.dev} <span >
+        <p className="flex items-center justify-center text-sm transition-colors" style={{ color: isDark ? '#9CA3AF' : '#999' }}>
+          {t.footer.dev}<span>
             <a
             className="wedding-rings-link"
             href="https://jluckmay.github.io/"

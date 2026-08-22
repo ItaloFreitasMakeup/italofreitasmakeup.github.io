@@ -337,11 +337,10 @@ export default function Linktree() {
               {t.linktree.footer}
             </p>
             <p
-              className="flex items-center justify-center gap-2 text-xs transition-colors mt-2"
+              className="flex items-center justify-center text-xs transition-colors mt-2"
               style={{ color: colors.textSecondary }}
             >
-              {t.linktree.dev}
-              <span>
+              {t.linktree.dev}<span>
                 <a
                   className="wedding-rings-link"
                   href="https://jluckmay.github.io/"
