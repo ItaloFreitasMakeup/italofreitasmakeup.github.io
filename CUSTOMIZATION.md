@@ -227,7 +227,22 @@ Se você tiver um backend, configure o formulário para enviar dados:
 
 ### 10. Favicon
 
-Substitua o favicon em `client/public/favicon.ico` com seu próprio favicon.
+O favicon público fica em `client/public/favicon.png` e é referenciado por
+`/favicon.png` em `client/index.html`. Mantenha estas propriedades para garantir
+compatibilidade com navegadores e elegibilidade nos resultados do Google:
+
+- formato PNG válido;
+- proporção quadrada (1:1);
+- dimensão superior a 48 × 48 pixels;
+- URL pública estável e acessível ao Googlebot-Image;
+- página inicial e favicon não bloqueados no `robots.txt`.
+
+Após substituir o arquivo, publique o site, confirme que `/favicon.png` abre
+diretamente e solicite nova indexação da página inicial no Google Search Console.
+O Google pode levar de alguns dias a algumas semanas para atualizar o resultado.
+
+Para recriar o favicon quadrado a partir de `client/src/lib/logo.png`, execute
+`node scripts/create-favicon.mjs`.
 
 ## Desenvolvimento Local
 
